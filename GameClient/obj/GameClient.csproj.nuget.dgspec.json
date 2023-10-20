@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\arosi\\RiderProjects\\TpsProject\\GameClient\\GameClient.csproj": {}
+    "C:\\Users\\arosi\\RiderProjects\\TPS_Project\\GameClient\\GameClient.csproj": {}
   },
   "projects": {
-    "C:\\Users\\arosi\\RiderProjects\\TpsProject\\GameClient\\GameClient.csproj": {
+    "C:\\Users\\arosi\\RiderProjects\\TPS_Project\\GameClient\\GameClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\arosi\\RiderProjects\\TpsProject\\GameClient\\GameClient.csproj",
+        "projectUniqueName": "C:\\Users\\arosi\\RiderProjects\\TPS_Project\\GameClient\\GameClient.csproj",
         "projectName": "GameClient",
-        "projectPath": "C:\\Users\\arosi\\RiderProjects\\TpsProject\\GameClient\\GameClient.csproj",
+        "projectPath": "C:\\Users\\arosi\\RiderProjects\\TPS_Project\\GameClient\\GameClient.csproj",
         "packagesPath": "C:\\Users\\arosi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\arosi\\RiderProjects\\TpsProject\\GameClient\\obj\\",
+        "outputPath": "C:\\Users\\arosi\\RiderProjects\\TPS_Project\\GameClient\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
@@ -88,6 +88,10 @@
               "target": "Package",
               "version": "[7.0.86, )",
               "autoReferenced": true
+            },
+            "WebSocketSharp": {
+              "target": "Package",
+              "version": "[1.0.3-rc11, )"
             },
             "Xamarin.Android.Glide": {
               "target": "Package",
@@ -206,6 +210,10 @@
               "target": "Package",
               "version": "[7.0.86, )",
               "autoReferenced": true
+            },
+            "WebSocketSharp": {
+              "target": "Package",
+              "version": "[1.0.3-rc11, )"
             }
           },
           "imports": [
@@ -269,6 +277,10 @@
               "target": "Package",
               "version": "[7.0.86, )",
               "autoReferenced": true
+            },
+            "WebSocketSharp": {
+              "target": "Package",
+              "version": "[1.0.3-rc11, )"
             }
           },
           "imports": [
@@ -349,6 +361,10 @@
               "target": "Package",
               "version": "[1.2.221209.1, )",
               "autoReferenced": true
+            },
+            "WebSocketSharp": {
+              "target": "Package",
+              "version": "[1.0.3-rc11, )"
             }
           },
           "imports": [

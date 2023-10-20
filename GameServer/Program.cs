@@ -1,3 +1,15 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-Console.WriteLine("Hello, World!");
+using GameServer.manager;
+
+
+//Gestione start blah blah
+
+GameController gameController = new GameController();
+
+gameController.Initialize();
+
+partial class Program
+{
+    
+}

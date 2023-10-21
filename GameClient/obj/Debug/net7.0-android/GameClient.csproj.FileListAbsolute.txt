@@ -973,3 +973,10 @@ C:\ProgettoTPS\TPS_Project\GameClient\obj\Debug\net7.0-android\stamp\_GenerateJa
 C:\ProgettoTPS\TPS_Project\GameClient\obj\Debug\net7.0-android\stamp\_GeneratePackageManagerJava.stamp
 C:\ProgettoTPS\TPS_Project\GameClient\obj\Debug\net7.0-android\stamp\_ResolveLibraryProjectImports.stamp
 C:\ProgettoTPS\TPS_Project\GameClient\obj\Debug\net7.0-android\resizetizer\r\drawable\gatto.jpg
+C:\ProgettoTPS\TPS_Project\GameClient\obj\Debug\net7.0-android\android\assets\CommunityToolkit.Maui.Core.dll
+C:\ProgettoTPS\TPS_Project\GameClient\obj\Debug\net7.0-android\android\assets\CommunityToolkit.Maui.dll
+C:\ProgettoTPS\TPS_Project\GameClient\obj\Debug\net7.0-android\android\src\crc64159f3caeb1269279\MauiDrawingView.java
+C:\ProgettoTPS\TPS_Project\GameClient\obj\Debug\net7.0-android\android\src\crc64159f3caeb1269279\MauiPopup.java
+C:\ProgettoTPS\TPS_Project\GameClient\obj\Debug\net7.0-android\android\src\crc64159f3caeb1269279\MauiSemanticOrderView.java
+C:\ProgettoTPS\TPS_Project\GameClient\obj\Debug\net7.0-android\android\src\crc648fc34c62be8fbbff\Snackbar_SnackbarCallback.java
+C:\ProgettoTPS\TPS_Project\GameClient\obj\Debug\net7.0-android\android\src\crc64d6358e7bf64fbac4\SpeechToTextImplementation_SpeechRecognitionListener.java

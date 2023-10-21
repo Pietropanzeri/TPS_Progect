@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "HorpjrLH7E7ixkWGzfeLjs9bv4/2fjZrn4ksUG5KbRIhcXHhyKVeNqzHjpy+j8NhVHBEe29pZfb+yJYK9qQ3zQ==",
+  "dgSpecHash": "sqifEaRRjKTzlBQJrKwRS+6h8IrsNEFDjLa8tBik7Crkbf4Cka73e9ie9CBMawgLrNVA98f85LY32Nv/BHVvfQ==",
   "success": true,
   "projectFilePath": "C:\\ProgettoTPS\\TPS_Project\\GameClient\\GameClient.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\pietr\\.nuget\\packages\\communitytoolkit.maui\\6.0.0\\communitytoolkit.maui.6.0.0.nupkg.sha512",
+    "C:\\Users\\pietr\\.nuget\\packages\\communitytoolkit.maui.core\\6.0.0\\communitytoolkit.maui.core.6.0.0.nupkg.sha512",
     "C:\\Users\\pietr\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.1\\communitytoolkit.mvvm.8.2.1.nupkg.sha512",
     "C:\\Users\\pietr\\.nuget\\packages\\googlegson\\2.9.1.1\\googlegson.2.9.1.1.nupkg.sha512",
     "C:\\Users\\pietr\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",
@@ -20,6 +22,7 @@
     "C:\\Users\\pietr\\.nuget\\packages\\microsoft.maui.graphics.win2d.winui.desktop\\7.0.59\\microsoft.maui.graphics.win2d.winui.desktop.7.0.59.nupkg.sha512",
     "C:\\Users\\pietr\\.nuget\\packages\\microsoft.windows.sdk.buildtools\\10.0.22621.755\\microsoft.windows.sdk.buildtools.10.0.22621.755.nupkg.sha512",
     "C:\\Users\\pietr\\.nuget\\packages\\microsoft.windowsappsdk\\1.2.221209.1\\microsoft.windowsappsdk.1.2.221209.1.nupkg.sha512",
+    "C:\\Users\\pietr\\.nuget\\packages\\system.speech\\7.0.0\\system.speech.7.0.0.nupkg.sha512",
     "C:\\Users\\pietr\\.nuget\\packages\\websocketsharp\\1.0.3-rc11\\websocketsharp.1.0.3-rc11.nupkg.sha512",
     "C:\\Users\\pietr\\.nuget\\packages\\xamarin.android.glide\\4.13.2.2\\xamarin.android.glide.4.13.2.2.nupkg.sha512",
     "C:\\Users\\pietr\\.nuget\\packages\\xamarin.android.glide.annotations\\4.13.2.2\\xamarin.android.glide.annotations.4.13.2.2.nupkg.sha512",

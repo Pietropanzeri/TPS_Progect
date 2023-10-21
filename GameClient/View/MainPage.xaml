@@ -9,48 +9,37 @@
     <ContentPage.BindingContext>
         <Controller:MainPageController/>
     </ContentPage.BindingContext>
-    <Grid RowDefinitions="*,*">
-        <Frame Grid.Row="0" Padding="0" CornerRadius="0" Rotation="-20" BorderColor="red" Margin="0,0,0,0">
-            <AbsoluteLayout Rotation="20">
-                <Label 
-                    Text="MULTIPLAYER"
+    <Grid RowDefinitions="*,*" Margin="0">
+        <Frame Grid.Row="0" Padding="0" CornerRadius="0" BorderColor="Transparent">
+            <AbsoluteLayout>
+                <Label Text="MULTIPLAYER"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
                     AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
-                    AbsoluteLayout.LayoutFlags="PositionProportional"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center">
-
-                </Label>
-
-                <Button 
-                    Padding="0"
-                    WidthRequest="61"
-                    HeightRequest="60"
-                    AbsoluteLayout.LayoutBounds="1.02,0.5,-1,-1"
+                    VerticalOptions="Center" />
+                <Button Text="SET"
+                    WidthRequest="70"
+                    HeightRequest="70"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
-                    Text="Impostaz"
-                    Command="{Binding MessageTestCommand}"/>
-                <Button 
-                    Padding="0"
-                    WidthRequest="61"
-                    HeightRequest="60"
-                    AbsoluteLayout.LayoutBounds="1.02,0.68,-1,-1"
+                    AbsoluteLayout.LayoutBounds="1,0.6,-1,-1"/>
+                <Button Text="CLA"
+                    WidthRequest="70"
+                    HeightRequest="70"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
-                    Text="Stat"
-                    Command="{Binding MessageTestCommand}"/>
+                    AbsoluteLayout.LayoutBounds="1,0.82,-1,-1"/>
             </AbsoluteLayout>
-            <Frame.GestureRecognizers>
+                <Frame.GestureRecognizers>
                 <TapGestureRecognizer
                     Command="{Binding MessageTestCommand}"/>
             </Frame.GestureRecognizers>
         </Frame>
-        <Frame Grid.Row="1" CornerRadius="0" Padding="0" Rotation="-20" Margin="0,23,0,0" BorderColor="Black" WidthRequest="6000">
-            <Label
+        <Frame Grid.Row="1" CornerRadius="0" Padding="0" BackgroundColor="blue">
+
+            <Label 
                 VerticalOptions="Center"  
                 HorizontalOptions="Center"
-                Rotation="20"
-                Text="BOT">
+                Text="BOT"/>
 
-            </Label>
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer
                     Command="{Binding MessageTestCommand}"/>

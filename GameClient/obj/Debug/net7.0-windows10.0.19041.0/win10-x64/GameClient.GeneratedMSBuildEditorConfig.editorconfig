@@ -8,33 +8,33 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = GameClient
-build_property.ProjectDir = C:\Users\arosi\RiderProjects\TPS_Project\GameClient\
+build_property.ProjectDir = C:\ProgettoTPS\TPS_Project\GameClient\
 
-[C:/Users/arosi/RiderProjects/TPS_Project/GameClient/App.xaml]
+[C:/ProgettoTPS/TPS_Project/GameClient/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = GameClient.App.xaml
 build_metadata.AdditionalFiles.TargetPath = App.xaml
 build_metadata.AdditionalFiles.RelativePath = App.xaml
 
-[C:/Users/arosi/RiderProjects/TPS_Project/GameClient/AppShell.xaml]
+[C:/ProgettoTPS/TPS_Project/GameClient/AppShell.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = GameClient.AppShell.xaml
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
 build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
 
-[C:/Users/arosi/RiderProjects/TPS_Project/GameClient/Resources/Styles/Colors.xaml]
+[C:/ProgettoTPS/TPS_Project/GameClient/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = GameClient.Resources.Styles.Colors.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
 
-[C:/Users/arosi/RiderProjects/TPS_Project/GameClient/Resources/Styles/Styles.xaml]
+[C:/ProgettoTPS/TPS_Project/GameClient/Resources/Styles/Styles.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = GameClient.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
 
-[C:/Users/arosi/RiderProjects/TPS_Project/GameClient/View/MainPage.xaml]
+[C:/ProgettoTPS/TPS_Project/GameClient/View/MainPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = GameClient.View.MainPage.xaml
 build_metadata.AdditionalFiles.TargetPath = View\MainPage.xaml

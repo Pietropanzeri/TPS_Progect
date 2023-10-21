@@ -2,5 +2,6 @@
 
 public class Utente
 {
-    private char Symbol { get; set; }
+    public int Id { get; set; }
+    public char Symbol { get; set; }
 }

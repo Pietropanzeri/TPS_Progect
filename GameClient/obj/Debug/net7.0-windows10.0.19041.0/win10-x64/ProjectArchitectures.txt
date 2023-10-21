@@ -1,1 +1,0 @@
-C:\ProgettoTPS\TPS_Project\GameClient\GameClient.csproj;x64

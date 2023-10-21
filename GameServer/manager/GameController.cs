@@ -6,16 +6,25 @@ namespace GameServer.manager;
 public class GameController
 {
     private SocketController _socketController;
+    private DatabaseController _databaseController;
+    
     private Dictionary<int, Game> currentGame = new();
 
     public GameController()
     {
         _socketController = new SocketController(this);
+        _databaseController = new DatabaseController(this);
     }
 
     public void Initialize()
     {
         _socketController.Start();
+
+        _databaseController.LoadPlayer("Marcolino").ContinueWith(task =>
+        {
+            MessageUtils.Send("L'utente è stato creato", ConsoleColor.Green);
+        });
+        
         Console.ReadKey();
         _socketController.Stop();
     }

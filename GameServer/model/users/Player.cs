@@ -2,5 +2,6 @@
 
 public class Player : Utente
 {
-    private int Punteggio { get; set; }
+    public string UserName { get; set; }
+    public int Points { get; set; }
 }

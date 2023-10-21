@@ -4,5 +4,14 @@
         <name>GameClient</name>
     </assembly>
     <members>
+        <member name="T:GameClient.Controller.MainPageController">
+            <inheritdoc/>
+        </member>
+        <member name="F:GameClient.Controller.MainPageController.messageTestCommand">
+            <summary>The backing field for <see cref="P:GameClient.Controller.MainPageController.MessageTestCommand"/>.</summary>
+        </member>
+        <member name="P:GameClient.Controller.MainPageController.MessageTestCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:GameClient.Controller.MainPageController.MessageTest"/>.</summary>
+        </member>
     </members>
 </doc>

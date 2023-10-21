@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\arosi\\RiderProjects\\TPS_Project\\GameServer\\GameServer.csproj": {}
+    "C:\\ProgettoTPS\\TPS_Project\\GameServer\\GameServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\arosi\\RiderProjects\\TPS_Project\\GameServer\\GameServer.csproj": {
+    "C:\\ProgettoTPS\\TPS_Project\\GameServer\\GameServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\arosi\\RiderProjects\\TPS_Project\\GameServer\\GameServer.csproj",
+        "projectUniqueName": "C:\\ProgettoTPS\\TPS_Project\\GameServer\\GameServer.csproj",
         "projectName": "GameServer",
-        "projectPath": "C:\\Users\\arosi\\RiderProjects\\TPS_Project\\GameServer\\GameServer.csproj",
-        "packagesPath": "C:\\Users\\arosi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\arosi\\RiderProjects\\TPS_Project\\GameServer\\obj\\",
+        "projectPath": "C:\\ProgettoTPS\\TPS_Project\\GameServer\\GameServer.csproj",
+        "packagesPath": "C:\\Users\\pietr\\.nuget\\packages\\",
+        "outputPath": "C:\\ProgettoTPS\\TPS_Project\\GameServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\arosi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\pietr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -66,7 +66,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

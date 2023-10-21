@@ -1,1 +1,1 @@
-C:\Users\arosi\RiderProjects\TPS_Project\GameClient\GameClient.csproj;x64
+C:\ProgettoTPS\TPS_Project\GameClient\GameClient.csproj;x64

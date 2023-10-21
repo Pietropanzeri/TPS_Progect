@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GameClient.View.MainPage"
+             xmlns:Controller="clr-namespace:GameClient.Controller"
+             x:DataType="Controller:MainPageController"
+             Title="MainPage"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.BindingContext>
+        <Controller:MainPageController/>
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="*,*">
+        <Frame Grid.Row="0" Padding="0" CornerRadius="0" Rotation="-20" BorderColor="red" Margin="0,0,0,0">
+            <AbsoluteLayout Rotation="20">
+                <Label 
+                    Text="MULTIPLAYER"
+                    AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+
+                </Label>
+
+                <Button 
+                    Padding="0"
+                    WidthRequest="61"
+                    HeightRequest="60"
+                    AbsoluteLayout.LayoutBounds="1.02,0.5,-1,-1"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    Text="Impostaz"
+                    Command="{Binding MessageTestCommand}"/>
+                <Button 
+                    Padding="0"
+                    WidthRequest="61"
+                    HeightRequest="60"
+                    AbsoluteLayout.LayoutBounds="1.02,0.68,-1,-1"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    Text="Stat"
+                    Command="{Binding MessageTestCommand}"/>
+            </AbsoluteLayout>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding MessageTestCommand}"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+        <Frame Grid.Row="1" CornerRadius="0" Padding="0" Rotation="-20" Margin="0,23,0,0" BorderColor="Black" WidthRequest="6000">
+            <Label
+                VerticalOptions="Center"  
+                HorizontalOptions="Center"
+                Rotation="20"
+                Text="BOT">
+
+            </Label>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding MessageTestCommand}"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+    </Grid>
+</ContentPage>

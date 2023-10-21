@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "MqquSXtjnD6YoY8oGlc+6vRq5yxbw/U87V9zbzveF4Jx/+CiLgeBZNzEh5lB4z+6VJrPEx3jn6tCfI4zkaifww==",
+  "dgSpecHash": "6VujieWkXdVurmQENR8OO2GHNqiwywML1GzDSE5+XPyXiavjVbEl/pI/AA0MVGx6gU82R5/ai28VXd/XEVsi4w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\arosi\\RiderProjects\\TPS_Project\\GameServer\\GameServer.csproj",
+  "projectFilePath": "C:\\ProgettoTPS\\TPS_Project\\GameServer\\GameServer.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\arosi\\.nuget\\packages\\websocketsharp\\1.0.3-rc11\\websocketsharp.1.0.3-rc11.nupkg.sha512"
+    "C:\\Users\\pietr\\.nuget\\packages\\websocketsharp\\1.0.3-rc11\\websocketsharp.1.0.3-rc11.nupkg.sha512"
   ],
   "logs": [
     {

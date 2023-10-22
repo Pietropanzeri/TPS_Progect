@@ -20,9 +20,17 @@ public class GameController
     {
         _socketController.Start();
 
-        _databaseController.LoadPlayer("Marcolino").ContinueWith(task =>
+        _databaseController.LoadPlayer("JwZy").ContinueWith(task =>
         {
+            if (task.Result == null)
+            {
+                MessageUtils.Send("Errore durante il load dell'utente", ConsoleColor.Red);
+                //Disconnect
+                return;
+            }
+            
             MessageUtils.Send("L'utente è stato creato", ConsoleColor.Green);
+            MessageUtils.Send("Utente: " + task.Result, ConsoleColor.Blue);
         });
         
         Console.ReadKey();

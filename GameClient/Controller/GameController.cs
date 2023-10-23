@@ -12,7 +12,7 @@ namespace GameClient.Controller
 
         [ObservableProperty]
         private Game game;
-        
+
         //0 player 1 bot
         int turno;
 
@@ -52,16 +52,22 @@ namespace GameClient.Controller
 
         private async Task<bool> ApplicaMossa(Cella cella)
         {
+            Utente utente = Game.Players[turno];
             if (!cella.Content.IsNullOrEmpty()) return false;
-            cella.Content = Game.Players[turno].Symbol;
+            cella.Content = utente.Symbol;
 
-            if (Game.CheckWin())
+            if (Game.CheckWin(utente.Symbol))
             {
-                await App.Current.MainPage.DisplayAlert("Vittoria","Ha vinto: " + (turno == 0 ? "Player" : "Bot"), "OK");
+                await App.Current.MainPage.DisplayAlert("Vittoria", "Ha vinto: " + (turno == 0 ? "Player" : "Bot"), "OK");
                 await App.Current.MainPage.Navigation.PopAsync();
                 return false;
             }
-            
+            if (Game.CheckDraw())
+            {
+                await App.Current.MainPage.DisplayAlert("PAREGGIO", "scemo", "OK");
+                await App.Current.MainPage.Navigation.PopAsync();
+                return false;
+            }
             turno = turno == 1 ? 0 : 1;
             if (turno == 1)
             {
@@ -72,6 +78,7 @@ namespace GameClient.Controller
 
             return true;
         }
-        
+
     }
 }
+

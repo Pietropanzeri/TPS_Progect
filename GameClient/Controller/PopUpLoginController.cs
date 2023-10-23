@@ -20,9 +20,6 @@ namespace GameClient.Controller
         [ObservableProperty]
         string username;
 
-        [ObservableProperty]
-        string password;
-
         [RelayCommand]
         public Task Exit()
         {

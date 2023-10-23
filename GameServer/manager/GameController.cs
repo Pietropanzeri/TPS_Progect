@@ -1,5 +1,7 @@
-﻿using GameServer.model;
+﻿using System.Text.Json;
+using GameServer.model;
 using GameServer.utils;
+using WebSocketSharp;
 
 namespace GameServer.manager;
 
@@ -19,32 +21,24 @@ public class GameController
     public void Initialize()
     {
         _socketController.Start();
-
-        _databaseController.LoadPlayer("JwZy").ContinueWith(task =>
-        {
-            if (task.Result == null)
-            {
-                MessageUtils.Send("Errore durante il load dell'utente", ConsoleColor.Red);
-                //Disconnect
-                return;
-            }
-            
-            MessageUtils.Send("L'utente è stato creato", ConsoleColor.Green);
-            MessageUtils.Send("Utente: " + task.Result, ConsoleColor.Blue);
-        });
-        
         Console.ReadKey();
         _socketController.Stop();
     }
 
     //Return null if you don't want to reply
-    public SocketData? SocketMessageHandler(SocketData data)
+    public SocketData? SocketMessageHandler(string id, SocketData data)
     {
         switch (data.DataType)
         {
             case DataType.Join:
-                MessageUtils.Send("Messaggio arrivato con join", ConsoleColor.Magenta);
-                return new SocketData(DataType.BroadCast, "UwU", data.Data);
+                //TODO: Spostare in un metodo a parte e fare tutti i check se l'utente e' gia' connesso
+                _databaseController.LoadPlayer(data.UserName).ContinueWith(task =>
+                {
+                    //TODO: Il player contiene anche socketId vedere come caricarlo
+                    Player player = task.Result;
+                    _socketController.ReplyTo(id, new SocketData(DataType.Connect,"Server", JsonSerializer.Serialize(player)));
+                });
+                break;
             case DataType.Quit:
                 MessageUtils.Send("Messaggio ricevuto sul quit", ConsoleColor.Yellow);
                 break;

@@ -1,45 +1,72 @@
-﻿using System.Text.Json;
+﻿using System.Net;
+using System.Net.Sockets;
+using System.Text.Json;
 using GameServer.model;
 using GameServer.utils;
 using WebSocketSharp;
 using WebSocketSharp.Server;
+using ErrorEventArgs = WebSocketSharp.ErrorEventArgs;
 
 namespace GameServer.manager;
 
 public class SocketController
 {
-    public GameController _gameController { get; }
+    public GameController GameController { get; }
+    public List<IWebSocketSession> connectedClients { get; } = new ();
+    
     private WebSocketServer _server;
+    private WebSocketServiceHost _serviceHost;
 
     public SocketController(GameController gameController)
     {
-        _gameController = gameController;
-        _server = new WebSocketServer("ws://127.0.0.1:7880");
+        GameController = gameController;
+
+        //TODO: Carino forse da rivedere :)
+        string ip = GetIpAddress().ToString();
+        _server = new WebSocketServer("ws://" + ip + ":7880");
+        
+        MessageUtils.Send("Connesso con ip: " + ip, ConsoleColor.Magenta);
     }
 
     public void Start()
     {
-        _server.AddWebSocketService<SocketResponse>("/", () => new SocketResponse(_gameController));
+        _server.AddWebSocketService("/", () => new SocketResponseBehavior(this));
         _server.Start();
+
+        _serviceHost = _server.WebSocketServices["/"];
     }
+    
 
     public void Stop()
     {
         _server.Stop();
     }
-    
-    private class SocketResponse : WebSocketBehavior
-    {
-        private GameController _gameController;
 
-        public SocketResponse(GameController gameController)
+    private IPAddress GetIpAddress()
+    {
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        return host.AddressList.First(ip => ip.AddressFamily.Equals(AddressFamily.InterNetwork));
+    }
+
+    //Potrei passare anche player
+    public void ReplyTo(string id, SocketData data)
+    {
+        _serviceHost.Sessions.SendTo(JsonSerializer.Serialize(data), id);
+    }
+    
+    public class SocketResponseBehavior : WebSocketBehavior
+    {
+        private SocketController _socketController;
+
+        public SocketResponseBehavior(SocketController socketController)
         {
-            _gameController = gameController;
+            _socketController = socketController;
         }
         
         protected override void OnOpen()
         {
-            MessageUtils.Send("Server acceso con successo!", ConsoleColor.Green);
+            MessageUtils.Send("Client connesso con successo! Id:" + ID, ConsoleColor.Green);
+            _socketController.connectedClients.Add(this);
         }
 
         //Ricontrollare sta logica
@@ -50,7 +77,7 @@ public class SocketController
             if (data == null) return;
             
             //Call message handler and catch a response, if the response is null return
-            SocketData? responseData = _gameController.SocketMessageHandler(data);
+            SocketData? responseData = _socketController.GameController.SocketMessageHandler(ID, data);
             if (responseData == null) return;
 
             //Check the response type if is broadcast send a broadcast message
@@ -64,7 +91,8 @@ public class SocketController
 
         protected override void OnClose(CloseEventArgs e)
         {
-            MessageUtils.Send("Server spento con successo!", ConsoleColor.Red);
+            MessageUtils.Send("Server disconnesso con successo! Id: " + ID, ConsoleColor.Red);
+            _socketController.connectedClients.Remove(this);
         }
     }
 }

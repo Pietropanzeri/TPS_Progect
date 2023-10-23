@@ -17,7 +17,7 @@ public class DatabaseController
     
     private static readonly string CONNECTION_STRING = @"server=localhost;userid=root;database=tictactoe";
 
-    private static readonly string PLAYER_EXIST = "SELECT * FROM User WHERE username = @Username";
+    private static readonly string PLAYER_EXIST = "SELECT COUNT(*) FROM User WHERE username = @Username";
     private static readonly string CREATE_PLAYER = "INSERT INTO User (username, point) VALUES (@Username, 0)";
     private static readonly string GET_PLAYER = "SELECT * FROM User WHERE username = @Username";
     
@@ -122,8 +122,8 @@ public class DatabaseController
                 command.Connection = conn;
                 command.CommandText = PLAYER_EXIST;
                 command.Parameters.AddWithValue("@Username", username);
-
-                return command.ExecuteNonQuery() != 0;
+                
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
             }
             catch (Exception ex)
             {

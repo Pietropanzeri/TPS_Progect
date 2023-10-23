@@ -10,10 +10,10 @@ public class SocketData
     }
 
     public DataType DataType { get; set; }
-    public String UserName { get; set; }
-    public String Data { get; set; }
+    public string UserName { get; set; }
+    public string Data { get; set; }
 
-    public String[] SplitData()
+    public string[] SplitData()
     {
         return Data.Split(":");
     }

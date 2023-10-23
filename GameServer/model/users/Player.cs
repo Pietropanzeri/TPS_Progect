@@ -2,6 +2,7 @@
 
 public class Player : Utente
 {
+    public string SocketId { get; set; }
     public string UserName { get; set; }
     public int Points { get; set; }
 

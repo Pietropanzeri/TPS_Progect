@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameClient.model;
 
 namespace GameClient.Controller
 {
@@ -30,13 +31,14 @@ namespace GameClient.Controller
         public async Task Enter()
         {
            //salva user e psw
+           //Aspettare risposta dal server
            popUpLogin.Close();
         }
         [RelayCommand]
         public async Task Ospite()
         {
             //imposta user
-            popUpLogin.Close();
+            popUpLogin.Close(Player.Create());
         }
     }
 }

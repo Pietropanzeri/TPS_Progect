@@ -3,5 +3,5 @@
 public class Utente
 {
     public int Id { get; set; }
-    public char Symbol { get; set; }
+    public string Symbol { get; set; }
 }

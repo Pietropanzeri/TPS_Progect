@@ -2,12 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using GameClient.model;
 using GameClient.Model;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WebSocketSharp;
 
 namespace GameClient.Controller
 {
@@ -17,50 +12,65 @@ namespace GameClient.Controller
 
         [ObservableProperty]
         private Game game;
-
-        [ObservableProperty]
-        bool turno;
+        
+        //0 player 1 bot
+        int turno;
 
         [ObservableProperty]
         bool isBot;
 
-        public GameController(bool bot, bool side)
+        public GameController(MainPageController mainPage, bool bot, bool side)
         {
             //assegna side a player che va salvato nel programma
-            turno = side;
-            game = new Game();
-        }
-        public GameController(bool bot)
-        {
+            turno = side ? 1 : 0;
+            game = new Game(
+                    new Utente[]
+                    {
+                        mainPage.CurrentPlayer,
+                        new Bot { Id = 10, Symbol = "O"}
+                    }
+                );
 
-            game = new Game();
+            if (turno == 1)
+            {
+                Bot userBot = (Bot)Game.Players[turno];
+                ApplicaMossa(userBot.Mossa(Game));
+            }
+        }
+        public GameController(MainPageController mainPage, bool bot)
+        {
+            //game = new Game();
+            //Do Server Side
         }
 
         [RelayCommand]
         public async Task Select(Cella cella)
         {
-            if (cella.Content == null && Turno)
-            {
-                //cella.Content = Side;         //sistema quando hai il segno del player
-            }
-            Turno = !Turno;
-            //bisogna ricordarsi di cambiare turno quando arriva messagio nel multilayer
-            if (IsBot)
-                await MossaBot();
-
+            if (turno == 1) return;
+            await ApplicaMossa(cella);
         }
 
-        public async Task MossaBot()
+        private async Task<bool> ApplicaMossa(Cella cella)
         {
-            while (true)
+            if (!cella.Content.IsNullOrEmpty()) return false;
+            cella.Content = Game.Players[turno].Symbol;
+
+            if (Game.CheckWin())
             {
-                int i = random.Next(0, 9);
-                if (Game.Campo[i] == null)
-                {
-                    // metti segno opposto al player
-                }
+                await App.Current.MainPage.DisplayAlert("Vittoria","Ha vinto: " + (turno == 0 ? "Player" : "Bot"), "OK");
+                await App.Current.MainPage.Navigation.PopAsync();
+                return false;
             }
             
+            turno = turno == 1 ? 0 : 1;
+            if (turno == 1)
+            {
+                Bot bot = (Bot)Game.Players[turno];
+                await Task.Delay(500);
+                await ApplicaMossa(bot.Mossa(Game));
+            }
+
+            return true;
         }
         
     }

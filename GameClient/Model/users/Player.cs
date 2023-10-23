@@ -9,4 +9,13 @@ public class Player : Utente
     {
         return "UserName: " + UserName + "\nPoints: " + Points;
     }
+
+    public static Player Create()
+    {
+        return new Player
+        {
+            UserName = "Marcolino",
+            Points = 0,
+        };
+    }
 }

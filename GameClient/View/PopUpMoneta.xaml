@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GameClient.View.PopUpMoneta"
              xmlns:toolkit ="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:Controller="clr-namespace:GameClient.Controller">
+             xmlns:Controller="clr-namespace:GameClient.Controller"
+             CanBeDismissedByTappingOutsideOfPopup="False">
 
     <VerticalStackLayout>
         <Label 

@@ -12,8 +12,12 @@ namespace GameClient.Model
     public partial class Game :ObservableObject
     {
         public ObservableCollection<Cella> Campo { get; set; } = new ObservableCollection<Cella>();
-        public Game()
+        public Utente[] Players { get; set; }
+        
+        public Game(Utente[] players)
         {
+            this.Players = players;
+            
             Campo.Add(new Cella() { Positon = 1 });
             Campo.Add(new Cella() { Positon = 2 });
             Campo.Add(new Cella() { Positon = 3 });
@@ -24,6 +28,11 @@ namespace GameClient.Model
             Campo.Add(new Cella() { Positon = 8 });
             Campo.Add(new Cella() { Positon = 9 });
         }
-        public Player[] players;
+
+        public bool CheckWin()
+        {
+            return true;
+        }
+        
     }
 }

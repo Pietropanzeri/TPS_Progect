@@ -49,14 +49,14 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Remove="Resources\Images\campo.png" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
         <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Model\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -73,6 +73,9 @@
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
       <MauiXaml Update="View\PopUpLogin.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
+      <MauiXaml Update="View\PopUpMoneta.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
     </ItemGroup>

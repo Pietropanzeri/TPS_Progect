@@ -67,3 +67,9 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = GameClient.View.PopUpLogin.xaml
 build_metadata.AdditionalFiles.TargetPath = View\PopUpLogin.xaml
 build_metadata.AdditionalFiles.RelativePath = View\PopUpLogin.xaml
+
+[C:/ProgettoTPS/TPS_Project/GameClient/View/PopUpMoneta.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GameClient.View.PopUpMoneta.xaml
+build_metadata.AdditionalFiles.TargetPath = View\PopUpMoneta.xaml
+build_metadata.AdditionalFiles.RelativePath = View\PopUpMoneta.xaml

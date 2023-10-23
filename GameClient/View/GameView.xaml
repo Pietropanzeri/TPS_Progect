@@ -2,11 +2,31 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GameClient.View.GameView"
+             xmlns:Controller ="clr-namespace:GameClient.Controller"
+             xmlns:Model ="clr-namespace:GameClient.Model"
              Title="GameView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="*,AUTO,*">
+        <Frame  Grid.Row="1" BackgroundColor="DimGrey" CornerRadius="40" Margin="20" Padding="0">
+            <Grid>
+                <Image Source="campo.png" Aspect="Fill"></Image>
+                <Frame BackgroundColor="Transparent" BorderColor="Transparent">
+                    <CollectionView ItemsSource="{Binding Game.Campo}" VerticalOptions="Center" HorizontalOptions="Center">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Span="3" Orientation="Vertical"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="Model:Cella">
+                                <Frame HeightRequest="80" WidthRequest="80" CornerRadius="0" Margin="10" BackgroundColor="Transparent" BorderColor="Transparent">
+                                    <Label Text="{Binding Content}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:GameController}}, Path=SelectCommand}"/>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Frame>
+            </Grid>
+        </Frame>
+    </Grid>
 </ContentPage>

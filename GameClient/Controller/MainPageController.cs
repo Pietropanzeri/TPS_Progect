@@ -13,19 +13,22 @@ namespace GameClient.Controller
 {
     public partial class MainPageController : ObservableObject
     {
+        MainPage mainPage;
         public MainPageController(MainPage mainPage)
         {
-            mainPage.ShowPopup(new PopUpLogin());
+            this.mainPage = mainPage;
+            this.mainPage.ShowPopup(new PopUpLogin());
         }
         [RelayCommand]
         public async Task OpenGame()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new GameView(false));
+            await App.Current.MainPage.Navigation.PushAsync(new GameView(false, false));
         }
         [RelayCommand]
         public async Task OpenGameBot()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new GameView(true));
+            bool side = (bool)await mainPage.ShowPopupAsync(new PopUpMoneta());
+            await App.Current.MainPage.Navigation.PushAsync(new GameView(true, side));
         }
         [RelayCommand]
         public async Task OpenImpostazioni()

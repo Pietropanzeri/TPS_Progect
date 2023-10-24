@@ -3,6 +3,41 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Visual Studio specific
+.vscode/
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.sln.docstates
+
+# IntelliJ IDEA specific
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+
+# MAUI specific
+/bin/
+/obj/
+*.csproj.user
+*.userprefs
+
+# macOS specific
+.DS_Store
+
+# Windows thumbnails
+Thumbs.db
+
+
+#---------------
+
 .nuspec/
 .buildtasks/
 templatesTest/

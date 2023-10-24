@@ -1801,23 +1801,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pietr\\.nuget\\packages\\": {},
+    "C:\\Users\\danie\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\ProgettoTPS\\TPS_Project\\GameServer\\GameServer.csproj",
+      "projectUniqueName": "C:\\Users\\danie\\OneDrive\\Desktop\\tps\\TPS_Project\\GameServer\\GameServer.csproj",
       "projectName": "GameServer",
-      "projectPath": "C:\\ProgettoTPS\\TPS_Project\\GameServer\\GameServer.csproj",
-      "packagesPath": "C:\\Users\\pietr\\.nuget\\packages\\",
-      "outputPath": "C:\\ProgettoTPS\\TPS_Project\\GameServer\\obj\\",
+      "projectPath": "C:\\Users\\danie\\OneDrive\\Desktop\\tps\\TPS_Project\\GameServer\\GameServer.csproj",
+      "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\danie\\OneDrive\\Desktop\\tps\\TPS_Project\\GameServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\pietr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1870,7 +1870,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   },
@@ -1879,7 +1879,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'WebSocketSharp 1.0.3-rc11' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "message": "Il pacchetto 'WebSocketSharp 1.0.3-rc11' è stato ripristinato mediante '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' e non mediante il framework di destinazione del progetto 'net7.0'. Questo pacchetto potrebbe non essere completamente compatibile con il progetto.",
       "libraryId": "WebSocketSharp",
       "targetGraphs": [
         "net7.0"

@@ -1,1 +1,0 @@
-C:\Users\arosi\RiderProjects\TPS_Project\ReactorGameClient\ReactorGameClient.csproj;x64

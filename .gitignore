@@ -6,8 +6,10 @@
 # Visual Studio specific
 .vscode/
 .vs/
-bin/
-obj/
+GameClient/bin/
+GameClient/obj/
+GameServer/bin/
+GameServer/obj/
 *.user
 *.suo
 *.sln.docstates

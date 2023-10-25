@@ -50,6 +50,7 @@
 
     <ItemGroup>
       <None Remove="Resources\Images\campo.png" />
+      <None Remove="Resources\Images\titolo.png" />
     </ItemGroup>
 
     <ItemGroup>

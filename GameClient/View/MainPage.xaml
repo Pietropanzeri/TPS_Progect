@@ -6,10 +6,10 @@
              x:DataType="Controller:MainPageController"
              Title="MainPage"
              Shell.NavBarIsVisible="False">
-    <Grid RowDefinitions="*,*" Margin="0">
-        <Frame Grid.Row="0" Padding="0" CornerRadius="0" BorderColor="Transparent">
+    <Grid RowDefinitions="*,auto,*" Margin="0">
+        <Frame Grid.Row="0" Padding="0" CornerRadius="0" BorderColor="Transparent" BackgroundColor="LightBlue">
             <Grid RowDefinitions="*,*,*">
-                <Label Text="MULTIPLAYER"
+                <Label Text="BOT"
                     Grid.RowSpan="3"
                     HorizontalOptions="Center"
                     VerticalOptions="Center" />
@@ -32,19 +32,20 @@
             </Grid>
                 <Frame.GestureRecognizers>
                 <TapGestureRecognizer
-                    Command="{Binding OpenGameCommand}"/>
+                    Command="{Binding OpenGameBotCommand}"/>
             </Frame.GestureRecognizers>
         </Frame>
-        <Frame Grid.Row="1" CornerRadius="0" Padding="0" BackgroundColor="blue">
+        <Frame HeightRequest="100" Grid.Row="1" BackgroundColor="Transparent" BorderColor="Transparent"/>
+        <Frame Grid.Row="2" CornerRadius="0" Padding="0" BackgroundColor="blue">
 
             <Label 
                 VerticalOptions="Center"  
                 HorizontalOptions="Center"
-                Text="BOT"/>
+                Text="MULTIPLAYER"/>
 
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer
-                    Command="{Binding OpenGameBotCommand}"/>
+                    Command="{Binding OpenGameCommand}"/>
             </Frame.GestureRecognizers>
         </Frame>
     </Grid>

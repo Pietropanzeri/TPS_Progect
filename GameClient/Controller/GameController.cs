@@ -21,6 +21,10 @@ namespace GameClient.Controller
 
         public GameController(MainPageController mainPage, bool bot, bool side)
         {
+            //impostare player e bot per vedere i nomi
+
+            //trovare come fare per continuare partite e savare numero vittorie
+
             //assegna side a player che va salvato nel programma
             turno = side ? 1 : 0;
             game = new Game(
@@ -39,6 +43,10 @@ namespace GameClient.Controller
         }
         public GameController(MainPageController mainPage, bool bot)
         {
+            //impostare player e bot per vedere i nomi
+
+            //trovare come fare per continuare partite e savare numero vittorie
+
             //game = new Game();
             //Do Server Side
         }

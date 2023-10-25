@@ -4,9 +4,22 @@
              x:Class="GameClient.View.GameView"
              xmlns:Controller ="clr-namespace:GameClient.Controller"
              xmlns:Model ="clr-namespace:GameClient.Model"
-             Title="GameView">
-    <Grid RowDefinitions="*,AUTO,*">
-        <Frame  Grid.Row="1" BackgroundColor="DimGrey" CornerRadius="40" Margin="20" Padding="0">
+             Title="GameView"
+             Shell.NavBarIsVisible="False">
+    <Grid RowDefinitions="*,AUTO,*" ColumnDefinitions="*,*,*">
+
+
+        <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*,*" Grid.ColumnSpan="3" HorizontalOptions="Fill">
+            <Label Text="ALEX" HorizontalOptions="Center" Grid.Row="2"/>
+                    <Grid ColumnDefinitions="*,*,*" Grid.Column="1" HorizontalOptions="Center" Grid.Row="2">
+                        <Label Text="0" CharacterSpacing="30"/>
+                        <Label Text="-" Grid.Column="1" CharacterSpacing="30"/>
+                        <Label Text="1" Grid.Column="2" CharacterSpacing="30"/>
+                    </Grid>
+            <Label Text="THE" Grid.Column="2" HorizontalOptions="Center" Grid.Row="2"/>
+        </Grid>
+
+        <Frame  Grid.Row="1" BackgroundColor="DimGrey" CornerRadius="40" Margin="20" Padding="0" Grid.ColumnSpan="3">
             <Grid>
                 <Image Source="campo.png" Aspect="Fill"></Image>
                 <Frame BackgroundColor="Transparent" BorderColor="Transparent">

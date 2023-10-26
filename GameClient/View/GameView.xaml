@@ -4,6 +4,7 @@
              x:Class="GameClient.View.GameView"
              xmlns:Controller ="clr-namespace:GameClient.Controller"
              xmlns:Model ="clr-namespace:GameClient.Model"
+             x:DataType="Controller:GameController"
              Title="GameView"
              Shell.NavBarIsVisible="False">
     <Grid RowDefinitions="*,AUTO,*" ColumnDefinitions="*,*,*">

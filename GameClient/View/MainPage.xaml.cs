@@ -1,5 +1,6 @@
 using GameClient.Controller;
 using CommunityToolkit.Maui.Views;
+using GameClient.Helpers;
 
 namespace GameClient.View;
 
@@ -7,7 +8,11 @@ public partial class MainPage : ContentPage
 {
 	public MainPage()
 	{
-		BindingContext = new MainPageController(this);
         InitializeComponent();
+        
+        MainPageController controller = ServiceHelper.GetService<MainPageController>();
+        BindingContext = controller;
+        
+        controller.Enable();
 	}
 }

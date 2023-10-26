@@ -52,14 +52,14 @@ public class DatabaseController
         }).Wait();
     }
     
-    public async Task<Player> LoadPlayer(string username)
+    public async Task<Player> LoadPlayer(string id, string username)
     {
         if (!await PlayerExists(username)) await CreateUser(username);
-        return await GetPlayer(username);
+        return await GetPlayer(id, username);
     }
 
 
-    private async Task<Player> GetPlayer(string username)
+    private async Task<Player> GetPlayer(string socketId, string username)
     {
         return await ExecuteQuery<Player>(conn =>
         {
@@ -78,7 +78,7 @@ public class DatabaseController
                         string resultUsername = reader.GetString(reader.GetOrdinal("username"));
                         int points = reader.IsDBNull(reader.GetOrdinal("point")) ? 0 : reader.GetInt32(reader.GetOrdinal("point"));
 
-                        return new Player { Id = id, UserName = resultUsername, Points = points };
+                        return new Player { Id = id, SocketId = socketId, UserName = resultUsername, Points = points, Symbol = 'X' };
                     }
 
                     return null;

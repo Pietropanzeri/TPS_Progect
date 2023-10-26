@@ -2,49 +2,71 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Maui.Views;
 using GameClient.model;
+using GameClient.Model;
+using GameClient.Service;
 using GameClient.View;
+using GameServer.model;
 using Microsoft.VisualBasic;
 
 namespace GameClient.Controller
 {
     public partial class MainPageController : ObservableObject
     {
-        private MainPage mainPage;
-        public Player CurrentPlayer { get; set; }
-        
-        
-        public MainPageController(MainPage mainPage)
-        {
-            this.mainPage = mainPage;
-            this.mainPage.ShowPopup(new PopUpLogin());
+        private IPopupService _popupService;
+        private INavigationService _navigationService;
 
-            CurrentPlayer = new Player() { UserName = "MarcoUWU", Symbol = "X" };
+        [ObservableProperty]
+        public Player currentPlayer = Player.Create();
+
+        public SocketController SocketController { get; }
+        
+        
+        public MainPageController(IPopupService popupService, INavigationService navigationService)
+        {
+            _popupService = popupService;
+            _navigationService = navigationService;
+            SocketController = new SocketController();
         }
+
+        public void Enable()
+        {
+            SocketController.Start();
+            _popupService.ShowPopup(new PopUpLogin());
+        }
+        
         [RelayCommand]
         public async Task OpenGame()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new GameView(this, false, false));
+            SocketController.Send(
+                new SocketData(DataType.MatchMaking, CurrentPlayer.UserName, null),
+                response =>
+                {
+                    _navigationService.OpenPage(
+                        new GameView(JsonSerializer.Deserialize<Game>(response.Data))
+                    );
+                });
         }
         [RelayCommand]
         public async Task OpenGameBot()
         {
-            bool side = (bool)await mainPage.ShowPopupAsync(new PopUpMoneta());
-            await App.Current.MainPage.Navigation.PushAsync(new GameView(this, true, side));
+            bool startSide = (bool)await _popupService.ShowPopup(new PopUpMoneta());
+            await _navigationService.OpenPage(new GameView(Game.CreateBotGame(CurrentPlayer, startSide)));
         }
         [RelayCommand]
         public async Task OpenImpostazioni()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new Impostazioni());
+            await _navigationService.OpenPage(new Impostazioni());
         }
         [RelayCommand]
         public async Task OpenClassifica()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new Classifica());
+            await _navigationService.OpenPage(new Classifica());
         }
 
 

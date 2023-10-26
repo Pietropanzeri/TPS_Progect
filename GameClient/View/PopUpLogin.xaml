@@ -5,7 +5,8 @@
                  xmlns:toolkit ="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                  xmlns:Controller="clr-namespace:GameClient.Controller"
                  Color="Transparent"               
-                 CanBeDismissedByTappingOutsideOfPopup="False">
+                 CanBeDismissedByTappingOutsideOfPopup="False"
+                 x:DataType="Controller:PopUpLoginController">
     <Frame HeightRequest="170" 
            WidthRequest="250" 
            Margin="7" 
@@ -20,6 +21,8 @@
                HorizontalOptions="Center" 
                VerticalOptions="Center">
             <VerticalStackLayout>
+
+                <Button Text="x" Command="{Binding ExitCommand}" BackgroundColor="#ccFF0000" TextColor="Black" HorizontalOptions="End" CornerRadius="5" HeightRequest="10" WidthRequest="10" TextTransform="None"></Button>
                 <Label 
                     Text="Effettua il login"
                     VerticalOptions="Center" 
@@ -37,7 +40,6 @@
                 </Frame>
 
                 <Button Text="Gioca come ospite" Command="{Binding OspiteCommand}" BackgroundColor="Transparent" TextColor="Black" FontSize="10" HorizontalOptions="End" Margin="0,-15,0,0"></Button>
-                <Button Text="EXIT" Command="{Binding ExitCommand}" BackgroundColor="Transparent" TextColor="Black" HorizontalOptions="Start" Margin="0,-20,0,0 "></Button>
 
 
             </VerticalStackLayout>

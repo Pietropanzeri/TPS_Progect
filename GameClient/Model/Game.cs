@@ -9,14 +9,34 @@ namespace GameClient.Model
     {
         public ObservableCollection<Cella> Campo { get; set; } = new ObservableCollection<Cella>();
         public Utente[] Players { get; set; }
+
+        [ObservableProperty] 
+        public bool side;
+
+        public Utente CurrentUser { get; set; }
+        
         public List<int[]> WinPossibilities { get; set; } = new List<int[]>();
 
         public List<string> WinImages { get; set; } = new List<string>();
         
-        public Game(Utente[] players)
+        public Game(Utente[] players, bool startSide)
         {
-            this.Players = players;
+            Players = players;
+            Side = startSide;
 
+            if (Side)
+            {
+                CurrentUser = Players[0];
+                Players[0].Symbol = "X";
+                Players[1].Symbol = "O";
+            }
+            else
+            {
+                CurrentUser = Players[1];
+                Players[0].Symbol = "O";
+                Players[1].Symbol = "X";
+            }
+            
             Campo.Add(new Cella() { Positon = 0 });
             Campo.Add(new Cella() { Positon = 1 });
             Campo.Add(new Cella() { Positon = 2 });
@@ -45,6 +65,15 @@ namespace GameClient.Model
             WinImages.Add("sei.png");
             WinImages.Add("sette.png");
             WinImages.Add("otto.png");
+        }
+
+        public static Game CreateBotGame(Player player , bool startSide)
+        {
+            return new Game(new Utente[]
+            {
+                player,
+                new Bot() { Id = 'O' }
+            }, startSide);
         }
 
         public (bool,string) CheckWin(string symbol)

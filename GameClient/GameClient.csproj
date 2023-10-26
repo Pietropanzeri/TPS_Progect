@@ -54,6 +54,7 @@
       <None Remove="Resources\Images\classifica.png" />
       <None Remove="Resources\Images\due.png" />
       <None Remove="Resources\Images\impostazioni.png" />
+      <None Remove="Resources\Images\login.png" />
       <None Remove="Resources\Images\otto.png" />
       <None Remove="Resources\Images\quattro.png" />
       <None Remove="Resources\Images\sei.png" />

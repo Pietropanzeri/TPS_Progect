@@ -51,11 +51,14 @@
     <ItemGroup>
       <None Remove="Resources\Images\campo.png" />
       <None Remove="Resources\Images\cinque.png" />
+      <None Remove="Resources\Images\classifica.png" />
       <None Remove="Resources\Images\due.png" />
+      <None Remove="Resources\Images\impostazioni.png" />
       <None Remove="Resources\Images\otto.png" />
       <None Remove="Resources\Images\quattro.png" />
       <None Remove="Resources\Images\sei.png" />
       <None Remove="Resources\Images\sette.png" />
+      <None Remove="Resources\Images\sfondo.png" />
       <None Remove="Resources\Images\titolo.png" />
       <None Remove="Resources\Images\tre.png" />
       <None Remove="Resources\Images\uno.png" />

@@ -5,29 +5,40 @@
              xmlns:Controller="clr-namespace:GameClient.Controller"
              x:DataType="Controller:MainPageController"
              Title="MainPage"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundImageSource="sfondo.png">
     <Grid RowDefinitions="*,auto,*" Margin="0">
-        <Frame Grid.Row="0" Padding="0" CornerRadius="0" BorderColor="Transparent" BackgroundColor="LightBlue">
+        <Frame Grid.Row="0" Padding="0" CornerRadius="0" BorderColor="Transparent" BackgroundColor="Transparent">
             <Grid RowDefinitions="*,*,*">
-                <Label Text="BOT"
-                    Grid.RowSpan="3"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" />
-                <VerticalStackLayout 
+                <Grid
+                    RowDefinitions="70,70"
+                    ColumnDefinitions="*,10"
                     Grid.Row="1"
                      Grid.RowSpan="2"
                     VerticalOptions="Center"
                     HorizontalOptions="End"
-                    Margin="-6">
-                    <Button Text="IMP"                     
+                    Margin="0">
+                    <Frame
+                        Grid.Column="1" Grid.RowSpan="2"
+                        BorderColor="#ededed" 
+                        BackgroundColor="#ededed"
+                        />
+                    <ImageButton Grid.Row="0" Grid.ColumnSpan="2"
+                        Source="impostazioni.png"                   
                         WidthRequest="70"
                         HeightRequest="70"
+                        CornerRadius="10"
+                                 BackgroundColor="#ededed"
                         Command="{Binding OpenImpostazioniCommand}"/>
-                    <Button Text="CLA"
+                    
+                    <ImageButton Grid.Row="1" Grid.ColumnSpan="2"
+                        Source="classifica.png" 
+                                 BackgroundColor="#ededed"
+                                 CornerRadius="10"
                         WidthRequest="70"
                         HeightRequest="70"
                         Command="{Binding OpenClassificaCommand}"/>
-                </VerticalStackLayout>
+                </Grid>
                 
             </Grid>
                 <Frame.GestureRecognizers>
@@ -36,12 +47,7 @@
             </Frame.GestureRecognizers>
         </Frame>
         <Frame HeightRequest="100" Grid.Row="1" BackgroundColor="Transparent" BorderColor="Transparent"/>
-        <Frame Grid.Row="2" CornerRadius="0" Padding="0" BackgroundColor="blue">
-
-            <Label 
-                VerticalOptions="Center"  
-                HorizontalOptions="Center"
-                Text="MULTIPLAYER"/>
+        <Frame Grid.Row="2" CornerRadius="0" Padding="0" BackgroundColor="Transparent" BorderColor="Transparent">
 
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer

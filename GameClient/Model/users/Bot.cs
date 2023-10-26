@@ -16,7 +16,8 @@ public class Bot : Utente
             int pos = _random.Next(0, 9);
 
             Cella cella = game.Campo[pos];
-            if (cella.Content.IsNullOrEmpty()) return cella;
+            if (cella.Content.IsNullOrEmpty()) 
+                return cella;
         }
     }
 }

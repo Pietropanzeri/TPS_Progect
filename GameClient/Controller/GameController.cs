@@ -19,6 +19,9 @@ namespace GameClient.Controller
         [ObservableProperty]
         bool isBot;
 
+        [ObservableProperty]
+        string immagineWin;
+
         public GameController(MainPageController mainPage, bool bot, bool side)
         {
             //impostare player e bot per vedere i nomi
@@ -64,8 +67,10 @@ namespace GameClient.Controller
             if (!cella.Content.IsNullOrEmpty()) return false;
             cella.Content = utente.Symbol;
 
-            if (Game.CheckWin(utente.Symbol))
+            (bool, string) CheckWin = Game.CheckWin(utente.Symbol);
+            if (CheckWin.Item1)
             {
+                ImmagineWin = CheckWin.Item2;
                 await App.Current.MainPage.DisplayAlert("Vittoria", "Ha vinto: " + (turno == 0 ? "Player" : "Bot"), "OK");
                 await App.Current.MainPage.Navigation.PopAsync();
                 return false;

@@ -25,6 +25,7 @@
         <Frame  Grid.Row="1" BackgroundColor="DimGrey" CornerRadius="40" Margin="20" Padding="0" Grid.ColumnSpan="3">
             <Grid>
                 <Image Source="campo.png" Aspect="Fill"></Image>
+                <Image Source="{Binding ImmagineWin}" Aspect="Fill"></Image>
                 <Frame BackgroundColor="Transparent" BorderColor="Transparent">
                     <CollectionView ItemsSource="{Binding Game.Campo}" VerticalOptions="Center" HorizontalOptions="Center">
                         <CollectionView.ItemsLayout>

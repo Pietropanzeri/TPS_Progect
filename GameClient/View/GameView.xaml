@@ -13,14 +13,14 @@
         <Grid RowDefinitions="2*,*,*" ColumnDefinitions="*,*,*" Grid.ColumnSpan="3" HorizontalOptions="Fill" Margin="10,0,10,0">
             <!--<Image Source="titolo.png" Grid.ColumnSpan="3"></Image>-->
             <Label Text="{Binding Utente0.UserName}" HorizontalOptions="Center" Grid.Row="2" VerticalOptions="Center" Margin="20,0,0,0"/>
-            <Frame Grid.Column="1" HorizontalOptions="Center"  Grid.Row="2" CornerRadius="50">
+            <Frame Grid.Column="1" HorizontalOptions="Center"  Grid.Row="2" CornerRadius="50" Padding="0">
                 <Frame.Shadow>
                     <Shadow Brush="Black"
                         Offset="20,20"
                         Radius="40"
                         Opacity="0.8"/>
                 </Frame.Shadow>
-                    <Grid ColumnDefinitions="*,*,*" HorizontalOptions="Fill" VerticalOptions="Center" Grid.Row="2">
+                    <Grid ColumnDefinitions="*,*,*" HorizontalOptions="Fill" VerticalOptions="Center">
                         <Label Text="{Binding Utente0.Points}" HorizontalTextAlignment="Center"/>
                         <Label Text=" - " Grid.Column="1" HorizontalTextAlignment="Center"/>
                         <Label Text="{Binding Utente1.Points}" Grid.Column="2" HorizontalTextAlignment="Center"/>

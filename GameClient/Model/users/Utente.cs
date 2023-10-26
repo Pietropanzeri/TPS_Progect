@@ -5,4 +5,5 @@ public class Utente
     public int Id { get; set; }
     public string UserName { get; set; } = "Bot";
     public string Symbol { get; set; }
+    public int Points { get; set; }
 }

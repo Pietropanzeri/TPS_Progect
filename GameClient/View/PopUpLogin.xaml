@@ -13,16 +13,18 @@
            CornerRadius="15" 
            BorderColor="#d8d8d8" 
            BackgroundColor="#d8d8d8">
-        <Frame HeightRequest="150" 
+        <Frame HeightRequest="160" 
                WidthRequest="240" 
                CornerRadius="15" 
                BorderColor="#dfdfdf" 
                BackgroundColor="#dfdfdf" 
                HorizontalOptions="Center" 
-               VerticalOptions="Center">
-            <VerticalStackLayout>
+               VerticalOptions="Center"
+               Margin="0"
+               Padding="10,3,10,10">
+            <VerticalStackLayout >
 
-                <Button Text="x" Command="{Binding ExitCommand}" BackgroundColor="#ccFF0000" TextColor="Black" HorizontalOptions="End" CornerRadius="5" HeightRequest="10" WidthRequest="10" TextTransform="None"></Button>
+                <Button Command="{Binding ExitCommand}" BackgroundColor="#bfbfbf" HorizontalOptions="End" CornerRadius="20" TextTransform="None" Text="X" TextColor="Black" Padding="0" FontSize="10" Margin="0,0,0,0" HeightRequest="25" WidthRequest="25"></Button>
                 <Label 
                     Text="Effettua il login"
                     VerticalOptions="Center" 

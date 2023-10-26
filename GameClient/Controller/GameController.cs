@@ -17,6 +17,12 @@ namespace GameClient.Controller
         [ObservableProperty]
         string immagineWin;
 
+        [ObservableProperty]
+        Utente utente0;
+
+        [ObservableProperty]
+        Utente utente1;
+
         public GameController(Game game)
         {
             //impostare player e bot per vedere i nomi
@@ -31,6 +37,8 @@ namespace GameClient.Controller
             {
                 ApplicaMossa(bot.Mossa(game));
             }
+            utente0 = game.Players[0];
+            utente1 = game.Players[1];
         }
 
         [RelayCommand]
@@ -79,6 +87,12 @@ namespace GameClient.Controller
             Game.CurrentUser = Game.Side ? Game.Players[0] : Game.Players[1];
 
             return Game.Side;
+        }
+
+        [RelayCommand]
+        public async Task Exit()
+        {
+            await App.Current.MainPage.Navigation.PopAsync();
         }
 
     }

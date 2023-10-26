@@ -12,15 +12,15 @@
 
         <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*,*" Grid.ColumnSpan="3" HorizontalOptions="Fill" Margin="10,0,10,0">
             <!--<Image Source="titolo.png" Grid.ColumnSpan="3"></Image>-->
-            <Label Text="ALEX" HorizontalOptions="Center" Grid.Row="2" VerticalOptions="Center" Margin="20,0,0,0"/>
+            <Label Text="{Binding Utente0.UserName}" HorizontalOptions="Center" Grid.Row="2" VerticalOptions="Center" Margin="20,0,0,0"/>
             <Frame Grid.Column="1" HorizontalOptions="Center"  Grid.Row="2" CornerRadius="50">
                     <Grid ColumnDefinitions="*,*,*" HorizontalOptions="Fill" VerticalOptions="Center">
-                        <Label Text="0" HorizontalTextAlignment="Center"/>
+                        <Label Text="{Binding Utente0.Points}" HorizontalTextAlignment="Center"/>
                         <Label Text=" - " Grid.Column="1" HorizontalTextAlignment="Center"/>
-                        <Label Text="1" Grid.Column="2" HorizontalTextAlignment="Center"/>
+                        <Label Text="{Binding Utente1.Points}" Grid.Column="2" HorizontalTextAlignment="Center"/>
                     </Grid>
             </Frame>
-            <Label Text="THE ROCK" Grid.Column="2" HorizontalOptions="Center" Grid.Row="2" VerticalOptions="Center" Margin="0,0,20,0"/>
+            <Label Text="{Binding Utente1.UserName}" Grid.Column="2" HorizontalOptions="Center" Grid.Row="2" VerticalOptions="Center" Margin="0,0,20,0"/>
         </Grid>
 
         <Frame  Grid.Row="1" BackgroundColor="DimGrey" CornerRadius="40" Margin="20" Padding="0" Grid.ColumnSpan="3">
@@ -46,6 +46,6 @@
                 </Frame>
             </Grid>
         </Frame>
-        <Button Grid.Row="2" Grid.ColumnSpan="3" HeightRequest="50" WidthRequest="100" VerticalOptions="Start" BackgroundColor="Gray" CornerRadius="50" Text="ESCI"/>
+        <Button Grid.Row="2" Grid.ColumnSpan="3" HeightRequest="50" WidthRequest="100" VerticalOptions="Start" BackgroundColor="Gray" CornerRadius="50" Text="ESCI" Command="{Binding ExitCommand}"/>
     </Grid>
 </ContentPage>

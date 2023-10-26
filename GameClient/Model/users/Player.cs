@@ -3,19 +3,17 @@
 public class Player : Utente
 {
     public string SocketID { get; set; }
-    public int Points { get; set; }
 
     public override string ToString()
     {
-        return "UserName: " + UserName + "\nPoints: " + Points;
+        return "UserName: " + UserName; ;
     }
 
     public static Player Create()
     {
         return new Player
         {
-            UserName = "Ospite",
-            Points = 0,
+            UserName = "Ospite"
         };
     }
 }

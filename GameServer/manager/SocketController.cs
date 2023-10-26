@@ -93,6 +93,7 @@ public class SocketController
         {
             MessageUtils.Send("Server disconnesso con successo! Id: " + ID, ConsoleColor.Red);
             _socketController.connectedClients.Remove(this);
+            _socketController.GameController.PlayerController.OnlinePlayers.Remove(ID);
         }
     }
 }

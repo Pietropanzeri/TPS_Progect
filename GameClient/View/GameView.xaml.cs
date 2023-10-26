@@ -1,16 +1,14 @@
 
 using GameClient.Controller;
+using GameClient.Model;
 
 namespace GameClient.View;
 
 public partial class GameView : ContentPage
 {
-	public GameView(MainPageController mainPage, bool bot, bool side)
+	public GameView(Game game)
 	{
-		if(bot)
-            BindingContext = new Controller.GameController(mainPage, bot, side);
-        else
-            BindingContext = new Controller.GameController(mainPage, bot);
         InitializeComponent();
+        BindingContext = new Controller.GameController(game);
 	}
 }

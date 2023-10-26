@@ -2,21 +2,23 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GameClient.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 using GameClient.model;
+using GameServer.model;
 
 namespace GameClient.Controller
 {
     public partial class PopUpLoginController : ObservableObject
     {
-        public PopUpLogin popUpLogin;
-        public PopUpLoginController(PopUpLogin popUpLogin) 
+        private PopUpLogin _popUpLogin;
+        private MainPageController _mainPage;
+        private SocketController _socket;
+
+        public PopUpLoginController(PopUpLogin popUpLogin, MainPageController mainPage) 
         {
-            this.popUpLogin = popUpLogin;
+            this._popUpLogin = popUpLogin;
+            this._mainPage = mainPage;
+            this._socket = mainPage.SocketController;
         }
         [ObservableProperty]
         string username;
@@ -32,13 +34,22 @@ namespace GameClient.Controller
         {
            //salva user e psw
            //Aspettare risposta dal server
-           popUpLogin.Close();
+           _socket.Send(
+               new SocketData(DataType.Connect, Username, null),
+               response =>
+               {
+                   Player player = JsonSerializer.Deserialize<Player>(response.Data);
+                   _mainPage.CurrentPlayer = player;
+
+                   _popUpLogin.Close();
+               }
+            );
         }
         [RelayCommand]
         public async Task Ospite()
         {
-            //imposta user
-            popUpLogin.Close(Player.Create());
+            _mainPage.CurrentPlayer = Player.Create();
+            _popUpLogin.Close();
         }
     }
 }

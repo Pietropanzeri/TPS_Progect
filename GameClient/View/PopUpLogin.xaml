@@ -4,8 +4,10 @@
                  x:Class="GameClient.View.PopUpLogin"
                  xmlns:toolkit ="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                  xmlns:Controller="clr-namespace:GameClient.Controller"
-               Color="Transparent">
-    <Frame HeightRequest="160" 
+                 Color="Transparent"               
+                 CanBeDismissedByTappingOutsideOfPopup="False"
+                 x:DataType="Controller:PopUpLoginController">
+    <Frame HeightRequest="170" 
            WidthRequest="250" 
            Margin="7" 
            CornerRadius="15" 
@@ -18,12 +20,15 @@
                BackgroundColor="#dfdfdf" 
                HorizontalOptions="Center" 
                VerticalOptions="Center">
-            <VerticalStackLayout >
+            <VerticalStackLayout>
+
+                <Button Text="x" Command="{Binding ExitCommand}" BackgroundColor="#ccFF0000" TextColor="Black" HorizontalOptions="End" CornerRadius="5" HeightRequest="10" WidthRequest="10" TextTransform="None"></Button>
                 <Label 
-            Text="Effettua il login"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-                <Frame BackgroundColor="#d1d1d1" HeightRequest="30" Margin="0,20,0,0">
+                    Text="Effettua il login"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" 
+                    FontAttributes="Bold"/>
+                <Frame BackgroundColor="#d1d1d1" HeightRequest="30" Margin="0,20,0,0" Padding="5">
                     <Entry Text="{Binding Username}" 
                            Placeholder="Inserisci un nome" 
                            PlaceholderColor="Black" 
@@ -31,13 +36,11 @@
                            HorizontalOptions="Start"
                            HeightRequest="50"
                            Margin="0"
-                           />
+                           ReturnCommand="{Binding EnterCommand}"/>
                 </Frame>
-                <HorizontalStackLayout>
-                    <Button Text="EXIT" Command="{Binding ExitCommand}" BackgroundColor="Transparent" TextColor="Black"></Button>
-                    <Button Text="OK" Command="{Binding EnterCommand}" BackgroundColor="Transparent" TextColor="Black"></Button>
-                    <Button Text="Gioca come ospite" Command="{Binding OpsiteCommand}" BackgroundColor="Transparent" TextColor="Black" FontSize="10"></Button>
-                </HorizontalStackLayout>
+
+                <Button Text="Gioca come ospite" Command="{Binding OspiteCommand}" BackgroundColor="Transparent" TextColor="Black" FontSize="10" HorizontalOptions="End" Margin="0,-15,0,0"></Button>
+
 
             </VerticalStackLayout>
         </Frame>

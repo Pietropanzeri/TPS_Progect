@@ -4,6 +4,7 @@
                  x:Class="GameClient.View.PopUpLogin"
                  xmlns:toolkit ="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                  xmlns:Controller="clr-namespace:GameClient.Controller"
+                 x:DataType="Controller:PopUpLoginController"
                Color="Transparent">
     <Frame HeightRequest="160" 
            WidthRequest="250" 
@@ -36,7 +37,7 @@
                 <HorizontalStackLayout>
                     <Button Text="EXIT" Command="{Binding ExitCommand}" BackgroundColor="Transparent" TextColor="Black"></Button>
                     <Button Text="OK" Command="{Binding EnterCommand}" BackgroundColor="Transparent" TextColor="Black"></Button>
-                    <Button Text="Gioca come ospite" Command="{Binding OpsiteCommand}" BackgroundColor="Transparent" TextColor="Black" FontSize="10"></Button>
+                    <Button Text="Gioca come ospite" Command="{Binding OspiteCommand}" BackgroundColor="Transparent" TextColor="Black" FontSize="10"></Button>
                 </HorizontalStackLayout>
 
             </VerticalStackLayout>

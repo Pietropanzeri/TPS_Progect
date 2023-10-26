@@ -1,4 +1,4 @@
-﻿namespace GameServer.model;
+namespace GameServer.model;
 
 public class SocketData
 {

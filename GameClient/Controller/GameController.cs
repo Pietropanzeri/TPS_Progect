@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GameClient.Helpers;
 using GameClient.model;
 using GameClient.Model;
 using WebSocketSharp;
@@ -8,70 +9,49 @@ namespace GameClient.Controller
 {
     public partial class GameController : ObservableObject
     {
-        Random random = new Random();
-
         [ObservableProperty]
         private Game game;
-
-        //0 player 1 bot
-        int turno;
-
-        [ObservableProperty]
-        bool isBot;
+        
+        private MainPageController _mainPageController;
 
         [ObservableProperty]
         string immagineWin;
 
-        public GameController(MainPageController mainPage, bool bot, bool side)
+        public GameController(Game game)
         {
             //impostare player e bot per vedere i nomi
 
             //trovare come fare per continuare partite e savare numero vittorie
 
             //assegna side a player che va salvato nel programma
-            turno = side ? 1 : 0;
-            game = new Game(
-                    new Utente[]
-                    {
-                        mainPage.CurrentPlayer,
-                        new Bot { Id = 10, Symbol = "O"}
-                    }
-                );
+            Game = game;
+            _mainPageController = ServiceHelper.GetService<MainPageController>();
 
-            if (turno == 1)
+            if (Game.CurrentUser is Bot bot)
             {
-                Bot userBot = (Bot)Game.Players[turno];
-                ApplicaMossa(userBot.Mossa(Game));
+                ApplicaMossa(bot.Mossa(game));
             }
-        }
-        public GameController(MainPageController mainPage, bool bot)
-        {
-            //impostare player e bot per vedere i nomi
-
-            //trovare come fare per continuare partite e savare numero vittorie
-
-            //game = new Game();
-            //Do Server Side
         }
 
         [RelayCommand]
         public async Task Select(Cella cella)
         {
-            if (turno == 1) return;
+            if (Game.CurrentUser.Id != _mainPageController.CurrentPlayer.Id) return;
             await ApplicaMossa(cella);
         }
 
         private async Task<bool> ApplicaMossa(Cella cella)
         {
-            Utente utente = Game.Players[turno];
+            Utente user = Game.CurrentUser;
+            
             if (!cella.Content.IsNullOrEmpty()) return false;
-            cella.Content = utente.Symbol;
+            cella.Content = user.Symbol;
 
-            (bool, string) CheckWin = Game.CheckWin(utente.Symbol);
+            (bool, string) CheckWin = Game.CheckWin(user.Symbol);
             if (CheckWin.Item1)
             {
                 ImmagineWin = CheckWin.Item2;
-                await App.Current.MainPage.DisplayAlert("Vittoria", "Ha vinto: " + (turno == 0 ? "Player" : "Bot"), "OK");
+                await App.Current.MainPage.DisplayAlert("Vittoria", "Ha vinto: " + user.UserName , "OK");
                 await App.Current.MainPage.Navigation.PopAsync();
                 return false;
             }
@@ -81,15 +61,24 @@ namespace GameClient.Controller
                 await App.Current.MainPage.Navigation.PopAsync();
                 return false;
             }
-            turno = turno == 1 ? 0 : 1;
-            if (turno == 1)
+
+            updatePhase();
+            
+            if (Game.CurrentUser is Bot bot)
             {
-                Bot bot = (Bot)Game.Players[turno];
                 await Task.Delay(500);
                 await ApplicaMossa(bot.Mossa(Game));
             }
 
             return true;
+        }
+
+        private bool updatePhase()
+        {
+            Game.Side = !Game.Side;
+            Game.CurrentUser = Game.Side ? Game.Players[0] : Game.Players[1];
+
+            return Game.Side;
         }
 
     }

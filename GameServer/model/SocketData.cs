@@ -15,7 +15,7 @@ public class SocketData
 
     public string[] SplitData()
     {
-        return Data.Split(":");
+        return Data.Split(":", 1);
     }
 }
 

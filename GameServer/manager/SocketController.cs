@@ -25,7 +25,7 @@ public class SocketController
         string ip = GetIpAddress().ToString();
         _server = new WebSocketServer("ws://" + ip + ":7880");
         
-        MessageUtils.Send("Connesso con ip: " + ip, ConsoleColor.Magenta);
+        MessageUtils.Send("Connesso con ip: " + _server.Address, ConsoleColor.Magenta);
     }
 
     public void Start()

@@ -15,11 +15,11 @@ public class SocketController
         SocketClient.OnMessage += OnMessage;
     }
 
-    public void Start()
+    public async void Start()
     {
         try
         {
-            SocketClient.Connect();
+            SocketClient.ConnectAsync();
         }
         catch (Exception e) { }
     }

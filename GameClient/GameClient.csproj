@@ -52,6 +52,7 @@
       <None Remove="Resources\Images\campo.png" />
       <None Remove="Resources\Images\cinque.png" />
       <None Remove="Resources\Images\classifica.png" />
+      <None Remove="Resources\Images\coinflip.gif" />
       <None Remove="Resources\Images\due.png" />
       <None Remove="Resources\Images\impostazioni.png" />
       <None Remove="Resources\Images\login.png" />

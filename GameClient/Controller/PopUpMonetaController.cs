@@ -11,21 +11,20 @@ namespace GameClient.Controller
 {
     public partial class PopUpMonetaController :ObservableObject
     {
-        Random random = new Random();
 
         [ObservableProperty]
         bool side;
 
-        public PopUpMonetaController(PopUpMoneta view)
+        public PopUpMonetaController(PopUpMoneta view, bool side)
         {
-            side = random.Next(0, 2) == 0;
+            this.side = side;
             Close(view);
         }
 
         public async Task Close(PopUpMoneta view)
         {
-            await Task.Delay(3000);
-            await view.CloseAsync(side);
+            await Task.Delay(8000);
+            await view.CloseAsync();
         }
     }
 }

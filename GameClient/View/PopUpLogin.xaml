@@ -7,13 +7,13 @@
                  Color="Transparent"               
                  CanBeDismissedByTappingOutsideOfPopup="False"
                  x:DataType="Controller:PopUpLoginController">
-    <Frame HeightRequest="170" 
+    <Frame HeightRequest="150" 
            WidthRequest="250" 
            Margin="7" 
            CornerRadius="15" 
            BorderColor="#d8d8d8" 
            BackgroundColor="#d8d8d8">
-        <Frame HeightRequest="160" 
+        <Frame HeightRequest="140" 
                WidthRequest="240" 
                CornerRadius="15" 
                BorderColor="#dfdfdf" 

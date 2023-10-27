@@ -13,6 +13,7 @@ using GameClient.Service;
 using GameClient.View;
 using GameServer.model;
 using Microsoft.VisualBasic;
+using static Android.Views.WindowInsets;
 
 namespace GameClient.Controller
 {
@@ -55,8 +56,10 @@ namespace GameClient.Controller
         [RelayCommand]
         public async Task OpenGameBot()
         {
-            bool startSide = (bool)await _popupService.ShowPopup(new PopUpMoneta());
-            await _navigationService.OpenPage(new GameView(Game.CreateBotGame(CurrentPlayer, startSide)));
+            Random random = new Random();
+            bool side = random.Next(0, 2) == 0;
+            await _popupService.ShowPopup(new PopUpMoneta(side));
+            await _navigationService.OpenPage(new GameView(Game.CreateBotGame(CurrentPlayer, side)));
         }
         [RelayCommand]
         public async Task OpenImpostazioni()

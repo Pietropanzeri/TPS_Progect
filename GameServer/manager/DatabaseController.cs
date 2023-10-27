@@ -78,7 +78,7 @@ public class DatabaseController
                         string resultUsername = reader.GetString(reader.GetOrdinal("username"));
                         int points = reader.IsDBNull(reader.GetOrdinal("point")) ? 0 : reader.GetInt32(reader.GetOrdinal("point"));
 
-                        return new Player { Id = id, SocketId = socketId, UserName = resultUsername, Points = points, Symbol = 'X' };
+                        return new Player { Id = id, SocketId = socketId, UserName = resultUsername, Points = points, Symbol = "X" };
                     }
 
                     return null;

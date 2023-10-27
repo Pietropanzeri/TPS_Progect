@@ -1,9 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Text.Json;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GameClient.Helpers;
 using GameClient.model;
 using GameClient.Model;
+using GameServer.model;
 using WebSocketSharp;
+using Cell = GameClient.Model.Cell;
 
 namespace GameClient.Controller
 {
@@ -32,6 +35,8 @@ namespace GameClient.Controller
             //assegna side a player che va salvato nel programma
             Game = game;
             _mainPageController = ServiceHelper.GetService<MainPageController>();
+            
+            if (Game.IsOnline) _mainPageController.SocketController.SocketClient.OnMessage += OnGameMessage;
 
             if (Game.CurrentUser is Bot bot)
             {
@@ -42,19 +47,43 @@ namespace GameClient.Controller
         }
 
         [RelayCommand]
-        public async Task Select(Cella cella)
+        public async Task Select(Cell cell)
         {
             if (Game.CurrentUser.Id != _mainPageController.CurrentPlayer.Id) return;
-            await ApplicaMossa(cella);
+            if (!cell.Content.IsNullOrEmpty()) return;
+            
+            if (Game.IsOnline)
+            {
+                _mainPageController.SocketController.Send(
+                    new SocketData(DataType.Move, Game.CurrentUser.UserName, Game.Id + ":" + JsonSerializer.Serialize(cell)),
+                    result =>
+                    {
+                        //Todo: In caso di risposta negativa rimuovi il coso (mossa illegale)
+                    });
+            }
+            await ApplicaMossa(cell);
+        }
+        
+        private void OnGameMessage(object sender, MessageEventArgs e)
+        {
+            SocketData data = JsonSerializer.Deserialize<SocketData>(e.Data);
+            if (data == null) return;
+
+            switch (data.DataType)
+            {
+                case DataType.Move:
+                    ApplicaMossa(JsonSerializer.Deserialize<Cell>(data.Data));
+                    break;
+            }
         }
 
-        private async Task<bool> ApplicaMossa(Cella cella)
+        private async Task<bool> ApplicaMossa(Cell cell)
         {
             Utente user = Game.CurrentUser;
             
-            if (!cella.Content.IsNullOrEmpty()) return false;
-            cella.Content = user.Symbol;
+            cell.Content = user.Symbol;
 
+            //TODO: Se e' online dovrebbe fare il server
             (bool, string) CheckWin = Game.CheckWin(user.Symbol);
             if (CheckWin.Item1)
             {

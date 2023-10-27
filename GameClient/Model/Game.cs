@@ -1,23 +1,41 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using GameClient.model;
 using System.Collections.ObjectModel;
+using System.Text.Json.Serialization;
+using CommunityToolkit.Maui.Core.Extensions;
 using WebSocketSharp;
 
 namespace GameClient.Model
 {
     public partial class Game :ObservableObject
     {
-        public ObservableCollection<Cella> Campo { get; set; } = new ObservableCollection<Cella>();
+        public string Id { get; set; }
+        
+        public ObservableCollection<Cell> GameField { get; set; } = new ();
         public Utente[] Players { get; set; }
-
+        
+        [JsonIgnore]
         [ObservableProperty] 
         public bool side;
 
+        [JsonIgnore]
         public Utente CurrentUser { get; set; }
         
+        [JsonIgnore]
         public List<int[]> WinPossibilities { get; set; } = new List<int[]>();
-
+        
+        [JsonIgnore]
         public List<string> WinImages { get; set; } = new List<string>();
+
+        public bool IsOnline { get; set; }
+
+        [JsonConstructor]
+        public Game(string id, Player[] players, List<Cell> gameField, bool side) : this(players.ToArray(), side)
+        {
+            Id = id;
+            GameField = gameField.ToObservableCollection();
+            IsOnline = true;
+        }
         
         public Game(Utente[] players, bool startSide)
         {
@@ -37,16 +55,7 @@ namespace GameClient.Model
                 Players[1].Symbol = "X";
             }
             
-            Campo.Add(new Cella() { Positon = 0 });
-            Campo.Add(new Cella() { Positon = 1 });
-            Campo.Add(new Cella() { Positon = 2 });
-            Campo.Add(new Cella() { Positon = 3 });
-            Campo.Add(new Cella() { Positon = 4 });
-            Campo.Add(new Cella() { Positon = 5 });
-            Campo.Add(new Cella() { Positon = 6 });
-            Campo.Add(new Cella() { Positon = 7 });
-            Campo.Add(new Cella() { Positon = 8 });
-
+            if (GameField.Count == 0) InitializeField();
 
             WinPossibilities.Add(new[] { 0, 1, 2 });
             WinPossibilities.Add(new[] { 3, 4, 5 });
@@ -67,6 +76,19 @@ namespace GameClient.Model
             WinImages.Add("otto.png");
         }
 
+        private void InitializeField()
+        {
+            GameField.Add(new Cell() { Position = 0 });
+            GameField.Add(new Cell() { Position = 1 });
+            GameField.Add(new Cell() { Position = 2 });
+            GameField.Add(new Cell() { Position = 3 });
+            GameField.Add(new Cell() { Position = 4 });
+            GameField.Add(new Cell() { Position = 5 });
+            GameField.Add(new Cell() { Position = 6 });
+            GameField.Add(new Cell() { Position = 7 });
+            GameField.Add(new Cell() { Position = 8 });
+        }
+
         public static Game CreateBotGame(Player player , bool startSide)
         {
             return new Game(new Utente[]
@@ -78,7 +100,7 @@ namespace GameClient.Model
 
         public (bool,string) CheckWin(string symbol)
         {
-            var playerIndex = Campo.Where(c => c.Content == symbol).Select(c =>  c.Positon).ToList();
+            var playerIndex = GameField.Where(c => c.Content == symbol).Select(c =>  c.Position).ToList();
             int n = 0;
             for (int i = 0; i < WinPossibilities.Count; i++)
             {
@@ -102,12 +124,17 @@ namespace GameClient.Model
         public bool CheckDraw()
         {
             int n = 0;
-            foreach (var item in Campo)
+            foreach (var item in GameField)
             {
                 if (item.Content.IsNullOrEmpty())
                     n++;
             }
             return (n == 0);
+        }
+
+        public static Game FromGameTest(GameTest gameTest)
+        {
+            return new Game(gameTest.Id, gameTest.Players, gameTest.GameField, gameTest.Side);
         }
         
     }

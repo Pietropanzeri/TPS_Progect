@@ -11,7 +11,7 @@ public class SocketController
 
     public SocketController()
     {
-        SocketClient = new WebSocket("ws://172.17.4.249:7880/");
+        SocketClient = new WebSocket("ws://192.168.1.53:7880/");
         SocketClient.OnMessage += OnMessage;
     }
 

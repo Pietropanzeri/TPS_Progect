@@ -13,7 +13,6 @@ using GameClient.Service;
 using GameClient.View;
 using GameServer.model;
 using Microsoft.VisualBasic;
-using static Android.Views.WindowInsets;
 
 namespace GameClient.Controller
 {
@@ -48,10 +47,23 @@ namespace GameClient.Controller
                 new SocketData(DataType.MatchMaking, CurrentPlayer.UserName, null),
                 response =>
                 {
-                    _navigationService.OpenPage(
-                        new GameView(JsonSerializer.Deserialize<Game>(response.Data))
-                    );
+                    try
+                    {
+                        //TODO: Sto schifo e' temporaneo :)
+                        GameTest gameTest = JsonSerializer.Deserialize<GameTest>(response.Data);
+                        MainThread.InvokeOnMainThreadAsync(() => 
+                                _navigationService.OpenPage(
+                                    new GameView(Game.FromGameTest(gameTest))
+                                )
+                        );
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
                 });
+            await App.Current.MainPage.DisplayAlert("MatchMaking", "Sei entrato", "OK");
         }
         [RelayCommand]
         public async Task OpenGameBot()

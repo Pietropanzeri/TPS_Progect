@@ -25,6 +25,7 @@ public enum DataType
     Connect,
     Disconnect,
     MatchMaking,
+    Move,
     JoinGame,
     QuitGame
 }

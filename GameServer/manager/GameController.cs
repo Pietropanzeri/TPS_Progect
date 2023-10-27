@@ -30,12 +30,14 @@ public class GameController
 
     private void StartGame(Game game)
     {
-        currentGame.Add(game.ID, game);
+        currentGame.Add(game.Id, game);
         
         foreach (var gamePlayer in game.Players)
         {
+            Player player = (Player)gamePlayer;
+            
             _socketController.ReplyTo(
-                gamePlayer.SocketId, 
+                player.SocketId, 
                 new SocketData(DataType.JoinGame, "Server", JsonSerializer.Serialize(game))
             );
         }
@@ -62,7 +64,11 @@ public class GameController
             case DataType.MatchMaking:
                 MatchMakingHandler(id, data);
                 break;
+            case DataType.Move:
+                MoveHandler(id, data);
+                break;
             case DataType.Disconnect:
+                //TODO: Togliere dal matchmaking ecc (preferibilmente nel disconnect)
                 MessageUtils.Send("Messaggio ricevuto sul disconnect", ConsoleColor.Yellow);
                 break;
         }
@@ -70,6 +76,33 @@ public class GameController
         return null;
     }
 
+    private void MoveHandler(string id, SocketData data)
+    {
+        if (data.Data.IsNullOrEmpty()) return; //Rispondere con errore e quindi non fa la mossa
+        
+        string[] splitted = data.SplitData();
+        
+        string gameId = splitted[0];
+        Cell cell = JsonSerializer.Deserialize<Cell>(splitted[1]);
+
+        Game game = currentGame[gameId];
+        
+        //TODO: Per piu' sicurezza magari controlla anche l'id della socket
+        Cell updatedCell = game.MakeMove(id, cell);
+        if (updatedCell == null)
+        {
+            //Se ritorna falso dare errore etc..
+            return;
+        }
+
+        Player otherPlayer = game.Players[0].SocketId == id ? game.Players[0] : game.Players[1];
+        
+        _socketController.ReplyTo(
+            otherPlayer.SocketId,
+            new SocketData(DataType.Move, "Server", JsonSerializer.Serialize(updatedCell))
+        );
+    }
+    
     private void MatchMakingHandler(string id, SocketData data)
     {
         matchMaking.Add(id);

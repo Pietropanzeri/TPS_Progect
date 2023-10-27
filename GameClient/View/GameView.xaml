@@ -35,12 +35,12 @@
                 <Image Source="{Binding ImmagineWin}" Aspect="Fill"></Image>
                 <Frame BackgroundColor="Transparent" BorderColor="Transparent">
                     
-                    <CollectionView ItemsSource="{Binding Game.Campo}" VerticalOptions="Center" HorizontalOptions="Center">
+                    <CollectionView ItemsSource="{Binding Game.GameField}" VerticalOptions="Center" HorizontalOptions="Center">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Span="3" Orientation="Vertical"/>
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="Model:Cella">
+                            <DataTemplate x:DataType="Model:Cell">
                                 <Frame HeightRequest="80" WidthRequest="80" CornerRadius="0" Margin="10" BackgroundColor="Transparent" BorderColor="Transparent">
                                     <Label Text="{Binding Content}" HorizontalOptions="Center" VerticalOptions="Center"/>
                                     <Frame.GestureRecognizers>

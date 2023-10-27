@@ -2,7 +2,7 @@
 
 public class Player : Utente
 {
-    public string SocketID { get; set; }
+    public string SocketId { get; set; }
 
     public override string ToString()
     {

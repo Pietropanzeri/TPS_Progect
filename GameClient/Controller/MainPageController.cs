@@ -37,7 +37,7 @@ namespace GameClient.Controller
         public void Enable()
         {
             SocketController.Start();
-            _popupService.ShowPopup(new PopUpLogin());
+           
         }
         
         [RelayCommand]

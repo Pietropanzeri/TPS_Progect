@@ -41,7 +41,7 @@
                            ReturnCommand="{Binding EnterCommand}"/>
                 </Frame>
 
-                <Button Text="Gioca come ospite" Command="{Binding OspiteCommand}" BackgroundColor="Transparent" TextColor="Black" FontSize="10" HorizontalOptions="End" Margin="0,-15,0,0"></Button>
+                <Button Text="Gioca come ospite" Command="{Binding OspiteCommand}" BackgroundColor="Transparent" TextColor="Black" FontSize="10" HorizontalOptions="End" Margin="0,-15,0,0" Padding="0"></Button>
 
 
             </VerticalStackLayout>

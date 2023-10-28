@@ -7,4 +7,9 @@
     <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
     <DefaultDevice>pixel_5_-_api_32</DefaultDevice>
   </PropertyGroup>
+  <ItemGroup>
+    <MauiXaml Update="View\PopUpResult.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+  </ItemGroup>
 </Project>

@@ -12,7 +12,14 @@
 
         <Grid RowDefinitions="2*,2*,*" ColumnDefinitions="*,*,*" Grid.ColumnSpan="3" HorizontalOptions="Fill" Margin="10,0,10,0">
             <!--<Image Source="titolo.png" Grid.ColumnSpan="3"></Image>-->
-            <Label Text="{Binding Utente0.UserName}" HorizontalOptions="Center" Grid.Row="2" VerticalOptions="Center" Margin="20,0,0,0"/>
+            <Frame HorizontalOptions="Center" Grid.Row="2" VerticalOptions="Center" Margin="20,0,0,0" BackgroundColor="Transparent" BorderColor="Transparent" Padding="0" CornerRadius="20">
+                <Label Text="{Binding Utente0.UserName}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Frame.Triggers>
+                    <DataTrigger TargetType="Frame" Binding="{Binding Game.Side}" Value="True">
+                        <Setter Property="BackgroundColor" Value="#bfbfbf" />
+                    </DataTrigger>
+                </Frame.Triggers>
+            </Frame>
             <Frame Grid.Column="1" HorizontalOptions="Center"  Grid.Row="2" CornerRadius="50" Padding="0" BackgroundColor="#f6f6f6" BorderColor="Transparent">
                 <Frame.Shadow>
                     <Shadow Brush="Black"
@@ -26,7 +33,14 @@
                         <Label Text="{Binding Utente1.Points}" Grid.Column="2" HorizontalTextAlignment="Center"/>
                     </Grid>
             </Frame>
-            <Label Text="{Binding Utente1.UserName}" Grid.Column="2" HorizontalOptions="Center" Grid.Row="2" VerticalOptions="Center" Margin="0,0,20,0"/>
+            <Frame Grid.Column="2" HorizontalOptions="Center" Grid.Row="2" VerticalOptions="Center" Margin="0,0,20,0" BackgroundColor="Transparent" BorderColor="Transparent" Padding="0" CornerRadius="20">
+                <Label Text="{Binding Utente1.UserName}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Frame.Triggers>
+                    <DataTrigger TargetType="Frame" Binding="{Binding Game.Side}" Value="False">
+                        <Setter Property="BackgroundColor" Value="#bfbfbf" />
+                    </DataTrigger>
+                </Frame.Triggers>
+            </Frame>
         </Grid>
 
         <Frame  Grid.Row="1" BackgroundColor="DimGrey" CornerRadius="40" Margin="20" Padding="0" Grid.ColumnSpan="3">

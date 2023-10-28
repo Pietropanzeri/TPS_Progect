@@ -94,6 +94,9 @@
       <MauiXaml Update="View\PopUpMoneta.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
+      <MauiXaml Update="View\PopUpResult.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
     </ItemGroup>
 
 </Project>

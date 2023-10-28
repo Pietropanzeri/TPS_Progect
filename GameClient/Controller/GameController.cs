@@ -25,7 +25,7 @@ namespace GameClient.Controller
 
         [ObservableProperty]
         Utente utente1;
-
+        
         public GameController(Game game)
         {
             //impostare player e bot per vedere i nomi
@@ -72,9 +72,12 @@ namespace GameClient.Controller
             switch (data.DataType)
             {
                 case DataType.Move:
-                    ApplicaMossa(JsonSerializer.Deserialize<Cell>(data.Data));
+                    Cell cell = JsonSerializer.Deserialize<Cell>(data.Data);
+                    ApplicaMossa(Game.GameField[cell.Position]);
                     break;
             }
+            
+            
         }
 
         private async Task<bool> ApplicaMossa(Cell cell)
@@ -122,6 +125,7 @@ namespace GameClient.Controller
         public async Task Exit()
         {
             await App.Current.MainPage.Navigation.PopAsync();
+            _mainPageController.SocketController.SocketClient.OnMessage -= OnGameMessage;
         }
 
     }

@@ -36,6 +36,7 @@ public class SocketController
         if (data == null) return;
 
         Action<SocketData> action = actionStack.Pop();
+        if (action == null) return;
         action.Invoke(data);
     }
 

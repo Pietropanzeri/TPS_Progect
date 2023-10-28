@@ -95,7 +95,7 @@ public class GameController
             return;
         }
 
-        Player otherPlayer = game.Players[0].SocketId == id ? game.Players[0] : game.Players[1];
+        Player otherPlayer = game.Players[0].SocketId == id ? game.Players[1] : game.Players[0];
         
         _socketController.ReplyTo(
             otherPlayer.SocketId,
@@ -105,6 +105,7 @@ public class GameController
     
     private void MatchMakingHandler(string id, SocketData data)
     {
+        if (matchMaking.Any(socket => socket == id)) return;
         matchMaking.Add(id);
         if (matchMaking.Count < 2) return;
 

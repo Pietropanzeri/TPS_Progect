@@ -1,7 +1,5 @@
-﻿using System;
+﻿using GameClient.Model;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using GameClient.Model;
 using WebSocketSharp;
 using Cell = GameClient.Model.Cell;
 
@@ -10,15 +8,15 @@ namespace GameClient.model;
 public class Bot : Utente
 {
     private Random _random = new Random();
-    
-        public Cell Mossa(Game game)
+
+    public Cell Mossa(Game game)
     {
         while (true)
         {
             int pos = _random.Next(0, 9);
 
             Cell cella = game.GameField[pos];
-            if (cella.Content.IsNullOrEmpty()) 
+            if (cella.Content.IsNullOrEmpty())
                 cella = game.GameField[TrovaMossaIntelligente(game)];
             if (cella.Content.IsNullOrEmpty())
                 return cella;
@@ -56,15 +54,27 @@ public class Bot : Utente
             return 4;
 
         //mette in un angolo
-        int? angoloDisa = TrovaAngoloDisp(campo, vuoto);
-        if (angoloDisa != null)
-            return angoloDisa.Value;
+        bool angoliOpposti = false;
+        if (vuoto == 6)
+            angoliOpposti = ControllAngoli(campo, simboloUtente);
+        if (!angoliOpposti)
+        {
+            int? angoloDisa = TrovaAngoloDisp(campo, vuoto);
+            if (angoloDisa != null)
+                return angoloDisa.Value;
+        }
 
         //mette in un lato
         int? lato = TrovaMossaLato(campo);
         return lato.Value;
 
     }
+    private static bool ControllAngoli(Collection<Cell> campo, string simboloUtente)
+    {
+        return (campo[0].Content == simboloUtente && campo[8].Content == simboloUtente) ||
+           (campo[2].Content == simboloUtente && campo[6].Content == simboloUtente);
+    }
+
     public static int? MossaAttaccoODifesa(List<Cell> campo, string segno)
     {
         #region Cerca orizzontalmente
@@ -121,7 +131,7 @@ public class Bot : Utente
 
         return null; // Nessuna mossa vincente trovata
     }
-    static int? TrovaAngoloDisp(Collection<Cell> campo, int vuoto)
+    private static int? TrovaAngoloDisp(Collection<Cell> campo, int vuoto)
     {
         int[] angoli = { 0, 2, 6, 8 };
         if (vuoto == 8)
@@ -136,7 +146,7 @@ public class Bot : Utente
         }
         return null; // Nessun angolo disponibile
     }
-    static int? TrovaMossaLato(Collection<Cell> campo)
+    private static int? TrovaMossaLato(Collection<Cell> campo)
     {
         int[] lati = { 1, 3, 5, 7 };
         foreach (int lato in lati)

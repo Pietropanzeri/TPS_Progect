@@ -37,7 +37,7 @@ namespace GameClient.Model
             }
 
             return null;
-        }
+        }s
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);

@@ -10,5 +10,21 @@
             Text="{Binding Punti}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding Name}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Image 
+            Source="{Binding Skin_o}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Image 
+            Source="{Binding Skin_x}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <!--va collegato alla musica-->
+        <Slider >    
+            
+        </Slider>
     </VerticalStackLayout>
 </ContentPage>

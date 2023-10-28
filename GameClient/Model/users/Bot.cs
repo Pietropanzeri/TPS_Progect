@@ -11,7 +11,7 @@ public class Bot : Utente
 {
     private Random _random = new Random();
     
-        public Cell Mossa(Game game)
+    public Cell Mossa(Game game)
     {
         while (true)
         {

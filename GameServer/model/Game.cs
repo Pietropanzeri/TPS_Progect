@@ -68,7 +68,7 @@ public class Game
     
     private bool updatePhase()
     {
-        Side = Side;
+        Side = !Side;
         CurrentUser = Side ? Players[0] : Players[1];
 
         return Side;

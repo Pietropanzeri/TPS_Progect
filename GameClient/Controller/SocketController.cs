@@ -35,9 +35,12 @@ public class SocketController
         SocketData data = JsonSerializer.Deserialize<SocketData>(e.Data);
         if (data == null) return;
 
-        Action<SocketData> action = actionStack.Pop();
-        if (action == null) return;
-        action.Invoke(data);
+        if (!data.DataType.Equals(DataType.Move))
+        {
+            Action<SocketData> action = actionStack.Pop();
+            if (action == null) return;
+            action.Invoke(data);
+        }
     }
 
 }

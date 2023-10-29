@@ -19,7 +19,7 @@ public class Bot : Utente
 
             Cell cella = game.GameField[pos];
             if (cella.Content.IsNullOrEmpty()) 
-                cella = game.GameField[TrovaMossaIntelligente(game)];
+                cella = game.GameField[TrovaMossaMedia(game)];
             if (cella.Content.IsNullOrEmpty())
                 return cella;
         }
@@ -28,7 +28,7 @@ public class Bot : Utente
     {
         string simboloBot = game.Players[1].Symbol;
         string simboloUtente = game.Players[0].Symbol;
-        ObservableCollection<Cell> campo = game.GameField;
+        Collection<Cell> campo = game.GameField;
         int vuoto = 0;
         foreach (Cell cella in campo)
             if (cella.Content.IsNullOrEmpty())
@@ -147,5 +147,46 @@ public class Bot : Utente
             }
         }
         return null; // Nessun lato disponibile
+    }
+
+    static int TrovaMossaMedia(Game game) 
+    {
+        string simboloBot = game.Players[1].Symbol;
+        string simboloUtente = game.Players[0].Symbol;
+        Collection<Cell> campo = game.GameField;
+        Random r=new Random();
+        int vuoto = 0;
+        int casella = 0;
+        foreach (Cell cella in campo)
+            if (cella.Content.IsNullOrEmpty())
+                vuoto++;
+
+        if (vuoto == 9)
+        {
+            casella =r.Next(0, 8);
+            //occupa posizione random
+            if (campo[casella].Content.IsNullOrEmpty())
+                return casella;
+        }
+
+        //cerca la possibilità di vincere
+        int? mossaVincente = MossaAttaccoODifesa(campo.ToList(), simboloBot);
+        if (mossaVincente != null)
+            return mossaVincente.Value;
+
+        //cerca blocco
+        int? mossaBloc = MossaAttaccoODifesa(campo.ToList(), simboloUtente);
+        if (mossaBloc != null)
+            return mossaBloc.Value;
+
+        while (true)
+        {
+            casella = r.Next(0, 8);
+            //occupa posizione random
+            if (campo[casella].Content.IsNullOrEmpty())
+                return casella;
+           
+        }
+        
     }
 }

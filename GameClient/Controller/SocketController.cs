@@ -19,7 +19,7 @@ public class SocketController
     {
         try
         {
-            SocketClient.Connect();
+            SocketClient.ConnectAsync();
         }
         catch (Exception e) { }
     }

@@ -61,6 +61,8 @@
       <None Remove="Resources\Images\sei.png" />
       <None Remove="Resources\Images\sette.png" />
       <None Remove="Resources\Images\sfondo.png" />
+      <None Remove="Resources\Images\skin_o.png" />
+      <None Remove="Resources\Images\skin_x.png" />
       <None Remove="Resources\Images\titolo.png" />
       <None Remove="Resources\Images\tre.png" />
       <None Remove="Resources\Images\uno.png" />
@@ -90,6 +92,9 @@
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
       <MauiXaml Update="View\PopUpMoneta.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
+      <MauiXaml Update="View\PopUpResult.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
     </ItemGroup>

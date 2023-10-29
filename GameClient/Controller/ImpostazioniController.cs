@@ -12,9 +12,22 @@ namespace GameClient.Controller
 
         [ObservableProperty]
         int punti;
+        [ObservableProperty]
+        string name;
+
+        [ObservableProperty]
+        string skin_x;
+        [ObservableProperty]
+        string skin_o;
+
         public ImpostazioniController(MainPageController page)
         {
             punti = page.CurrentPlayer.Points;
+            name = page.CurrentPlayer.UserName;
+            Skin_o = "skin_o.png";
+            Skin_x = "skin_x.png";
+
+
         }
     }
 }

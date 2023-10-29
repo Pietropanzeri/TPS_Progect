@@ -8,6 +8,8 @@ public partial class MainPage : ContentPage
 {
 	public MainPage()
 	{
+        Application.Current.UserAppTheme = AppTheme.Light;
+
         InitializeComponent();
         
         MainPageController controller = ServiceHelper.GetService<MainPageController>();

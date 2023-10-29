@@ -4,6 +4,8 @@ using CommunityToolkit.Mvvm.Input;
 using GameClient.Helpers;
 using GameClient.model;
 using GameClient.Model;
+using GameClient.Service;
+using GameClient.View;
 using GameServer.model;
 using WebSocketSharp;
 using Cell = GameClient.Model.Cell;
@@ -12,6 +14,8 @@ namespace GameClient.Controller
 {
     public partial class GameController : ObservableObject
     {
+        private IPopupService _popupService;
+
         [ObservableProperty]
         private Game game;
         
@@ -25,9 +29,10 @@ namespace GameClient.Controller
 
         [ObservableProperty]
         Utente utente1;
-
-        public GameController(Game game)
+        
+        public GameController(Game game, IPopupService popupService)
         {
+            _popupService = popupService;
             //impostare player e bot per vedere i nomi
 
             //trovare come fare per continuare partite e savare numero vittorie
@@ -72,9 +77,12 @@ namespace GameClient.Controller
             switch (data.DataType)
             {
                 case DataType.Move:
-                    ApplicaMossa(JsonSerializer.Deserialize<Cell>(data.Data));
+                    Cell cell = JsonSerializer.Deserialize<Cell>(data.Data);
+                    ApplicaMossa(Game.GameField[cell.Position]);
                     break;
             }
+            
+            
         }
 
         private async Task<bool> ApplicaMossa(Cell cell)
@@ -88,13 +96,13 @@ namespace GameClient.Controller
             if (CheckWin.Item1)
             {
                 ImmagineWin = CheckWin.Item2;
-                await App.Current.MainPage.DisplayAlert("Vittoria", "Ha vinto: " + user.UserName , "OK");
+                await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, user.UserName));
                 await App.Current.MainPage.Navigation.PopAsync();
                 return false;
             }
             if (Game.CheckDraw())
             {
-                await App.Current.MainPage.DisplayAlert("PAREGGIO", "scemo", "OK");
+                await _popupService.ShowPopup(new PopUpResult(GameResult.Pareggio, null));
                 await App.Current.MainPage.Navigation.PopAsync();
                 return false;
             }
@@ -122,6 +130,7 @@ namespace GameClient.Controller
         public async Task Exit()
         {
             await App.Current.MainPage.Navigation.PopAsync();
+            _mainPageController.SocketController.SocketClient.OnMessage -= OnGameMessage;
         }
 
     }

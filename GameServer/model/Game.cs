@@ -57,19 +57,18 @@ public class Game
     public Cell? MakeMove(string socketId, Cell cell)
     {
         if (CurrentUser.SocketId != socketId) return null;
-        if (!GameField[cell.Position - 1].Content.IsNullOrEmpty()) return null;
-
-        GameField[cell.Position - 1].Content = CurrentUser.Symbol;
+        if (!GameField[cell.Position].Content.IsNullOrEmpty()) return null;
+        GameField[cell.Position].Content = CurrentUser.Symbol;
 
         updatePhase();
         
-        return GameField[cell.Position - 1];
+        return GameField[cell.Position];
         //TODO: Check vittoria pareggio
     }
     
     private bool updatePhase()
     {
-        Side = Side;
+        Side = !Side;
         CurrentUser = Side ? Players[0] : Players[1];
 
         return Side;

@@ -12,7 +12,7 @@ public class GameController
     public PlayerController PlayerController { get; }
     
     private Dictionary<string, Game> currentGame = new();
-    private List<string> matchMaking = new();
+    public List<string> MatchMaking { get; set; } = new();
 
     public GameController()
     {
@@ -95,7 +95,7 @@ public class GameController
             return;
         }
 
-        Player otherPlayer = game.Players[0].SocketId == id ? game.Players[0] : game.Players[1];
+        Player otherPlayer = game.Players[0].SocketId == id ? game.Players[1] : game.Players[0];
         
         _socketController.ReplyTo(
             otherPlayer.SocketId,
@@ -105,17 +105,18 @@ public class GameController
     
     private void MatchMakingHandler(string id, SocketData data)
     {
-        matchMaking.Add(id);
-        if (matchMaking.Count < 2) return;
+        if (MatchMaking.Any(socket => socket == id)) return;
+        MatchMaking.Add(id);
+        if (MatchMaking.Count < 2) return;
 
         StartGame(
             new Game(new[]
             {
-                PlayerController.OnlinePlayers[matchMaking[0]],
-                PlayerController.OnlinePlayers[matchMaking[1]]
+                PlayerController.OnlinePlayers[MatchMaking[0]],
+                PlayerController.OnlinePlayers[MatchMaking[1]]
             })
         );
         
-        matchMaking.RemoveRange(0, 2);
+        MatchMaking.RemoveRange(0, 2);
     }
 }

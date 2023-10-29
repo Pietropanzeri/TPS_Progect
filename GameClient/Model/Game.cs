@@ -3,6 +3,7 @@ using GameClient.model;
 using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 using CommunityToolkit.Maui.Core.Extensions;
+using GameClient.Helpers;
 using WebSocketSharp;
 
 namespace GameClient.Model
@@ -13,6 +14,7 @@ namespace GameClient.Model
         
         public ObservableCollection<Cell> GameField { get; set; } = new ();
         public Utente[] Players { get; set; }
+        public int[] GamePoints { get; set; }
         
         [JsonIgnore]
         [ObservableProperty] 
@@ -20,6 +22,10 @@ namespace GameClient.Model
 
         [JsonIgnore]
         public Utente CurrentUser { get; set; }
+        
+        [JsonIgnore]
+        [ObservableProperty]
+        string immagineWin;
         
         [JsonIgnore]
         public List<int[]> WinPossibilities { get; set; } = new List<int[]>();
@@ -41,6 +47,7 @@ namespace GameClient.Model
         {
             Players = players;
             Side = startSide;
+            ImmagineWin = null;
 
             if (Side)
             {
@@ -132,6 +139,10 @@ namespace GameClient.Model
             return (n == 0);
         }
 
+        public Game ResetGame()
+        {
+            return new Game(Players, RandomHelper.RandomBool());
+        }
         public static Game FromGameTest(GameTest gameTest)
         {
             return new Game(gameTest.Id, gameTest.Players, gameTest.GameField, gameTest.Side);

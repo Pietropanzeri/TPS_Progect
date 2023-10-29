@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Maui.Views;
+using GameClient.Helpers;
 using GameClient.model;
 using GameClient.Model;
 using GameClient.Service;
@@ -37,7 +38,7 @@ namespace GameClient.Controller
         public void Enable()
         {
             SocketController.Start();
-           
+            _popupService.ShowPopup(new PopUpLogin());
         }
         
         [RelayCommand]
@@ -68,8 +69,7 @@ namespace GameClient.Controller
         [RelayCommand]
         public async Task OpenGameBot()
         {
-            Random random = new Random();
-            bool side = random.Next(0, 2) == 0;
+            bool side = RandomHelper.RandomBool();
             await _popupService.ShowPopup(new PopUpMoneta(side));
             await _navigationService.OpenPage(new GameView(Game.CreateBotGame(CurrentPlayer, side)));
         }
@@ -81,7 +81,16 @@ namespace GameClient.Controller
         [RelayCommand]
         public async Task OpenClassifica()
         {
-            await _navigationService.OpenPage(new Classifica());
+            SocketController.Send(
+                new SocketData(DataType.Top, CurrentPlayer.UserName, null),
+                result =>
+                {
+                    List<Player> topPlayer = JsonSerializer.Deserialize<List<Player>>(result.Data);
+                    MainThread.InvokeOnMainThreadAsync(() => 
+                            _navigationService.OpenPage(new Classifica(topPlayer))
+                    );
+                }
+            );
         }
 
 

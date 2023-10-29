@@ -23,6 +23,8 @@ namespace GameClient.Controller
         [ObservableProperty]
         string username;
 
+        [ObservableProperty] private string error;
+
         [RelayCommand]
         public Task Exit()
         {
@@ -38,6 +40,13 @@ namespace GameClient.Controller
                new SocketData(DataType.Connect, Username, null),
                response =>
                {
+                   if (response.DataType.Equals(DataType.Error))
+                   {
+                       Username = null;
+                       Error = response.Data;
+                       return;
+                   }
+                   
                    Player player = JsonSerializer.Deserialize<Player>(response.Data);
                    _mainPage.CurrentPlayer = player;
 

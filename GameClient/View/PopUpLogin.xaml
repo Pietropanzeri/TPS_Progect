@@ -40,6 +40,7 @@
                            Margin="0"
                            ReturnCommand="{Binding EnterCommand}"/>
                 </Frame>
+                <Label Text="{Binding Error}" FontSize="10" TextColor="Red"/>
 
                 <Button Text="Gioca come ospite" Command="{Binding OspiteCommand}" BackgroundColor="Transparent" TextColor="Black" FontSize="10" HorizontalOptions="End" Margin="0,-15,0,0" Padding="0"></Button>
 

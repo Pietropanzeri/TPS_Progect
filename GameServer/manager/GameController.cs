@@ -8,7 +8,7 @@ namespace GameServer.manager;
 public class GameController
 {
     private SocketController _socketController;
-    private DatabaseController _databaseController;
+    public DatabaseController DatabaseController;
     public PlayerController PlayerController { get; }
     
     private Dictionary<string, Game> currentGame = new();
@@ -17,7 +17,7 @@ public class GameController
     public GameController()
     {
         _socketController = new SocketController(this);
-        _databaseController = new DatabaseController(this);
+        DatabaseController = new DatabaseController(this);
         PlayerController = new PlayerController();
     }
 
@@ -51,8 +51,11 @@ public class GameController
         switch (data.DataType)
         {
             case DataType.Connect:
+                if (PlayerController.OnlinePlayers.Values.Any(player => player.UserName == data.UserName))
+                    return new SocketData(DataType.Error, "Server", "Esiste gia' un utente online con quel nome");
+                
                 //TODO: Spostare in un metodo a parte e fare tutti i check se l'utente e' gia' connesso
-                _databaseController.LoadPlayer(id, data.UserName).ContinueWith(task =>
+                DatabaseController.LoadPlayer(id, data.UserName).ContinueWith(task =>
                 {
                     //TODO: Il player contiene anche socketId vedere come caricarlo
                     Player player = task.Result;
@@ -70,6 +73,18 @@ public class GameController
             case DataType.Disconnect:
                 //TODO: Togliere dal matchmaking ecc (preferibilmente nel disconnect)
                 MessageUtils.Send("Messaggio ricevuto sul disconnect", ConsoleColor.Yellow);
+                break;
+            case DataType.Top:
+                DatabaseController.GetPlayerTop().ContinueWith(result =>
+                {
+                    _socketController.ReplyTo(id,
+                            new SocketData(
+                                DataType.Top,
+                                "Server",
+                                JsonSerializer.Serialize(result.Result)
+                        )
+                    );
+                });
                 break;
         }
 
@@ -110,7 +125,7 @@ public class GameController
         if (MatchMaking.Count < 2) return;
 
         StartGame(
-            new Game(new[]
+            new Game(this, new[]
             {
                 PlayerController.OnlinePlayers[MatchMaking[0]],
                 PlayerController.OnlinePlayers[MatchMaking[1]]

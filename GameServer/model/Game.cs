@@ -1,10 +1,13 @@
 ﻿using System.Text.Json.Serialization;
+using GameServer.manager;
 using WebSocketSharp;
 
 namespace GameServer.model;
 
 public class Game
 {
+    [JsonIgnore] private GameController _gameController;
+    
     public String Id { get; set; } = Guid.NewGuid().ToString();
     public Player[] Players { get; set; }
     public List<Cell> GameField { get; set; } = new();
@@ -17,8 +20,10 @@ public class Game
     [JsonIgnore]
     public List<int[]> WinPossibilities { get; set; } = new List<int[]>();
 
-    public Game(Player[] players)
+    public Game(GameController gameController, Player[] players)
     {
+        _gameController = gameController;
+        
         Players = players;
         
         if (Side)
@@ -60,6 +65,12 @@ public class Game
         if (!GameField[cell.Position].Content.IsNullOrEmpty()) return null;
         GameField[cell.Position].Content = CurrentUser.Symbol;
 
+        if (CheckWin(CurrentUser.Symbol))
+        {
+            CurrentUser.Points++;
+            _gameController.DatabaseController.UpdatePoints(CurrentUser.Id, CurrentUser.Points);
+        }
+        
         updatePhase();
         
         return GameField[cell.Position];

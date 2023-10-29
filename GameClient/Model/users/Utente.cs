@@ -1,9 +1,12 @@
-﻿namespace GameClient.model;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-public class Utente
+namespace GameClient.model;
+
+public partial class Utente : ObservableObject
 {
     public int Id { get; set; }
     public string UserName { get; set; } = "Bot";
     public string Symbol { get; set; }
+
     public int Points { get; set; }
 }

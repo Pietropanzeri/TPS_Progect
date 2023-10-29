@@ -27,9 +27,9 @@
                         Opacity="0.8"/>
                 </Frame.Shadow>
                     <Grid ColumnDefinitions="*,*,*" HorizontalOptions="Fill" VerticalOptions="Center">
-                        <Label Text="{Binding Utente0.Points}" HorizontalTextAlignment="Center"/>
+                        <Label Text="{Binding Points0}" HorizontalTextAlignment="Center"/>
                         <Label Text=" - " Grid.Column="1" HorizontalTextAlignment="Center"/>
-                        <Label Text="{Binding Utente1.Points}" Grid.Column="2" HorizontalTextAlignment="Center"/>
+                        <Label Text="{Binding Points1}" Grid.Column="2" HorizontalTextAlignment="Center"/>
                     </Grid>
             </Frame>
             <Frame Grid.Column="2" HorizontalOptions="Center" Grid.Row="2" VerticalOptions="Center" Margin="0,0,20,0" BackgroundColor="Transparent" BorderColor="Transparent" Padding="0" CornerRadius="20">
@@ -63,7 +63,7 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </Frame>
-                <Image Source="{Binding ImmagineWin}" Aspect="Fill"></Image>
+                <Image Source="{Binding Game.ImmagineWin}" Aspect="Fill"></Image>
             </Grid>
         </Frame>
         <Button Grid.Row="2" Grid.ColumnSpan="3" HeightRequest="40" WidthRequest="100" VerticalOptions="Start" BackgroundColor="Gray" CornerRadius="50" Text="ESCI" Command="{Binding ExitCommand}">

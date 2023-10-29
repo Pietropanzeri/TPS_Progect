@@ -21,14 +21,12 @@ namespace GameClient.Controller
         
         private MainPageController _mainPageController;
 
-        [ObservableProperty]
-        string immagineWin;
+        [ObservableProperty] Utente utente0;
+        [ObservableProperty] int points0;
 
-        [ObservableProperty]
-        Utente utente0;
-
-        [ObservableProperty]
-        Utente utente1;
+        [ObservableProperty] private Utente utente1;
+        [ObservableProperty] private int points1;
+        
         
         public GameController(Game game, IPopupService popupService)
         {
@@ -41,6 +39,11 @@ namespace GameClient.Controller
             Game = game;
             _mainPageController = ServiceHelper.GetService<MainPageController>();
             
+            StartGame();
+        }
+
+        private void StartGame()
+        {
             if (Game.IsOnline) _mainPageController.SocketController.SocketClient.OnMessage += OnGameMessage;
 
             if (Game.CurrentUser is Bot bot)
@@ -81,8 +84,6 @@ namespace GameClient.Controller
                     ApplicaMossa(Game.GameField[cell.Position]);
                     break;
             }
-            
-            
         }
 
         private async Task<bool> ApplicaMossa(Cell cell)
@@ -95,15 +96,36 @@ namespace GameClient.Controller
             (bool, string) CheckWin = Game.CheckWin(user.Symbol);
             if (CheckWin.Item1)
             {
-                ImmagineWin = CheckWin.Item2;
+                Game.ImmagineWin = CheckWin.Item2;
+
+                if (Game.Side)
+                {
+                    Points0 += 1;
+                    Points1 = Math.Max(0, Points1 - 1);
+                }
+                else
+                {
+                    Points0 = Math.Max(0, Points0 - 1);
+                    Points1 += 1;
+                }
+                
                 await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, user.UserName));
-                await App.Current.MainPage.Navigation.PopAsync();
+                if (!Game.IsOnline)
+                {
+                    Game = Game.ResetGame();
+                    StartGame();
+                }
                 return false;
             }
             if (Game.CheckDraw())
             {
                 await _popupService.ShowPopup(new PopUpResult(GameResult.Pareggio, null));
-                await App.Current.MainPage.Navigation.PopAsync();
+                //await App.Current.MainPage.Navigation.PopAsync();
+                if (!Game.IsOnline)
+                {
+                    Game = Game.ResetGame();
+                    StartGame();
+                }
                 return false;
             }
 
@@ -129,6 +151,12 @@ namespace GameClient.Controller
         [RelayCommand]
         public async Task Exit()
         {
+            if (Game.IsOnline)
+            {
+                int points = _mainPageController.CurrentPlayer.Id == Utente0.Id ? Points0 : Points1;
+                _mainPageController.CurrentPlayer.Points = points;
+            }
+            
             await App.Current.MainPage.Navigation.PopAsync();
             _mainPageController.SocketController.SocketClient.OnMessage -= OnGameMessage;
         }

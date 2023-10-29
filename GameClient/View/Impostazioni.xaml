@@ -4,27 +4,83 @@
              x:Class="GameClient.View.Impostazioni"
              Title="Impostazioni"
              xmlns:Controler ="clr-namespace:GameClient.Controller"
-             x:DataType="Controler:ImpostazioniController">
-    <VerticalStackLayout>
-        <Label 
-            Text="{Binding Punti}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding Name}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Image 
-            Source="{Binding Skin_o}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Image 
-            Source="{Binding Skin_x}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <!--va collegato alla musica-->
-        <Slider >    
-            
-        </Slider>
-    </VerticalStackLayout>
+             x:DataType="Controler:ImpostazioniController"
+             Shell.NavBarIsVisible="False">
+    <Grid RowDefinitions="*,*,*,*">
+
+        <Frame CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}">
+            <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+                <Label                    
+                    Grid.Row="1"
+                    Text="Punti:"                
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="{Binding Punti}"
+                    VerticalOptions="Center" 
+                        HorizontalOptions="Center" />
+                <Label
+                    Text="UserName:"                
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding Name}"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+            </Grid>
+
+        </Frame>
+        <Frame Grid.Row="1" CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}">
+            <Grid ColumnDefinitions="*,*" RowDefinitions="auto,*,*,*">
+                <Label
+                    Text="Difficoltà Bot:"  
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <RadioButton Grid.Row="1">
+                    
+                </RadioButton>
+                <RadioButton Grid.Row="2">
+
+                </RadioButton>
+                <RadioButton Grid.Row="3">
+
+                </RadioButton>
+
+            </Grid>
+        </Frame>
+        <Frame Grid.Row="2" CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}">
+            <Grid ColumnDefinitions="*,*" RowDefinitions="auto,*">
+                <Label
+                    Text="Skin:"  
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Image Grid.Row="1"
+                    Source="{Binding Skin_x}"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Image Grid.Column="1" Grid.Row="1"
+                    Source="{Binding Skin_o}"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+            </Grid>
+        </Frame>
+        <Frame  Grid.Row="3" CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}">
+            <!--va collegato alla musica-->
+            <Grid RowDefinitions="auto,*" Grid.Row="2" >
+                <Label 
+                    Text="Volume:"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Slider Grid.Row="1" Maximum="100" ThumbColor="{StaticResource Black}"/>
+            </Grid>
+        </Frame>
+
+    </Grid>
 </ContentPage>

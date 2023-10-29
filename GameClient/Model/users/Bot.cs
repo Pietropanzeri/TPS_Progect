@@ -16,14 +16,14 @@ public class Bot : Utente
 
             Cell cella = game.GameField[pos];
             if (cella.Content.IsNullOrEmpty())
-                cella = game.GameField[TrovaMossaIntelligente(game)];
+                cella = game.GameField[TrovaMossaImpossibile(game)];
             //  cella = game.GameField[TrovaMossaMedia(game)];
 
             if (cella.Content.IsNullOrEmpty())
                 return cella;
         }
     }
-    static int TrovaMossaIntelligente(Game game)
+    static int TrovaMossaImpossibile(Game game)
     {
         string simboloBot = game.Players[1].Symbol;
         string simboloUtente = game.Players[0].Symbol;

@@ -12,11 +12,11 @@ namespace GameClient.Model
     {
         public int Position { get; set; }
 
-        private ImpostazioniController impostazioni = ServiceHelper.GetService<ImpostazioniController>();
+        private ImpostazioniController impostazioniController = ServiceHelper.GetService<ImpostazioniController>();
 
         [JsonIgnore]
         [ObservableProperty]
-        public string skin;
+        public ImageSource skin;
 
 
         private string content;
@@ -45,10 +45,10 @@ namespace GameClient.Model
             switch (Content)
             {
                 case "X":
-                    Skin = impostazioni.Skin_x;
+                    Skin = impostazioniController.Skin.X;
                     break;
                 case "O":
-                    Skin = impostazioni.Skin_o;
+                    Skin = impostazioniController.Skin.O;
                     break;
             }
 

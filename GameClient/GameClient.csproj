@@ -32,12 +32,12 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appicon.svg" Color="#F9F7EB" />
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-
-        <!-- Images -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#F9F7EB" />
+        
+		<!-- Images -->
         <MauiImage Include="Resources\Images\*" />
         <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
@@ -54,6 +54,7 @@
       <None Remove="Resources\Images\classifica.png" />
       <None Remove="Resources\Images\coinflip.gif" />
       <None Remove="Resources\Images\due.png" />
+      <None Remove="Resources\Images\heder.png" />
       <None Remove="Resources\Images\impostazioni.png" />
       <None Remove="Resources\Images\login.png" />
       <None Remove="Resources\Images\otto.png" />
@@ -66,6 +67,8 @@
       <None Remove="Resources\Images\titolo.png" />
       <None Remove="Resources\Images\tre.png" />
       <None Remove="Resources\Images\uno.png" />
+      <None Remove="Resources\Splash\splash.svg" />
+      <None Remove="Resources\Splash\splash_logo.svg" />
     </ItemGroup>
 
     <ItemGroup>

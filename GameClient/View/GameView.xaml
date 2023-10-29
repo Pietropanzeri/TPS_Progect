@@ -9,9 +9,8 @@
              Shell.NavBarIsVisible="False">
     <Grid RowDefinitions="*,AUTO,*" ColumnDefinitions="*,*,*">
 
-
+        <Image Source="heder.png" Grid.ColumnSpan="3" Margin="0,0,0,40"></Image>
         <Grid RowDefinitions="2*,2*,*" ColumnDefinitions="*,*,*" Grid.ColumnSpan="3" HorizontalOptions="Fill" Margin="10,0,10,0">
-            <!--<Image Source="titolo.png" Grid.ColumnSpan="3"></Image>-->
             <Frame HorizontalOptions="Center" Grid.Row="2" VerticalOptions="Center" Margin="20,0,0,0" BackgroundColor="Transparent" BorderColor="Transparent" Padding="0" CornerRadius="20">
                 <Label Text="{Binding Utente0.UserName}" HorizontalOptions="Center" VerticalOptions="Center"/>
                 <Frame.Triggers>

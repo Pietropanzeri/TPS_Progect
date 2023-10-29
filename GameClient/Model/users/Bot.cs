@@ -17,6 +17,8 @@ public class Bot : Utente
             Cell cella = game.GameField[pos];
             if (cella.Content.IsNullOrEmpty())
                 cella = game.GameField[TrovaMossaIntelligente(game)];
+            //  cella = game.GameField[TrovaMossaMedia(game)];
+
             if (cella.Content.IsNullOrEmpty())
                 return cella;
         }

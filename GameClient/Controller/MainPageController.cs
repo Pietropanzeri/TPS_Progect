@@ -51,10 +51,10 @@ namespace GameClient.Controller
                     try
                     {
                         //TODO: Sto schifo e' temporaneo :)
-                        GameTest gameTest = JsonSerializer.Deserialize<GameTest>(response.Data);
+                        GameSerializer gameSerializer = JsonSerializer.Deserialize<GameSerializer>(response.Data);
                         MainThread.InvokeOnMainThreadAsync(() => 
                                 _navigationService.OpenPage(
-                                    new GameView(Game.FromGameTest(gameTest))
+                                    new GameView(Game.FromGameTest(gameSerializer))
                                 )
                         );
                     }

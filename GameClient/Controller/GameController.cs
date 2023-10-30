@@ -95,8 +95,8 @@ namespace GameClient.Controller
                     ApplicaMossa(Game.GameField[cell.Position]);
                     break;
                 case DataType.Restart:
-                    GameTest gameTest = JsonSerializer.Deserialize<GameTest>(data.Data);
-                    Game = Game.FromGameTest(gameTest);
+                    GameSerializer gameSerializer = JsonSerializer.Deserialize<GameSerializer>(data.Data);
+                    Game = Game.FromGameTest(gameSerializer);
                     StartGame();
                     break;
             }
@@ -109,7 +109,7 @@ namespace GameClient.Controller
             cell.Content = user.Symbol;
 
             //TODO: Se e' online dovrebbe fare il server
-            (GameResult, string) CheckWin = Game.CheckWin(user.Symbol);
+            (GameResult, string) CheckWin = Game.CheckWin(_mainPageController, user.Symbol);
             if (CheckWin.Item1 == GameResult.Vittoria)
             {
                 Game.WinImage = CheckWin.Item2;

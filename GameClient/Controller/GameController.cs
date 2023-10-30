@@ -113,21 +113,16 @@ namespace GameClient.Controller
             if (CheckWin.Item1 == GameResult.Vittoria)
             {
                 Game.WinImage = CheckWin.Item2;
-
-                if (Game.Side)
-                {
-                    Points0 += 1;
-                    Points1 = Math.Max(0, Points1 - 1);
-                }
-                else
-                {
-                    Points0 = Math.Max(0, Points0 - 1);
-                    Points1 += 1;
-                }
+                
+                Points0 += 1;
+                Points1 = Math.Max(0, Points1 - 1);
                 
                 await MainThread.InvokeOnMainThreadAsync(async () => 
-                    await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, null))
+                    await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, user.UserName))
                 );
+                
+                updatePhase();
+                
                 if (!Game.IsOnline)
                 {
                     Game = Game.ResetGame();
@@ -141,6 +136,8 @@ namespace GameClient.Controller
                     await _popupService.ShowPopup(new PopUpResult(GameResult.Pareggio, null))
                 );
                 //await App.Current.MainPage.Navigation.PopAsync();
+                updatePhase();
+                
                 if (!Game.IsOnline)
                 {
                     Game = Game.ResetGame();
@@ -152,11 +149,24 @@ namespace GameClient.Controller
             {
                 Game.WinImage = CheckWin.Item2;
                 
+                Points0 = Math.Max(0, Points0 - 1);
+                Points1 += 1;
+                
                 await MainThread.InvokeOnMainThreadAsync(async () => 
                         await _popupService.ShowPopup(new PopUpResult(GameResult.Sconfitta, null))
                 );
-            }
+                
+                updatePhase();
+                
+                if (!Game.IsOnline)
+                {
+                    Game = Game.ResetGame();
+                    StartGame();
+                }
 
+                return false;
+            }
+            
             updatePhase();
             
             if (Game.CurrentUser is Bot bot)

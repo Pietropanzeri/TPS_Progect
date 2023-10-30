@@ -133,7 +133,9 @@ namespace GameClient.Model
             {
                 if (item.Content.IsNullOrEmpty())
                     n++;
+                
             }
+            if (n == 0) return (GameResult.Pareggio, null);
             return(GameResult.Ongoing, null);
 
         }

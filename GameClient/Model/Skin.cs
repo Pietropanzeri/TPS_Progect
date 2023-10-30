@@ -7,13 +7,10 @@ using System.Threading.Tasks;
 
 namespace GameClient.Model
 {
-    public partial class Skin : ObservableObject
+    public class Skin
     {
-        [ObservableProperty]
-        ImageSource x;
-
-        [ObservableProperty]
-        ImageSource o;
+        public ImageSource X { get; set; }
+        public ImageSource O { get; set; }
 
         public Skin(DirectoryInfo directory)
         {

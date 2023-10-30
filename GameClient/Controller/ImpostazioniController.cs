@@ -17,9 +17,8 @@ namespace GameClient.Controller
         int punti;
         [ObservableProperty]
         string name;
-
-        [ObservableProperty]
-        Skin skin;
+        
+        public Skin Skin { get; set; }
 
         public ObservableCollection<Skin> Skins { get; set; } = new ObservableCollection<Skin>();
 
@@ -31,9 +30,9 @@ namespace GameClient.Controller
             punti = page.CurrentPlayer.Points;
             name = page.CurrentPlayer.UserName;
             Skins.Add(new Skin() { O = "skin_o", X = "skin_x" });
-            SkinMenager();
+            SkinManager();
         }
-        public void SkinMenager()
+        public void SkinManager()
         {
             DirectoryInfo skinDirectory = new DirectoryInfo(ThemeDirectory);
             if (!skinDirectory.Exists) skinDirectory.Create();
@@ -41,6 +40,8 @@ namespace GameClient.Controller
             {
                 Skins.Add(new Skin(directory));
             }
+
+            Skin = Skins[0];
         }
 
         [RelayCommand]

@@ -5,7 +5,6 @@ using GameServer.model;
 using GameServer.utils;
 using WebSocketSharp;
 using WebSocketSharp.Server;
-using ErrorEventArgs = WebSocketSharp.ErrorEventArgs;
 
 namespace GameServer.manager;
 
@@ -23,8 +22,8 @@ public class SocketController
 
         //TODO: Carino forse da rivedere :)
         string ip = GetIpAddress().ToString();
-        _server = new WebSocketServer("ws://" + ip + ":7880");
-        //_server = new WebSocketServer("ws://172.17.4.249:7880");
+        //_server = new WebSocketServer("ws://" + ip + ":7880");
+        _server = new WebSocketServer("ws://172.17.4.249:7880");
         
         MessageUtils.Send("Connesso con ip: " + _server.Address, ConsoleColor.Magenta);
     }

@@ -140,6 +140,7 @@ public class GameController
                     new SocketData(DataType.Restart, "Server", JsonSerializer.Serialize(newGame))
                 );
             }
+            return;
         }
         
         game.updatePhase();

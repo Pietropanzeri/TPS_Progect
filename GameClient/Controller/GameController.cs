@@ -125,7 +125,9 @@ namespace GameClient.Controller
                     Points1 += 1;
                 }
                 
-                await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, user.UserName));
+                await MainThread.InvokeOnMainThreadAsync(async () => 
+                    await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, null))
+                );
                 if (!Game.IsOnline)
                 {
                     Game = Game.ResetGame();
@@ -135,7 +137,9 @@ namespace GameClient.Controller
             }
             if (CheckWin.Item1 == GameResult.Pareggio)
             {
-                await _popupService.ShowPopup(new PopUpResult(GameResult.Pareggio, null));
+                await MainThread.InvokeOnMainThreadAsync(async () => 
+                    await _popupService.ShowPopup(new PopUpResult(GameResult.Pareggio, null))
+                );
                 //await App.Current.MainPage.Navigation.PopAsync();
                 if (!Game.IsOnline)
                 {
@@ -146,7 +150,11 @@ namespace GameClient.Controller
             }
             if(CheckWin.Item1 == GameResult.Sconfitta)
             {
-                await _popupService.ShowPopup(new PopUpResult(GameResult.Sconfitta, null));
+                Game.WinImage = CheckWin.Item2;
+                
+                await MainThread.InvokeOnMainThreadAsync(async () => 
+                        await _popupService.ShowPopup(new PopUpResult(GameResult.Sconfitta, null))
+                );
             }
 
             updatePhase();

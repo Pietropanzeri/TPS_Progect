@@ -108,7 +108,7 @@ namespace GameClient.Model
             }, startSide);
         }
 
-        public (GameResult,string) CheckWin(MainPageController _mainPage, string symbol)
+        public (GameResult,string) CheckWin(MainPageController mainPage, string symbol)
         {
             var playerIndex = GameField.Where(c => c.Content == symbol).Select(c =>  c.Position).ToList();
             int n = 0;
@@ -122,7 +122,7 @@ namespace GameClient.Model
                     }
                     if (n >= 3)
                     {
-                        (GameResult, string) risultato = (_mainPage.CurrentPlayer.Id == CurrentUser.Id ? GameResult.Vittoria : GameResult.Sconfitta, WinImages[i]);
+                        var risultato = (mainPage.CurrentPlayer.Id == CurrentUser.Id ? GameResult.Vittoria : GameResult.Sconfitta, WinImages[i]);
                         return risultato;
                     }
                 }

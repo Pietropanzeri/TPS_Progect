@@ -15,19 +15,19 @@
     <Grid IgnoreSafeArea="True">
         <Image Source="sfondo.png" Aspect="AspectFill"/>
         <Grid RowDefinitions="*,auto,*" Margin="0">
-        <Frame Grid.Row="0" Padding="0" CornerRadius="0" BorderColor="Transparent" BackgroundColor="Transparent">
-            <VerticalStackLayout>
-                <Frame WidthRequest="20" HeightRequest="20" CornerRadius="10" Margin="10,0,0,0" HorizontalOptions="End" BackgroundColor="Gray" BorderColor="Transparent">
-                    <Frame.Triggers>
-                        <DataTrigger TargetType="Frame" Binding="{Binding SocketController.IsConnected}" Value="True">
-                            <Setter Property="BackgroundColor" Value="Green" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Frame" Binding="{Binding SocketController.IsConnected}" Value="False">
-                            <Setter Property="BackgroundColor" Value="Red" />
-                        </DataTrigger>
-                    </Frame.Triggers>
-                </Frame>
+            <Frame Grid.Row="0" Padding="0" CornerRadius="0" BorderColor="Transparent" BackgroundColor="Transparent">
+                
                 <Grid RowDefinitions="*,*,*">
+                    <Frame WidthRequest="20" HeightRequest="20" CornerRadius="10" Margin="10,0,0,0" HorizontalOptions="End" BackgroundColor="Gray" BorderColor="Transparent">
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame" Binding="{Binding SocketController.IsConnected}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Frame" Binding="{Binding SocketController.IsConnected}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Frame.Triggers>
+                    </Frame>
                     <Grid
                         RowDefinitions="70,70"
                         ColumnDefinitions="*,10"
@@ -48,7 +48,7 @@
                                      CornerRadius="10"
                                      BackgroundColor="#ededed"
                                      Command="{Binding OpenImpostazioniCommand}"/>
-                    
+
                         <ImageButton Grid.Row="1" Grid.ColumnSpan="2"
                                      Source="classifica.png" 
                                      BackgroundColor="#ededed"
@@ -57,9 +57,8 @@
                                      HeightRequest="70"
                                      Command="{Binding OpenClassificaCommand}"/>
                     </Grid>
-                
+
                 </Grid>
-            </VerticalStackLayout>
                 <Frame.GestureRecognizers>
                 <TapGestureRecognizer
                     Command="{Binding OpenGameBotCommand}"/>

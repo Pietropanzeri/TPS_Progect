@@ -89,11 +89,19 @@ namespace GameClient.Controller
         private async Task<bool> ApplicaMossa(Cell cell)
         {
             Utente user = Game.CurrentUser;
-            
+
             cell.Content = user.Symbol;
 
+            Utente utenteAvv = new Utente();
+
             //TODO: Se e' online dovrebbe fare il server
+            if (user.Symbol == Game.Players[0].Symbol)
+                utenteAvv.Symbol = Game.Players[1].Symbol;
+            else
+                utenteAvv.Symbol = Game.Players[0].Symbol;
+
             (bool, string) CheckWin = Game.CheckWin(user.Symbol);
+            (bool, string) CheckLose = Game.CheckWin(utenteAvv.Symbol);
             if (CheckWin.Item1)
             {
                 Game.ImmagineWin = CheckWin.Item2;
@@ -116,6 +124,14 @@ namespace GameClient.Controller
                     StartGame();
                 }
                 return false;
+            }
+            if (Game.IsOnline)
+            {
+                if (CheckLose.Item1)
+                {
+                    Game.ImmagineWin = CheckLose.Item2;
+                    await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, user.UserName));
+                }
             }
             if (Game.CheckDraw())
             {

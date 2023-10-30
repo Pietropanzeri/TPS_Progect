@@ -10,6 +10,7 @@ namespace GameClient.Controller
     public enum GameResult
     {
         Vittoria,
+        Sconfitta,
         Pareggio
     }
     public partial class PopUpResultController : ObservableObject
@@ -25,6 +26,9 @@ namespace GameClient.Controller
                     break;
                  case GameResult.Pareggio:
                     this.result = "Pareggio";
+                    break;
+                case GameResult.Sconfitta:
+                    this.result = "Hai Perso";
                     break;
             }
         }

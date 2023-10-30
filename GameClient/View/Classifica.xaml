@@ -5,24 +5,56 @@
              xmlns:model="clr-namespace:GameClient.model"
              x:Class="GameClient.View.Classifica"
              x:DataType="controller:ClassificaController"
-             Title="Classifica">
-    <VerticalStackLayout>
-        <CollectionView ItemsSource="{Binding TopPlayers}" VerticalOptions="Center" HorizontalOptions="Center">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Player">
-                    <Frame HeightRequest="80" CornerRadius="0" Margin="10" BackgroundColor="Transparent" BorderColor="Transparent">
-                        <HorizontalStackLayout>
-                            <Label Text="{Binding UserName}"/>
-                            <Label Text="{Binding Points}"/>
-                        </HorizontalStackLayout>
-                        <!--
-                        Puoi vedere il profilo del player?
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:GameController}}, Path=SelectCommand}"/>
-                        </Frame.GestureRecognizers>-->
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+             Title="Classifica"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="LightBlue">
+    <VerticalStackLayout Margin="10">
+        <Grid ColumnDefinitions="*,*,*">
+            <Frame WidthRequest="200" HeightRequest="200" Grid.Column="1" BackgroundColor="Gold" CornerRadius="50" BorderColor="Black">
+                <Image Source="classifica.png" ></Image>
+            </Frame>
+        </Grid>
+
+        <Frame HeightRequest="525" Margin="10" BackgroundColor="#6589FF" BorderColor="Black" CornerRadius="20">
+            <VerticalStackLayout>
+                <Frame HeightRequest="80" CornerRadius="20" Margin="10" BackgroundColor="Transparent" BorderColor="Transparent">
+                    <Grid ColumnDefinitions="30, *,*">
+                        <Label Text="N°:" HorizontalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
+                        <Label Text="UserName:" Grid.Column="1" HorizontalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
+                        <Label Text="Points:" Grid.Column="2" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    </Grid>
+                </Frame>
+                <CollectionView ItemsSource="{Binding TopPlayers}" VerticalOptions="Start" HorizontalOptions="Center">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Player">
+                            <Frame HeightRequest="80" CornerRadius="20" Margin="10" BackgroundColor="{StaticResource Secondary}" BorderColor="Transparent">
+                                <Grid ColumnDefinitions="30,*,*">
+                                    <Label Text="{Binding Id}" Grid.Column="0" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center">
+                                    </Label>
+                                    <Label Text="{Binding UserName}" Grid.Column="1" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center"/>
+                                    <Label Text="{Binding Points}" Grid.Column="2" HorizontalTextAlignment="Center" FontAttributes="Bold" VerticalOptions="Center"/>
+                                </Grid>
+                                <!--
+                                Puoi vedere il profilo del player?
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:GameController}}, Path=SelectCommand}"/>
+                                </Frame.GestureRecognizers>-->
+                                <Frame.Triggers>
+                                    <DataTrigger TargetType="Frame" Binding="{Binding Id}" Value="1">
+                                        <Setter Property="BackgroundColor" Value="#ddff0000" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Frame" Binding="{Binding Id}" Value="2">
+                                        <Setter Property="BackgroundColor" Value="#aaff0000"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Frame" Binding="{Binding Id}" Value="3">
+                                        <Setter Property="BackgroundColor" Value="#66ff0000" />
+                                    </DataTrigger>
+                                </Frame.Triggers>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Frame>
     </VerticalStackLayout>
 </ContentPage>

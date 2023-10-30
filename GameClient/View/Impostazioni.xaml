@@ -7,16 +7,18 @@
              x:DataType="Controler:ImpostazioniController"
              xmlns:Model ="clr-namespace:GameClient.Model"
              xmlns:Controller ="clr-namespace:GameClient.Controller"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="LightBlue">
     <Grid RowDefinitions="*,*,*,*">
 
-        <Frame CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}">
+        <Frame CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}" BorderColor="Black">
             <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
                 <Label                    
                     Grid.Row="1"
                     Text="Punti:"                
                     VerticalOptions="Center" 
-                    HorizontalOptions="Center" />
+                    HorizontalOptions="Center" 
+                    FontAttributes="Bold"/>
 
                 <Label
                     Grid.Row="1"
@@ -27,7 +29,8 @@
                 <Label
                     Text="UserName:"                
                     VerticalOptions="Center" 
-                    HorizontalOptions="Center" />
+                    HorizontalOptions="Center" 
+                    FontAttributes="Bold"/>
 
                 <Label
                     Grid.Column="1"
@@ -37,7 +40,7 @@
             </Grid>
 
         </Frame>
-        <Frame Grid.Row="1" CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}">
+        <Frame Grid.Row="1" CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}" BorderColor="Black">
             <Grid ColumnDefinitions="*,*" RowDefinitions="auto,*,*,*">
                 <Label
                     Text="Difficoltà Bot:"  
@@ -56,7 +59,7 @@
 
             </Grid>
         </Frame>
-        <Frame Grid.Row="2" CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}" Grid.RowSpan="2">
+        <Frame Grid.Row="2" CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}" Grid.RowSpan="2" BorderColor="Black">
             <Grid RowDefinitions="auto,*">
                 <Label
                     Text="Skin:"  

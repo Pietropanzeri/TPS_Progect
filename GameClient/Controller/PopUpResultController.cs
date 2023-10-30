@@ -11,7 +11,8 @@ namespace GameClient.Controller
     {
         Vittoria,
         Sconfitta,
-        Pareggio
+        Pareggio,
+        Ongoing
     }
     public partial class PopUpResultController : ObservableObject
     {

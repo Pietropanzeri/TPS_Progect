@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 using CommunityToolkit.Maui.Core.Extensions;
 using GameClient.Helpers;
 using WebSocketSharp;
+using GameClient.Controller;
 
 namespace GameClient.Model
 {
@@ -107,7 +108,7 @@ namespace GameClient.Model
             }, startSide);
         }
 
-        public (bool,string) CheckWin(string symbol)
+        public (GameResult,string) CheckWin(string symbol)
         {
             var playerIndex = GameField.Where(c => c.Content == symbol).Select(c =>  c.Position).ToList();
             int n = 0;
@@ -115,30 +116,34 @@ namespace GameClient.Model
             {
                 foreach (var index in playerIndex)
                 {
-                    //rotto
                     if (WinPossibilities[i].Contains(index))
                     {
                         n++;
                     }
                     if (n >= 3)
                     {
-                        (bool, string) risultato = (true, WinImages[i]);
+                        (GameResult, string) risultato = (GameResult.Vittoria, WinImages[i]);
                         return risultato;
                     }
                 }
                 n = 0;
             }
-            return (false, null);
-        }
-        public bool CheckDraw()
-        {
-            int n = 0;
+            n = 0;
             foreach (var item in GameField)
             {
                 if (item.Content.IsNullOrEmpty())
                     n++;
             }
-            return (n == 0);
+            if (n == 0)
+            {
+                return (GameResult.Pareggio, null);
+            }
+            else if (n == 9) 
+            {
+                return (GameResult.Sconfitta, null); 
+            }
+            return(GameResult.Ongoing, null);
+
         }
 
         public Game ResetGame()

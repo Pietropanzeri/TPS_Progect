@@ -14,6 +14,7 @@ namespace GameClient.Model
         
         public ObservableCollection<Cell> GameField { get; set; } = new ();
         public Utente[] Players { get; set; }
+        
         public int[] GamePoints { get; set; }
         
         [JsonIgnore]
@@ -36,9 +37,10 @@ namespace GameClient.Model
         public bool IsOnline { get; set; }
 
         [JsonConstructor]
-        public Game(string id, Player[] players, List<Cell> gameField, bool side) : this(players.ToArray(), side)
+        public Game(string id, Player[] players, int[] gamePoints, List<Cell> gameField, bool side) : this(players.ToArray(), side)
         {
             Id = id;
+            GamePoints = gamePoints;
             GameField = gameField.ToObservableCollection();
             IsOnline = true;
         }
@@ -47,7 +49,7 @@ namespace GameClient.Model
         {
             Players = players;
             Side = startSide;
-            ImmagineWin = "vuoto.png";
+            WinImage = "vuoto.png";
 
             if (Side)
             {
@@ -145,7 +147,7 @@ namespace GameClient.Model
         }
         public static Game FromGameTest(GameTest gameTest)
         {
-            return new Game(gameTest.Id, gameTest.Players, gameTest.GameField, gameTest.Side);
+            return new Game(gameTest.Id, gameTest.Players, gameTest.GamePoints, gameTest.GameField, gameTest.Side);
         }
         
     }

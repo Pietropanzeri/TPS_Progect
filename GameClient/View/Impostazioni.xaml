@@ -66,9 +66,9 @@
                 <CollectionView ItemsSource="{Binding Skins}" VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="1">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="Model:Skin">
-                            <Grid ColumnDefinitions="*,*" Margin="20" >
-                                <Image Source="{Binding X}" HorizontalOptions="Center" VerticalOptions="Center" Margin="20"/>
-                                <Image Source="{Binding O}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" Margin="20"/>
+                            <Grid ColumnDefinitions="*,*" >
+                                <Image Source="{Binding X}" HorizontalOptions="Center" VerticalOptions="Center" Margin="5,20,20,20"/>
+                                <Image Source="{Binding O}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" Margin="20,20,5,20"/>
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:ImpostazioniController}}, Path=SetSkinCommand}"/>
                                 </Grid.GestureRecognizers>

@@ -109,8 +109,8 @@ namespace GameClient.Controller
             cell.Content = user.Symbol;
 
             //TODO: Se e' online dovrebbe fare il server
-            (bool, string) CheckWin = Game.CheckWin(user.Symbol);
-            if (CheckWin.Item1)
+            (GameResult, string) CheckWin = Game.CheckWin(user.Symbol);
+            if (CheckWin.Item1 == GameResult.Vittoria)
             {
                 Game.WinImage = CheckWin.Item2;
 
@@ -133,7 +133,7 @@ namespace GameClient.Controller
                 }
                 return false;
             }
-            if (Game.CheckDraw())
+            if (CheckWin.Item1 == GameResult.Pareggio)
             {
                 await _popupService.ShowPopup(new PopUpResult(GameResult.Pareggio, null));
                 //await App.Current.MainPage.Navigation.PopAsync();
@@ -143,6 +143,10 @@ namespace GameClient.Controller
                     StartGame();
                 }
                 return false;
+            }
+            if(CheckWin.Item1 == GameResult.Sconfitta)
+            {
+                await _popupService.ShowPopup(new PopUpResult(GameResult.Sconfitta, null));
             }
 
             updatePhase();

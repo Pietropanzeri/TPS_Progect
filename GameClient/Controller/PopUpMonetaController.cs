@@ -13,17 +13,20 @@ namespace GameClient.Controller
     {
 
         [ObservableProperty]
-        bool side;
+        string side;
 
         public PopUpMonetaController(PopUpMoneta view, bool side)
         {
-            this.side = side;
+            if (side)
+                this.side = "croce.gif";
+            else
+                this.side = "cerchio.gif";
             Close(view);
         }
 
         public async Task Close(PopUpMoneta view)
         {
-            await Task.Delay(8000);
+            await Task.Delay(5000);
             await view.CloseAsync();
         }
     }

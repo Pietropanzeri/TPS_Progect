@@ -211,7 +211,7 @@ public class Bot : Utente
 
         while (true)
         {
-            casella = r.Next(0, 8);
+            casella = r.Next(0, 9);
             //occupa posizione random
             if (campo[casella].Content.IsNullOrEmpty())
                 return casella;

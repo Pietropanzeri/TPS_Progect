@@ -7,6 +7,9 @@ namespace GameClient.Controller;
 
 public partial class SocketController : ObservableObject
 {
+    private Timer _timer;
+    private int _retry;
+    
     public WebSocket SocketClient { get; }
     private Stack<Action<SocketData>> actionStack = new();
 
@@ -15,8 +18,9 @@ public partial class SocketController : ObservableObject
 
     public SocketController()
     {
-        SocketClient = new WebSocket("ws://172.17.4.249:7880/");
+        SocketClient = new WebSocket("ws://192.168.1.53:7880/");
         SocketClient.OnOpen += OnOpen;
+        SocketClient.OnClose += OnClose;
         SocketClient.OnMessage += OnMessage;
     }
     
@@ -27,9 +31,6 @@ public partial class SocketController : ObservableObject
             try
             {
                 SocketClient.Connect();
-
-                while (!SocketClient.IsAlive || SocketClient.WaitTime < TimeSpan.FromSeconds(5))
-                { }
             }
             catch (Exception e)
             {
@@ -58,6 +59,23 @@ public partial class SocketController : ObservableObject
     private void OnOpen(object sender, EventArgs e)
     {
         IsConnected = true;
+        _retry = 0;
+    }
+    
+    
+    private void OnClose(object sender, CloseEventArgs e)
+    {
+        IsConnected = false;
+
+        if (e.WasClean) return;
+        if (SocketClient.IsAlive) return;
+        
+        if (_retry < 5)
+        {
+            _retry++;
+            Thread.Sleep(5000);
+            SocketClient.Connect();
+        }
     }
 
 }

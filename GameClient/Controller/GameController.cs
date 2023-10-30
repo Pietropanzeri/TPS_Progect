@@ -83,6 +83,11 @@ namespace GameClient.Controller
                     Cell cell = JsonSerializer.Deserialize<Cell>(data.Data);
                     ApplicaMossa(Game.GameField[cell.Position]);
                     break;
+                case DataType.Restart:
+                    GameTest gameTest = JsonSerializer.Deserialize<GameTest>(e.Data);
+                    Game = Game.FromGameTest(gameTest);
+                    StartGame();
+                    break;
             }
         }
 
@@ -96,7 +101,7 @@ namespace GameClient.Controller
             (bool, string) CheckWin = Game.CheckWin(user.Symbol);
             if (CheckWin.Item1)
             {
-                Game.ImmagineWin = CheckWin.Item2;
+                Game.WinImage = CheckWin.Item2;
 
                 if (Game.Side)
                 {

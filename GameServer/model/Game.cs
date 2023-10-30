@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using GameClient.Helpers;
 using GameServer.manager;
 using WebSocketSharp;
 
@@ -25,6 +27,8 @@ public class Game
         _gameController = gameController;
         
         Players = players;
+
+        Side = RandomHelper.RandomBool();
         
         if (Side)
         {
@@ -64,12 +68,6 @@ public class Game
         if (CurrentUser.SocketId != socketId) return null;
         if (!GameField[cell.Position].Content.IsNullOrEmpty()) return null;
         GameField[cell.Position].Content = CurrentUser.Symbol;
-
-        if (CheckWin(CurrentUser.Symbol))
-        {
-            CurrentUser.Points++;
-            _gameController.DatabaseController.UpdatePoints(CurrentUser.Id, CurrentUser.Points);
-        }
         
         updatePhase();
         
@@ -109,5 +107,10 @@ public class Game
             if (item.Content.IsNullOrEmpty()) n++;
         }
         return (n == 0);
+    }
+    
+    public Game ResetGame()
+    {
+        return new Game(_gameController, Players);
     }
 }

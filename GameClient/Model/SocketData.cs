@@ -27,6 +27,7 @@ public enum DataType
     MatchMaking,
     Top,
     Move,
+    Restart,
     JoinGame,
     QuitGame,
     Error

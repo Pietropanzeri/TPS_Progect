@@ -8,8 +8,3 @@ using GameServer.manager;
 GameController gameController = new GameController();
 
 gameController.Initialize();
-
-partial class Program
-{
-    
-}

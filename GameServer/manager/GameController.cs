@@ -34,7 +34,7 @@ public class GameController
         
         foreach (var gamePlayer in game.Players)
         {
-            Player player = (Player)gamePlayer;
+            Player player = gamePlayer;
             
             _socketController.ReplyTo(
                 player.SocketId, 

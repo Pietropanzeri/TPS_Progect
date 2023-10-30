@@ -32,7 +32,7 @@ namespace GameClient.Controller
         {
             _popupService = popupService;
             _navigationService = navigationService;
-            SocketController = new SocketController();
+            SocketController = new SocketController(this);
         }
 
         public void Enable()

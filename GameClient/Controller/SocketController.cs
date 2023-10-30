@@ -1,5 +1,6 @@
 using System.Text.Json;
 using CommunityToolkit.Mvvm.ComponentModel;
+using GameClient.model;
 using GameServer.model;
 using WebSocketSharp;
 
@@ -11,13 +12,16 @@ public partial class SocketController : ObservableObject
     private int _retry;
     
     public WebSocket SocketClient { get; }
+    private MainPageController _mainController;
     private Stack<Action<SocketData>> actionStack = new();
 
     [ObservableProperty]
     private bool isConnected;
 
-    public SocketController()
+    public SocketController(MainPageController mainController)
     {
+        _mainController = mainController;
+        
         SocketClient = new WebSocket("ws://192.168.1.53:7880/");
         SocketClient.OnOpen += OnOpen;
         SocketClient.OnClose += OnClose;
@@ -60,6 +64,26 @@ public partial class SocketController : ObservableObject
     {
         IsConnected = true;
         _retry = 0;
+        
+        if (_mainController.CurrentPlayer.UserName == "Ospite" 
+            || _mainController.CurrentPlayer.SocketId.IsNullOrEmpty())  return;
+        
+        _mainController.SocketController.Send(
+            new SocketData(DataType.Connect, _mainController.CurrentPlayer.UserName, null),
+            async response =>
+            {
+                if (response.DataType.Equals(DataType.Error))
+                {
+                    await App.Current.MainPage.DisplayAlert("Errore", "Errore durante la riconnessione: " + response.Data, "Ok");
+                    App.Current.Quit();
+                    return;
+                }
+                   
+                Player player = JsonSerializer.Deserialize<Player>(response.Data);
+                _mainController.CurrentPlayer = player;
+            }
+        );
+        
     }
     
     

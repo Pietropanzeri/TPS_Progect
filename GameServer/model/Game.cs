@@ -11,7 +11,7 @@ public class Game
     public String Id { get; set; }
     public Player[] Players { get; set; }
     public List<Cell> GameField { get; set; } = new();
-    public int[] GamePoints { get; set; }
+    public int[] GamePoints { get; set; } = new int[2];
     
     [JsonIgnore]
     public Player CurrentUser { get; set; }
@@ -22,9 +22,10 @@ public class Game
     public List<int[]> WinPossibilities { get; set; } = new List<int[]>();
 
 
-    public Game(string id, Player[] players) : this(players)
+    public Game(string id, Player[] players, int[] gamePoints) : this(players)
     {
         Id = id;
+        GamePoints = gamePoints;
     }
     
     public Game(Player[] players)
@@ -114,6 +115,6 @@ public class Game
     
     public Game ResetGame()
     {
-        return new Game(Id, Players);
+        return new Game(Id, Players, GamePoints);
     }
 }

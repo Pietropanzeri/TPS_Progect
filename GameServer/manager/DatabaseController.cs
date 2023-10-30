@@ -47,7 +47,7 @@ public class DatabaseController
             }
             catch (Exception ex)
             {
-                MessageUtils.Send("Errore nella creazione della tabella: " + ex.Message, ConsoleColor.Red);
+                MessageHelper.Send("Errore nella creazione della tabella: " + ex.Message, ConsoleColor.Red);
                 
                 return false;
             }
@@ -89,7 +89,7 @@ public class DatabaseController
             }
             catch (Exception ex)
             {
-                MessageUtils.Send("Errore durante il retrive dell'utente: " + ex.Message, ConsoleColor.Red);
+                MessageHelper.Send("Errore durante il retrive dell'utente: " + ex.Message, ConsoleColor.Red);
             }
 
             return topPlayers;
@@ -113,7 +113,7 @@ public class DatabaseController
             }
             catch (Exception ex)
             {
-                MessageUtils.Send("Errore durante l'aggiunta di un punto: " + ex.Message, ConsoleColor.Red);
+                MessageHelper.Send("Errore durante l'aggiunta di un punto: " + ex.Message, ConsoleColor.Red);
             }
 
             return false;
@@ -147,7 +147,7 @@ public class DatabaseController
             }
             catch (Exception ex)
             {
-                MessageUtils.Send("Errore durante il retrive dell'utente: " + ex.Message, ConsoleColor.Red);
+                MessageHelper.Send("Errore durante il retrive dell'utente: " + ex.Message, ConsoleColor.Red);
                 throw;
             }
         });
@@ -168,7 +168,7 @@ public class DatabaseController
             }
             catch (Exception ex)
             {
-                MessageUtils.Send("Errore nella creazione dell'utente: " + ex.Message, ConsoleColor.Red);
+                MessageHelper.Send("Errore nella creazione dell'utente: " + ex.Message, ConsoleColor.Red);
                 return false;
             }
         });
@@ -188,7 +188,7 @@ public class DatabaseController
             }
             catch (Exception ex)
             {
-                MessageUtils.Send("Errore nell controllo se il player esiste: " + ex.Message, ConsoleColor.Red);
+                MessageHelper.Send("Errore nell controllo se il player esiste: " + ex.Message, ConsoleColor.Red);
                 return false;
             }
         });
@@ -207,7 +207,7 @@ public class DatabaseController
         }
         catch (Exception ex)
         {
-            MessageUtils.Send("Errore generale \nTipo: " + typeof(R) + "\nErrore: " + ex.Message, ConsoleColor.Red);
+            MessageHelper.Send("Errore generale \nTipo: " + typeof(R) + "\nErrore: " + ex.Message, ConsoleColor.Red);
             return default;
         }
     }

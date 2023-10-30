@@ -4,11 +4,10 @@
              x:Class="GameClient.View.PopUpMoneta"
              xmlns:toolkit ="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:Controller="clr-namespace:GameClient.Controller"
-             CanBeDismissedByTappingOutsideOfPopup="True">
+             CanBeDismissedByTappingOutsideOfPopup="True"
+             Color="Transparent">
 
-    <VerticalStackLayout>
-        <Label 
-            Text="{Binding Side}" />
-        <Image Source="coinflip.gif" IsAnimationPlaying="True" x:Name="coingif"></Image>
-    </VerticalStackLayout>
+    <Frame HeightRequest="300" WidthRequest="300" Margin="0" Padding="0" BackgroundColor="Transparent" BorderColor="Transparent" CornerRadius="10">
+        <Image Source="{Binding Side}" Aspect="AspectFit" IsAnimationPlaying="True" x:Name="coingif"></Image>
+    </Frame>
 </toolkit:Popup>

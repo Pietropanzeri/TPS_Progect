@@ -7,6 +7,7 @@ public class GameTest
     public string Id { get; set; }
     public Player[] Players { get; set; }
     public List<Cell> GameField { get; set; } = new();
+    public int[] GamePoints { get; set; }
     public bool Side { get; set; }
 
     public GameTest(Player[] players)

@@ -44,15 +44,15 @@
                     Grid.ColumnSpan="2"
                     VerticalOptions="Center" 
                     HorizontalOptions="Center" />
-                <RadioButton Grid.Row="1">
-                    
-                </RadioButton>
-                <RadioButton Grid.Row="2">
-
-                </RadioButton>
-                <RadioButton Grid.Row="3">
-
-                </RadioButton>
+                <RadioButton Grid.Row="1"
+                             IsChecked="{Binding DiffFacile}"
+                             Content="FACILE"/>
+                <RadioButton Grid.Row="2" 
+                             Content="MEDIO"
+                             IsChecked="{Binding DiffMedio}"/>
+                <RadioButton Grid.Row="3"
+                             Content="DIFFICILE"
+                             IsChecked="{Binding DiffImpossibile}"/>
 
             </Grid>
         </Frame>

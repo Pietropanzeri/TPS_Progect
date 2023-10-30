@@ -16,7 +16,11 @@ public partial class PopUpMoneta : Popup
         while (true)
         {
             coingif.IsAnimationPlaying = !coingif.IsAnimationPlaying;
-            await Task.Delay(1000);
+            coingif.IsAnimationPlaying = !coingif.IsAnimationPlaying;
+            await Task.Delay(1);
+            coingif.IsAnimationPlaying = !coingif.IsAnimationPlaying;
+            coingif.IsAnimationPlaying = !coingif.IsAnimationPlaying;
+            await Task.Delay(5000);
         }
     }
 }

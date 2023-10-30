@@ -1,4 +1,7 @@
-﻿using GameClient.Model;
+﻿using GameClient.Controller;
+using GameClient.Helpers;
+using GameClient.Model;
+using GameClient.Service;
 using System.Collections.ObjectModel;
 using WebSocketSharp;
 using Cell = GameClient.Model.Cell;
@@ -7,16 +10,32 @@ namespace GameClient.model;
 
 public class Bot : Utente
 {
+    private ImpostazioniController controller = ServiceHelper.GetService<ImpostazioniController>();
     private Random _random = new Random();
+
     public Cell Mossa(Game game)
     {
         while (true)
         {
-            int pos = _random.Next(0, 9);
-
-            Cell cella = game.GameField[pos];
+            Cell cella = new Cell();
             if (cella.Content.IsNullOrEmpty())
-                cella = game.GameField[TrovaMossaImpossibile(game)];
+            {
+                Difficolta difficolta = controller.difficoltaBot;
+                switch (difficolta)
+                {
+                    case Difficolta.Facile:
+                        int pos = _random.Next(0, 9);
+                        cella = game.GameField[pos];
+                        break;
+                    case Difficolta.Medio:
+                        cella = game.GameField[TrovaMossaMedia(game)];
+                        break;
+                    case Difficolta.Impossibile:
+                        cella = game.GameField[TrovaMossaImpossibile(game)];
+                        break;
+                }
+            }
+
             //  cella = game.GameField[TrovaMossaMedia(game)];
 
             if (cella.Content.IsNullOrEmpty())

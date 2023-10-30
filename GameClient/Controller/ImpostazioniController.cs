@@ -10,6 +10,12 @@ using System.Threading.Tasks;
 
 namespace GameClient.Controller
 {
+    public enum Difficolta
+    {
+        Facile,
+        Medio,
+        Impossibile
+    }
     public partial class ImpostazioniController : ObservableObject
     {
 
@@ -17,7 +23,48 @@ namespace GameClient.Controller
         int punti;
         [ObservableProperty]
         string name;
-        
+
+        private bool diffFacile;
+
+        public bool DiffFacile 
+        {
+            get => diffFacile;
+            set 
+            {
+                diffFacile = value;
+                SetDifficolta(Difficolta.Facile);
+                OnPropertyChanged();
+            } 
+        }
+
+        private bool diffMedio;
+
+        public bool DiffMedio
+        {
+            get => diffMedio;
+            set
+            {
+                diffMedio = value;
+                SetDifficolta(Difficolta.Medio);
+                OnPropertyChanged();
+            }
+        }
+
+        private bool diffImpossibile;
+
+        public bool DiffImpossibile
+        {
+            get => diffImpossibile;
+            set
+            {
+                diffImpossibile = value;
+                SetDifficolta(Difficolta.Impossibile);
+                OnPropertyChanged();
+            }
+        }
+
+        public Difficolta difficoltaBot;
+
         public Skin Skin { get; set; }
 
         public ObservableCollection<Skin> Skins { get; set; } = new ObservableCollection<Skin>();
@@ -29,6 +76,8 @@ namespace GameClient.Controller
         {
             punti = page.CurrentPlayer.Points;
             name = page.CurrentPlayer.UserName;
+            difficoltaBot = Difficolta.Medio;
+            DiffMedio = true;
             Skins.Add(new Skin() { O = "skin_o", X = "skin_x" });
             SkinManager();
         }
@@ -38,8 +87,7 @@ namespace GameClient.Controller
             if (!skinDirectory.Exists) skinDirectory.Create();
             foreach (DirectoryInfo directory in skinDirectory.GetDirectories())
             {
-                if(directory.GetFiles().Length != 0)
-                    Skins.Add(new Skin(directory));
+                 Skins.Add(new Skin(directory));
             }
 
             Skin = Skins[0];
@@ -49,6 +97,11 @@ namespace GameClient.Controller
         public void SetSkin(Skin skin)
         {
             this.Skin = skin;
+        }
+
+        public void SetDifficolta(Difficolta diff)
+        {
+            difficoltaBot = diff;
         }
 
     }

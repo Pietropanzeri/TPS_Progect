@@ -32,7 +32,7 @@ namespace GameClient.Controller
             set 
             {
                 diffFacile = value;
-                SetDifficolta(Difficolta.Facile);
+                SetDifficolta();
                 OnPropertyChanged();
             } 
         }
@@ -45,7 +45,7 @@ namespace GameClient.Controller
             set
             {
                 diffMedio = value;
-                SetDifficolta(Difficolta.Medio);
+                SetDifficolta();
                 OnPropertyChanged();
             }
         }
@@ -58,7 +58,7 @@ namespace GameClient.Controller
             set
             {
                 diffImpossibile = value;
-                SetDifficolta(Difficolta.Impossibile);
+                SetDifficolta();
                 OnPropertyChanged();
             }
         }
@@ -99,9 +99,14 @@ namespace GameClient.Controller
             this.Skin = skin;
         }
 
-        public void SetDifficolta(Difficolta diff)
+        public void SetDifficolta()
         {
-            difficoltaBot = diff;
+            if(DiffFacile)
+                difficoltaBot = Difficolta.Facile;
+            if (DiffMedio)
+                difficoltaBot = Difficolta.Medio;
+            if (diffImpossibile)
+                difficoltaBot = Difficolta.Impossibile;
         }
 
     }

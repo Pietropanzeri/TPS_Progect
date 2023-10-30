@@ -49,13 +49,16 @@
                     VerticalOptions="Center" 
                     HorizontalOptions="Center" />
                 <RadioButton Grid.Row="1"
+                             Grid.ColumnSpan="2"
                              IsChecked="{Binding DiffFacile}"
                              Content="FACILE"/>
-                <RadioButton Grid.Row="2" 
+                <RadioButton Grid.Row="2"   
+                             Grid.ColumnSpan="2"
                              Content="MEDIO"
                              IsChecked="{Binding DiffMedio}"/>
                 <RadioButton Grid.Row="3"
-                             Content="DIFFICILE"
+                             Content="IMPOSSIBILE"
+                             Grid.ColumnSpan="2"
                              IsChecked="{Binding DiffImpossibile}"/>
 
             </Grid>

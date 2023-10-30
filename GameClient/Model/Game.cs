@@ -47,7 +47,7 @@ namespace GameClient.Model
         {
             Players = players;
             Side = startSide;
-            ImmagineWin = "vuoto.png";
+            WinImage = "vuoto.png";
 
             if (Side)
             {

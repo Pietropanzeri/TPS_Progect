@@ -8,7 +8,7 @@ namespace GameServer.manager;
 public class GameController
 {
     private SocketController _socketController;
-    public DatabaseController DatabaseController;
+    private DatabaseController _databaseController;
     public PlayerController PlayerController { get; }
     
     private Dictionary<string, Game> currentGame = new();
@@ -17,7 +17,7 @@ public class GameController
     public GameController()
     {
         _socketController = new SocketController(this);
-        DatabaseController = new DatabaseController(this);
+        _databaseController = new DatabaseController(this);
         PlayerController = new PlayerController();
     }
 
@@ -55,7 +55,7 @@ public class GameController
                     return new SocketData(DataType.Error, "Server", "Esiste gia' un utente online con quel nome");
                 
                 //TODO: Spostare in un metodo a parte e fare tutti i check se l'utente e' gia' connesso
-                DatabaseController.LoadPlayer(id, data.UserName).ContinueWith(task =>
+                _databaseController.LoadPlayer(id, data.UserName).ContinueWith(task =>
                 {
                     //TODO: Il player contiene anche socketId vedere come caricarlo
                     Player player = task.Result;
@@ -72,10 +72,10 @@ public class GameController
                 break;
             case DataType.Disconnect:
                 //TODO: Togliere dal matchmaking ecc (preferibilmente nel disconnect)
-                MessageUtils.Send("Messaggio ricevuto sul disconnect", ConsoleColor.Yellow);
+                MessageHelper.Send("Messaggio ricevuto sul disconnect", ConsoleColor.Yellow);
                 break;
             case DataType.Top:
-                DatabaseController.GetPlayerTop().ContinueWith(result =>
+                _databaseController.GetPlayerTop().ContinueWith(result =>
                 {
                     _socketController.ReplyTo(id,
                             new SocketData(
@@ -116,6 +116,27 @@ public class GameController
             otherPlayer.SocketId,
             new SocketData(DataType.Move, "Server", JsonSerializer.Serialize(updatedCell))
         );
+        
+        bool hasWon = game.CheckWin(game.CurrentUser.Symbol);
+        
+        if (hasWon)
+        {
+            game.CurrentUser.Points++;
+            _databaseController.UpdatePoints(game.CurrentUser.Id, game.CurrentUser.Points);
+        }
+
+        if (hasWon || game.CheckDraw())
+        {
+            var newGame = game.ResetGame();
+            
+            foreach (var player in game.Players)
+            {
+                _socketController.ReplyTo(
+                    player.SocketId,
+                    new SocketData(DataType.Restart, "Server", JsonSerializer.Serialize(newGame))
+                );
+            }
+        }
     }
     
     private void MatchMakingHandler(string id, SocketData data)

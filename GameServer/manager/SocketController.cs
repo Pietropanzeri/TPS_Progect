@@ -22,10 +22,10 @@ public class SocketController
 
         //TODO: Carino forse da rivedere :)
         string ip = GetIpAddress().ToString();
-        //_server = new WebSocketServer("ws://" + ip + ":7880");
-        _server = new WebSocketServer("ws://172.17.4.249:7880");
+        _server = new WebSocketServer("ws://" + ip + ":7880");
+        //_server = new WebSocketServer("ws://172.17.4.249:7880");
         
-        MessageUtils.Send("Connesso con ip: " + _server.Address, ConsoleColor.Magenta);
+        MessageHelper.Send("Connesso con ip: " + _server.Address, ConsoleColor.Magenta);
     }
 
     public void Start()
@@ -65,7 +65,7 @@ public class SocketController
         
         protected override void OnOpen()
         {
-            MessageUtils.Send("Client connesso con successo! Id:" + ID, ConsoleColor.Green);
+            MessageHelper.Send("Client connesso con successo! Id:" + ID, ConsoleColor.Green);
             _socketController.connectedClients.Add(this);
         }
 
@@ -91,7 +91,7 @@ public class SocketController
 
         protected override void OnClose(CloseEventArgs e)
         {
-            MessageUtils.Send("Server disconnesso con successo! Id: " + ID, ConsoleColor.Red);
+            MessageHelper.Send("Server disconnesso con successo! Id: " + ID, ConsoleColor.Red);
             _socketController.connectedClients.Remove(this);
             _socketController.GameController.PlayerController.OnlinePlayers.Remove(ID);
             _socketController.GameController.MatchMaking.Remove(ID);

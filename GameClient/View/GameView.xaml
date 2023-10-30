@@ -9,7 +9,7 @@
              Shell.NavBarIsVisible="False">
     <Grid RowDefinitions="*,AUTO,*" ColumnDefinitions="*,*,*">
 
-        <Image Source="heder.png" Grid.ColumnSpan="3" Margin="0,0,0,40"></Image>
+        <Image Source="header.png" Grid.ColumnSpan="3" Margin="0,0,0,40"></Image>
         <Grid RowDefinitions="2*,2*,*" ColumnDefinitions="*,*,*" Grid.ColumnSpan="3" HorizontalOptions="Fill" Margin="10,0,10,0">
             <Frame HorizontalOptions="Center" Grid.Row="2" VerticalOptions="Center" Margin="20,0,0,0" BackgroundColor="Transparent" BorderColor="Transparent" Padding="0" CornerRadius="20">
                 <Label Text="{Binding Utente0.UserName}" HorizontalOptions="Center" VerticalOptions="Center"/>
@@ -63,7 +63,7 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>                    
                 </Frame>
-                <Image Source="{Binding Game.ImmagineWin}" Aspect="Fill"></Image>
+                <Image Source="{Binding Game.WinImage}" Aspect="Fill"></Image>
             </Grid>
         </Frame>
         <Button Grid.Row="2" Grid.ColumnSpan="3" HeightRequest="40" WidthRequest="100" VerticalOptions="Start" BackgroundColor="Gray" CornerRadius="50" Text="ESCI" Command="{Binding ExitCommand}">

@@ -25,7 +25,7 @@ namespace GameClient.Model
         
         [JsonIgnore]
         [ObservableProperty]
-        string immagineWin;
+        ImageSource winImage;
         
         [JsonIgnore]
         public List<int[]> WinPossibilities { get; set; } = new List<int[]>();

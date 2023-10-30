@@ -2,7 +2,7 @@
 
 namespace GameServer.utils;
 
-public class MessageUtils
+public class MessageHelper
 {
     public static void Send(String message, ConsoleColor color)
     {

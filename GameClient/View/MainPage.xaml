@@ -18,16 +18,21 @@
             <Frame Grid.Row="0" Padding="0" CornerRadius="0" BorderColor="Transparent" BackgroundColor="Transparent">
                 
                 <Grid RowDefinitions="*,*,*">
-                    <Frame WidthRequest="20" HeightRequest="20" CornerRadius="10" Margin="10,0,0,0" HorizontalOptions="End" BackgroundColor="Gray" BorderColor="Transparent">
-                        <Frame.Triggers>
-                            <DataTrigger TargetType="Frame" Binding="{Binding SocketController.IsConnected}" Value="True">
-                                <Setter Property="BackgroundColor" Value="Green" />
-                            </DataTrigger>
-                            <DataTrigger TargetType="Frame" Binding="{Binding SocketController.IsConnected}" Value="False">
-                                <Setter Property="BackgroundColor" Value="Red" />
-                            </DataTrigger>
-                        </Frame.Triggers>
-                    </Frame>
+                    <Grid ColumnDefinitions="*,20"
+                          RowDefinitions="60,*">
+
+                        <Frame Grid.Column="1" WidthRequest="20" HeightRequest="20" CornerRadius="10" Margin="20" HorizontalOptions="End" BackgroundColor="Gray" BorderColor="Transparent">
+                            <Frame.Triggers>
+                                <DataTrigger TargetType="Frame" Binding="{Binding SocketController.IsConnected}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="Green" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Frame" Binding="{Binding SocketController.IsConnected}" Value="False">
+                                    <Setter Property="BackgroundColor" Value="Red" />
+                                </DataTrigger>
+                            </Frame.Triggers>
+                        </Frame>
+                    </Grid>
+                    
                     <Grid
                         RowDefinitions="70,70"
                         ColumnDefinitions="*,10"

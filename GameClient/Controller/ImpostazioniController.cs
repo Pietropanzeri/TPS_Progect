@@ -38,7 +38,8 @@ namespace GameClient.Controller
             if (!skinDirectory.Exists) skinDirectory.Create();
             foreach (DirectoryInfo directory in skinDirectory.GetDirectories())
             {
-                Skins.Add(new Skin(directory));
+                if(directory.GetFiles().Length != 0)
+                    Skins.Add(new Skin(directory));
             }
 
             Skin = Skins[0];

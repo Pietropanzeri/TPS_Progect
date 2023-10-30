@@ -53,15 +53,17 @@
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="Model:Cell">
-                                <Frame HeightRequest="80" WidthRequest="80" CornerRadius="0" Margin="10" BackgroundColor="Transparent" BorderColor="Transparent">
-                                    <Image Source="{Binding Skin}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:GameController}}, Path=SelectCommand}"/>
-                                    </Frame.GestureRecognizers>
-                                </Frame>
+                                <VerticalStackLayout>
+                                    <Image Source="{Binding Skin}" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="80" WidthRequest="80" Margin="10">
+
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:GameController}}, Path=SelectCommand}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </VerticalStackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
-                    </CollectionView>
+                    </CollectionView>                    
                 </Frame>
                 <Image Source="{Binding Game.ImmagineWin}" Aspect="Fill"></Image>
             </Grid>

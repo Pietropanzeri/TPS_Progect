@@ -23,7 +23,7 @@ namespace GameClient.Model
                 }
                 else if (file.Name.Equals("skin_o.png"))
                 {
-                    O = ImageSource.FromFile(file.FullName); 
+                    O = ImageSource.FromFile(file.FullName);
                 }
             }
         }

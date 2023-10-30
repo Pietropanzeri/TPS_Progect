@@ -108,7 +108,7 @@ namespace GameClient.Model
             }, startSide);
         }
 
-        public (GameResult,string) CheckWin(string symbol)
+        public (GameResult,string) CheckWin(MainPageController mainPage, string symbol)
         {
             var playerIndex = GameField.Where(c => c.Content == symbol).Select(c =>  c.Position).ToList();
             int n = 0;
@@ -122,7 +122,7 @@ namespace GameClient.Model
                     }
                     if (n >= 3)
                     {
-                        (GameResult, string) risultato = (GameResult.Vittoria, WinImages[i]);
+                        var risultato = (mainPage.CurrentPlayer.Id == CurrentUser.Id ? GameResult.Vittoria : GameResult.Sconfitta, WinImages[i]);
                         return risultato;
                     }
                 }
@@ -133,15 +133,9 @@ namespace GameClient.Model
             {
                 if (item.Content.IsNullOrEmpty())
                     n++;
+                
             }
-            if (n == 0)
-            {
-                return (GameResult.Pareggio, null);
-            }
-            else if (n == 9) 
-            {
-                return (GameResult.Sconfitta, null); 
-            }
+            if (n == 0) return (GameResult.Pareggio, null);
             return(GameResult.Ongoing, null);
 
         }
@@ -150,9 +144,9 @@ namespace GameClient.Model
         {
             return new Game(Players, RandomHelper.RandomBool());
         }
-        public static Game FromGameTest(GameTest gameTest)
+        public static Game FromGameTest(GameSerializer gameSerializer)
         {
-            return new Game(gameTest.Id, gameTest.Players, gameTest.GamePoints, gameTest.GameField, gameTest.Side);
+            return new Game(gameSerializer.Id, gameSerializer.Players, gameSerializer.GamePoints, gameSerializer.GameField, gameSerializer.Side);
         }
         
     }

@@ -95,8 +95,8 @@ namespace GameClient.Controller
                     ApplicaMossa(Game.GameField[cell.Position]);
                     break;
                 case DataType.Restart:
-                    GameTest gameTest = JsonSerializer.Deserialize<GameTest>(data.Data);
-                    Game = Game.FromGameTest(gameTest);
+                    GameSerializer gameSerializer = JsonSerializer.Deserialize<GameSerializer>(data.Data);
+                    Game = Game.FromGameTest(gameSerializer);
                     StartGame();
                     break;
             }
@@ -109,23 +109,20 @@ namespace GameClient.Controller
             cell.Content = user.Symbol;
 
             //TODO: Se e' online dovrebbe fare il server
-            (GameResult, string) CheckWin = Game.CheckWin(user.Symbol);
+            (GameResult, string) CheckWin = Game.CheckWin(_mainPageController, user.Symbol);
             if (CheckWin.Item1 == GameResult.Vittoria)
             {
                 Game.WinImage = CheckWin.Item2;
-
-                if (Game.Side)
-                {
-                    Points0 += 1;
-                    Points1 = Math.Max(0, Points1 - 1);
-                }
-                else
-                {
-                    Points0 = Math.Max(0, Points0 - 1);
-                    Points1 += 1;
-                }
                 
-                await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, user.UserName));
+                Points0 += 1;
+                Points1 = Math.Max(0, Points1 - 1);
+                
+                await MainThread.InvokeOnMainThreadAsync(async () => 
+                    await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, user.UserName))
+                );
+                
+                updatePhase();
+                
                 if (!Game.IsOnline)
                 {
                     Game = Game.ResetGame();
@@ -135,8 +132,12 @@ namespace GameClient.Controller
             }
             if (CheckWin.Item1 == GameResult.Pareggio)
             {
-                await _popupService.ShowPopup(new PopUpResult(GameResult.Pareggio, null));
+                await MainThread.InvokeOnMainThreadAsync(async () => 
+                    await _popupService.ShowPopup(new PopUpResult(GameResult.Pareggio, null))
+                );
                 //await App.Current.MainPage.Navigation.PopAsync();
+                updatePhase();
+                
                 if (!Game.IsOnline)
                 {
                     Game = Game.ResetGame();
@@ -146,9 +147,26 @@ namespace GameClient.Controller
             }
             if(CheckWin.Item1 == GameResult.Sconfitta)
             {
-                await _popupService.ShowPopup(new PopUpResult(GameResult.Sconfitta, null));
-            }
+                Game.WinImage = CheckWin.Item2;
+                
+                Points0 = Math.Max(0, Points0 - 1);
+                Points1 += 1;
+                
+                await MainThread.InvokeOnMainThreadAsync(async () => 
+                        await _popupService.ShowPopup(new PopUpResult(GameResult.Sconfitta, null))
+                );
+                
+                updatePhase();
+                
+                if (!Game.IsOnline)
+                {
+                    Game = Game.ResetGame();
+                    StartGame();
+                }
 
+                return false;
+            }
+            
             updatePhase();
             
             if (Game.CurrentUser is Bot bot)

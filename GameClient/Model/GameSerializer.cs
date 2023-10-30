@@ -2,7 +2,7 @@ using GameClient.model;
 
 namespace GameClient.Model;
 
-public class GameTest
+public class GameSerializer
 {
     public string Id { get; set; }
     public Player[] Players { get; set; }
@@ -10,7 +10,7 @@ public class GameTest
     public int[] GamePoints { get; set; }
     public bool Side { get; set; }
 
-    public GameTest(Player[] players)
+    public GameSerializer(Player[] players)
     {
         Players = players;
         

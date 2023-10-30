@@ -12,8 +12,6 @@ namespace GameClient.Model
     {
         public int Position { get; set; }
 
-        private ImpostazioniController impostazioniController = ServiceHelper.GetService<ImpostazioniController>();
-
         [JsonIgnore]
         [ObservableProperty]
         public ImageSource skin;
@@ -42,13 +40,15 @@ namespace GameClient.Model
 
         public string SetSkin()
         {
+            var impostazioni = ServiceHelper.GetService<ImpostazioniController>();
+            
             switch (Content)
             {
                 case "X":
-                    Skin = impostazioniController.Skin.X;
+                    Skin = impostazioni.Skin.X;
                     break;
                 case "O":
-                    Skin = impostazioniController.Skin.O;
+                    Skin = impostazioni.Skin.O;
                     break;
             }
 

@@ -1,27 +1,40 @@
 using System.Text.Json;
+using CommunityToolkit.Mvvm.ComponentModel;
 using GameServer.model;
 using WebSocketSharp;
 
 namespace GameClient.Controller;
 
-public class SocketController
+public partial class SocketController : ObservableObject
 {
     public WebSocket SocketClient { get; }
     private Stack<Action<SocketData>> actionStack = new();
 
+    [ObservableProperty]
+    private bool isConnected;
+
     public SocketController()
     {
-        SocketClient = new WebSocket("ws://192.168.1.53:7880/");
+        SocketClient = new WebSocket("ws://172.17.4.249:7880/");
+        SocketClient.OnOpen += OnOpen;
         SocketClient.OnMessage += OnMessage;
     }
-
+    
     public async void Start()
     {
-        try
+        Task.Run(() =>
         {
-            SocketClient.ConnectAsync();
-        }
-        catch (Exception e) { }
+            try
+            {
+                SocketClient.Connect();
+
+                while (!SocketClient.IsAlive || SocketClient.WaitTime < TimeSpan.FromSeconds(5))
+                { }
+            }
+            catch (Exception e)
+            {
+            }
+        });
     }
 
     public void Send(SocketData data, Action<SocketData> resultAction)
@@ -41,6 +54,10 @@ public class SocketController
             if (action == null) return;
             action.Invoke(data);
         }
+    }
+    private void OnOpen(object sender, EventArgs e)
+    {
+        IsConnected = true;
     }
 
 }

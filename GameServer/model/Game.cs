@@ -8,11 +8,10 @@ namespace GameServer.model;
 
 public class Game
 {
-    [JsonIgnore] private GameController _gameController;
-    
-    public String Id { get; set; } = Guid.NewGuid().ToString();
+    public String Id { get; set; }
     public Player[] Players { get; set; }
     public List<Cell> GameField { get; set; } = new();
+    public int[] GamePoints { get; set; }
     
     [JsonIgnore]
     public Player CurrentUser { get; set; }
@@ -22,13 +21,19 @@ public class Game
     [JsonIgnore]
     public List<int[]> WinPossibilities { get; set; } = new List<int[]>();
 
-    public Game(GameController gameController, Player[] players)
+
+    public Game(string id, Player[] players) : this(players)
     {
-        _gameController = gameController;
-        
+        Id = id;
+    }
+    
+    public Game(Player[] players)
+    {
         Players = players;
 
         Side = RandomHelper.RandomBool();
+        
+        if (Id.IsNullOrEmpty()) Id = Guid.NewGuid().ToString();
         
         if (Side)
         {
@@ -69,13 +74,11 @@ public class Game
         if (!GameField[cell.Position].Content.IsNullOrEmpty()) return null;
         GameField[cell.Position].Content = CurrentUser.Symbol;
         
-        updatePhase();
-        
         return GameField[cell.Position];
         //TODO: Check vittoria pareggio
     }
     
-    private bool updatePhase()
+    public bool updatePhase()
     {
         Side = !Side;
         CurrentUser = Side ? Players[0] : Players[1];
@@ -111,6 +114,6 @@ public class Game
     
     public Game ResetGame()
     {
-        return new Game(_gameController, Players);
+        return new Game(Id, Players);
     }
 }

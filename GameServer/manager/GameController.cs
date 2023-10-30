@@ -122,12 +122,16 @@ public class GameController
         if (hasWon)
         {
             game.CurrentUser.Points++;
+            if (game.CurrentUser.Id == game.Players[0].Id) game.GamePoints[0]++;
+            else game.GamePoints[1]++;
+            
             _databaseController.UpdatePoints(game.CurrentUser.Id, game.CurrentUser.Points);
         }
 
         if (hasWon || game.CheckDraw())
         {
             var newGame = game.ResetGame();
+            currentGame[game.Id] = newGame;
             
             foreach (var player in game.Players)
             {
@@ -137,6 +141,8 @@ public class GameController
                 );
             }
         }
+        
+        game.updatePhase();
     }
     
     private void MatchMakingHandler(string id, SocketData data)
@@ -146,7 +152,7 @@ public class GameController
         if (MatchMaking.Count < 2) return;
 
         StartGame(
-            new Game(this, new[]
+            new Game(new[]
             {
                 PlayerController.OnlinePlayers[MatchMaking[0]],
                 PlayerController.OnlinePlayers[MatchMaking[1]]

@@ -44,7 +44,11 @@ namespace GameClient.Controller
 
         private void StartGame()
         {
-            if (Game.IsOnline) _mainPageController.SocketController.SocketClient.OnMessage += OnGameMessage;
+            if (Game.IsOnline)
+            {
+                _mainPageController.SocketController.SocketClient.OnMessage -= OnGameMessage;
+                _mainPageController.SocketController.SocketClient.OnMessage += OnGameMessage;
+            }
 
             if (Game.CurrentUser is Bot bot)
             {
@@ -52,6 +56,13 @@ namespace GameClient.Controller
             }
             utente0 = game.Players[0];
             utente1 = game.Players[1];
+
+            if (Game.IsOnline)
+            {
+                Points0 = Game.GamePoints[0];
+                Points1 = Game.GamePoints[1];
+            }
+            
         }
 
         [RelayCommand]
@@ -84,7 +95,7 @@ namespace GameClient.Controller
                     ApplicaMossa(Game.GameField[cell.Position]);
                     break;
                 case DataType.Restart:
-                    GameTest gameTest = JsonSerializer.Deserialize<GameTest>(e.Data);
+                    GameTest gameTest = JsonSerializer.Deserialize<GameTest>(data.Data);
                     Game = Game.FromGameTest(gameTest);
                     StartGame();
                     break;

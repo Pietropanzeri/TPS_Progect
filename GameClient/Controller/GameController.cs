@@ -117,11 +117,10 @@ namespace GameClient.Controller
                 Points0 += 1;
                 Points1 = Math.Max(0, Points1 - 1);
                 
+                updatePhase();
                 await MainThread.InvokeOnMainThreadAsync(async () => 
                     await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, user.UserName))
                 );
-                
-                updatePhase();
                 
                 if (!Game.IsOnline)
                 {
@@ -132,11 +131,11 @@ namespace GameClient.Controller
             }
             if (CheckWin.Item1 == GameResult.Pareggio)
             {
+                updatePhase();
                 await MainThread.InvokeOnMainThreadAsync(async () => 
                     await _popupService.ShowPopup(new PopUpResult(GameResult.Pareggio, null))
                 );
                 //await App.Current.MainPage.Navigation.PopAsync();
-                updatePhase();
                 
                 if (!Game.IsOnline)
                 {
@@ -152,11 +151,10 @@ namespace GameClient.Controller
                 Points0 = Math.Max(0, Points0 - 1);
                 Points1 += 1;
                 
+                updatePhase();
                 await MainThread.InvokeOnMainThreadAsync(async () => 
                         await _popupService.ShowPopup(new PopUpResult(GameResult.Sconfitta, null))
                 );
-                
-                updatePhase();
                 
                 if (!Game.IsOnline)
                 {

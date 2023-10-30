@@ -26,10 +26,10 @@
                 </Frame>
                 <CollectionView ItemsSource="{Binding TopPlayers}" VerticalOptions="Start" HorizontalOptions="Center">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Player">
+                        <DataTemplate x:DataType="model:TopPlayer">
                             <Frame HeightRequest="80" CornerRadius="20" Margin="10" BackgroundColor="{StaticResource Secondary}" BorderColor="Transparent">
                                 <Grid ColumnDefinitions="30,*,*">
-                                    <Label Text="{Binding Id}" Grid.Column="0" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center">
+                                    <Label Text="{Binding Position}" Grid.Column="0" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center">
                                     </Label>
                                     <Label Text="{Binding UserName}" Grid.Column="1" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center"/>
                                     <Label Text="{Binding Points}" Grid.Column="2" HorizontalTextAlignment="Center" FontAttributes="Bold" VerticalOptions="Center"/>
@@ -40,13 +40,13 @@
                                     <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:GameController}}, Path=SelectCommand}"/>
                                 </Frame.GestureRecognizers>-->
                                 <Frame.Triggers>
-                                    <DataTrigger TargetType="Frame" Binding="{Binding Id}" Value="1">
+                                    <DataTrigger TargetType="Frame" Binding="{Binding Position}" Value="1">
                                         <Setter Property="BackgroundColor" Value="#ddff0000" />
                                     </DataTrigger>
-                                    <DataTrigger TargetType="Frame" Binding="{Binding Id}" Value="2">
+                                    <DataTrigger TargetType="Frame" Binding="{Binding Position}" Value="2">
                                         <Setter Property="BackgroundColor" Value="#aaff0000"/>
                                     </DataTrigger>
-                                    <DataTrigger TargetType="Frame" Binding="{Binding Id}" Value="3">
+                                    <DataTrigger TargetType="Frame" Binding="{Binding Position}" Value="3">
                                         <Setter Property="BackgroundColor" Value="#66ff0000" />
                                     </DataTrigger>
                                 </Frame.Triggers>

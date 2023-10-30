@@ -13,8 +13,20 @@
 
         <Frame CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}" BorderColor="Black">
             <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
-                <Label                    
+
+                <Label
+                    Text="UserName:"                
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" 
+                    FontAttributes="Bold"/>
+
+                <Label
                     Grid.Row="1"
+                    Text="{Binding Name}"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Label                    
+                    Grid.Column="1"
                     Text="Punti:"                
                     VerticalOptions="Center" 
                     HorizontalOptions="Center" 
@@ -26,17 +38,6 @@
                     Text="{Binding Punti}"
                     VerticalOptions="Center" 
                         HorizontalOptions="Center" />
-                <Label
-                    Text="UserName:"                
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Center" 
-                    FontAttributes="Bold"/>
-
-                <Label
-                    Grid.Column="1"
-                    Text="{Binding Name}"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Center" />
             </Grid>
 
         </Frame>

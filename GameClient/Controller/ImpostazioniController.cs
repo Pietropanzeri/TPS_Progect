@@ -79,6 +79,8 @@ namespace GameClient.Controller
             difficoltaBot = Difficolta.Medio;
             DiffMedio = true;
             Skins.Add(new Skin() { O = "skin_o", X = "skin_x" });
+            Skins.Add(new Skin() { O = "skin_verde", X = "skin_viola" });
+            Skins.Add(new Skin() { O = "quadratoskin", X = "croceskin" });
             SkinManager();
         }
         public void SkinManager()
@@ -96,6 +98,7 @@ namespace GameClient.Controller
         [RelayCommand]
         public void SetSkin(Skin skin)
         {
+            App.Current.MainPage.DisplayAlert("Skin imopstata con successo" ,"","Ok");
             this.Skin = skin;
         }
 

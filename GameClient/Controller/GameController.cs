@@ -119,7 +119,7 @@ namespace GameClient.Controller
                 
                 if (!Game.IsOnline) updatePhase();
 
-                await Task.Delay(1000);
+                await Task.Delay(300);
                 await MainThread.InvokeOnMainThreadAsync(async () => 
                     await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, user.UserName))
                 );
@@ -135,7 +135,7 @@ namespace GameClient.Controller
             {
                 if (!Game.IsOnline) updatePhase();
 
-                    await Task.Delay(1000);
+                    await Task.Delay(300);
                     await MainThread.InvokeOnMainThreadAsync(async () =>
                         await _popupService.ShowPopup(new PopUpResult(GameResult.Pareggio, null)));
                 //await App.Current.MainPage.Navigation.PopAsync();
@@ -156,7 +156,7 @@ namespace GameClient.Controller
                 
                 if (!Game.IsOnline) updatePhase();
 
-                    await Task.Delay(1000);
+                    await Task.Delay(300);
                     await MainThread.InvokeOnMainThreadAsync(async () =>
                             await _popupService.ShowPopup(new PopUpResult(GameResult.Sconfitta, null)));
                 

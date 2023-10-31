@@ -24,7 +24,7 @@
                         <Label Text="Points:" Grid.Column="2" HorizontalOptions="Center" FontAttributes="Bold"/>
                     </Grid>
                 </Frame>
-                <CollectionView ItemsSource="{Binding TopPlayers}" VerticalOptions="Start" HorizontalOptions="Center">
+                <CollectionView ItemsSource="{Binding TopPlayers}" VerticalOptions="Start" HorizontalOptions="Center" HeightRequest="400">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:TopPlayer">
                             <Frame HeightRequest="80" CornerRadius="20" Margin="10" BackgroundColor="{StaticResource Secondary}" BorderColor="Transparent">

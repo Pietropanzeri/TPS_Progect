@@ -22,7 +22,7 @@ public partial class SocketController : ObservableObject
     {
         _mainController = mainController;
         
-        SocketClient = new WebSocket("ws://192.168.1.59:7880/");
+        SocketClient = new WebSocket("ws://172.17.4.249:7880/");
         SocketClient.OnOpen += OnOpen;
         SocketClient.OnClose += OnClose;
         SocketClient.OnMessage += OnMessage;

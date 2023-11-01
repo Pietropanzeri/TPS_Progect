@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using GameClient.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,20 +19,32 @@ namespace GameClient.Controller
     {
         [ObservableProperty]
         string result;
-        public PopUpResultController(GameResult result, string user)
+        [ObservableProperty]
+        string gifResult;
+        public PopUpResultController(GameResult result, string user, PopUpResult view)
         {
             switch (result) 
             {
                 case GameResult.Vittoria:
-                    this.result = "Ha vinto: " + user;
+                    Result = "Ha vinto: " + user;
+                    GifResult = "vittoria.gif";
                     break;
                  case GameResult.Pareggio:
-                    this.result = "Pareggio";
+                    Result = "Pareggio";
+                    GifResult = "pareggio.gif";
                     break;
                 case GameResult.Sconfitta:
-                    this.result = "Hai Perso";
+                    Result = "Hai Perso";
+                    GifResult = "sconfitta.gif";
                     break;
             }
+            Close(view);
+        }
+        public async Task Close(PopUpResult view)
+        {
+            await Task.Delay(2000);
+            await view.CloseAsync();
         }
     }
+
 }

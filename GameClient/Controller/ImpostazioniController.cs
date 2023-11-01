@@ -99,7 +99,7 @@ namespace GameClient.Controller
         [RelayCommand]
         public void SetSkin(Skin skin)
         {
-            App.Current.MainPage.DisplayAlert("Skin imopstata con successo" ,"","Ok");
+            App.Current.MainPage.DisplayAlert("Skin impostata con successo" ,"","Ok");
             this.Skin = skin;
         }
         public void SetDifficolta()

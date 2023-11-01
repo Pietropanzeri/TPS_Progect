@@ -14,6 +14,14 @@ public class Game
     public int[] GamePoints { get; set; } = new int[2];
     
     [JsonIgnore]
+    public Timer? CurrentTimer { get; set; }
+    
+    [JsonIgnore]
+    public DateTime StartTime { get; set; }
+    [JsonIgnore]
+    public DateTime EndTime { get; set; }
+    
+    [JsonIgnore]
     public Player CurrentUser { get; set; }
     
     public bool Side { get; set; }
@@ -35,6 +43,8 @@ public class Game
         Side = RandomHelper.RandomBool();
         
         if (Id.IsNullOrEmpty()) Id = Guid.NewGuid().ToString();
+        
+        StartTime = DateTime.Now;
         
         if (Side)
         {
@@ -74,6 +84,12 @@ public class Game
         if (CurrentUser.SocketId != socketId) return null;
         if (!GameField[cell.Position].Content.IsNullOrEmpty()) return null;
         GameField[cell.Position].Content = CurrentUser.Symbol;
+
+        CurrentTimer?.Dispose();
+        CurrentTimer = new Timer(_ =>
+        {
+            
+        }, null, TimeSpan.FromSeconds(20), TimeSpan.MaxValue);
         
         return GameField[cell.Position];
         //TODO: Check vittoria pareggio

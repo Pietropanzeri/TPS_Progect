@@ -26,6 +26,7 @@ public enum DataType
     Disconnect,
     MatchMaking,
     Top,
+    GameHistory,
     Move,
     Restart,
     JoinGame,

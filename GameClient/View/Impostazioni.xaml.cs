@@ -8,6 +8,10 @@ public partial class Impostazioni : ContentPage
 	public Impostazioni()
 	{
 		InitializeComponent();
-		BindingContext = ServiceHelper.GetService<ImpostazioniController>();
+
+		ImpostazioniController controller = ServiceHelper.GetService<ImpostazioniController>();
+		BindingContext = controller;
+		controller.Start();
+
 	}
 }

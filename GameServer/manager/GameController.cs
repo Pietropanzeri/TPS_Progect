@@ -86,6 +86,18 @@ public class GameController
                     );
                 });
                 break;
+            case DataType.GameHistory:
+                _databaseController.RetriveGame(PlayerController.OnlinePlayers[id]).ContinueWith(result =>
+                {
+                    _socketController.ReplyTo(id,
+                        new SocketData(
+                            DataType.GameHistory,
+                            "Server",
+                            JsonSerializer.Serialize(result.Result)
+                        )
+                    );
+                });
+                break;
         }
 
         return null;

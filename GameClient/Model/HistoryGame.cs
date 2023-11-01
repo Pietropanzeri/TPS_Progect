@@ -6,13 +6,13 @@ namespace GameClient.Model;
 public partial class HistoryGame : ObservableObject
 {
     [ObservableProperty]
-    Player player1;
+    String player1;
 
     [ObservableProperty]
-    Player player2;
+    String player2;
 
     [ObservableProperty]
-    Player winner;
+    String winner;
 
 
 

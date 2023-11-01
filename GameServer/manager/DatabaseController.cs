@@ -1,3 +1,4 @@
+using GameClient.Model;
 using GameServer.model;
 using GameServer.utils;
 
@@ -34,11 +35,29 @@ public class DatabaseController
     private static readonly string GET_PLAYER = "SELECT * FROM User WHERE username = @Username";
     private static readonly string UPDATE_POINTS = "UPDATE User SET points = @Points WHERE id = @Id";
     private static readonly string GET_PLAYER_TOP = "SELECT * FROM User ORDER BY points DESC LIMIT 100";
-    
     private static readonly string ADD_GAME = @"
                                             INSERT INTO Game (player1, player2, winner, startTime, endTime)
                                             VALUES (@player1Id, @player2Id, @winner, @startTime, @endTime);
                                             ";
+
+    private static readonly string GET_GAME = @"
+                                        SELECT 
+                                            u1.username AS player1,
+                                            u2.username AS player2,
+                                            CASE
+                                                WHEN g.winner = -1 THEN 'Pareggio'
+                                                ELSE u3.username
+                                            END AS winner,
+                                            g.startTime AS start_time,
+                                            g.endTime AS end_time
+                                        FROM Game AS g
+                                        LEFT JOIN User AS u1 ON g.player1 = u1.id
+                                        LEFT JOIN User AS u2 ON g.player2 = u2.id
+                                        LEFT JOIN User AS u3 ON g.winner = u3.id
+                                        ORDER BY g.startTime DESC
+                                        LIMIT 20;
+                                        ";
+    
     
     private GameController _gameController;
 
@@ -128,7 +147,7 @@ public class DatabaseController
             }
             catch (Exception ex)
             {
-                MessageHelper.Send("Errore durante il retrive dell'utente: " + ex.Message, ConsoleColor.Red);
+                MessageHelper.Send("Errore durante il retrive della top dell'utente: " + ex.Message, ConsoleColor.Red);
             }
 
             return topPlayers;
@@ -170,7 +189,7 @@ public class DatabaseController
                 
                 command.Parameters.AddWithValue("@player1Id", game.Players[0].Id);
                 command.Parameters.AddWithValue("@player2Id", game.Players[1].Id);
-                command.Parameters.AddWithValue("@winner", game.CurrentUser.Id);
+                command.Parameters.AddWithValue("@winner", game.CheckDraw() ? -1 : game.CurrentUser.Id);
                 
                 command.Parameters.AddWithValue("@startTime", game.StartTime);
                 command.Parameters.AddWithValue("@endTime", game.EndTime);
@@ -183,6 +202,42 @@ public class DatabaseController
                 throw;
             }
             return false;
+        });
+    }
+
+    public async Task<List<HistoryGame>> RetriveGame(Player player)
+    {
+        return await ExecuteQuery<List<HistoryGame>>(connection =>
+        {
+            List<HistoryGame> historyGames = new List<HistoryGame>();
+            try
+            {
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = connection;
+                command.CommandText = GET_GAME;
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string userName1 = reader.GetString(reader.GetOrdinal("player1"));
+                        string userName2 = reader.GetString(reader.GetOrdinal("player2"));
+                        string winner = reader.GetString(reader.GetOrdinal("winner"));
+                        DateTime startTime = reader.GetDateTime(reader.GetOrdinal("start_time"));
+                        DateTime endTime = reader.GetDateTime(reader.GetOrdinal("end_time"));
+
+                        historyGames.Add(
+                            new HistoryGame {Player1 = userName1, Player2 = userName2, Winner = winner, StartTime = startTime, EndTime = endTime}
+                        );
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.Send("Errore durante il retrive dei game dell'utente: " + ex.Message, ConsoleColor.Red);
+            }
+
+            return historyGames;
         });
     }
     

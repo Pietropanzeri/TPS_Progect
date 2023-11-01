@@ -170,6 +170,8 @@ public class GameController
     private void MatchMakingHandler(string id, SocketData data)
     {
         if (MatchMaking.Any(socket => socket == id)) return;
+        if (!PlayerController.OnlinePlayers.ContainsKey(id)) return;
+        
         MatchMaking.Add(id);
         if (MatchMaking.Count < 2) return;
 

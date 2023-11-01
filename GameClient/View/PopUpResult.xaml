@@ -7,7 +7,6 @@
                  x:DataType="Controller:PopUpResultController"
                  Color="Transparent">
     <VerticalStackLayout>
-        <Label Text="{Binding Result}"/>
         <Frame HeightRequest="300" WidthRequest="300" Margin="0" Padding="0" BackgroundColor="Transparent" BorderColor="Transparent" CornerRadius="10">
             <Image Source="{Binding GifResult}" Aspect="AspectFit" IsAnimationPlaying="True" x:Name="resultgif"></Image>
         </Frame>

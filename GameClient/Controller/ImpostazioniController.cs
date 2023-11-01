@@ -96,6 +96,8 @@ namespace GameClient.Controller
                     new SocketData(DataType.GameHistory, _mainPage.CurrentPlayer.UserName, null),
                     response =>
                     {
+                        Games.Clear();
+                        
                         List<HistoryGame> historyGames = JsonSerializer.Deserialize<List<HistoryGame>>(response.Data);
                         historyGames.Sort((game, game1) => game1.StartTime.CompareTo(game.StartTime));
 

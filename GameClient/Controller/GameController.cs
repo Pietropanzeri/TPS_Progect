@@ -136,7 +136,7 @@ namespace GameClient.Controller
 
                     await Task.Delay(300);
                     await MainThread.InvokeOnMainThreadAsync(async () =>
-                        await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, user.UserName))
+                        await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria))
                     );
 
                     if (!Game.IsOnline)
@@ -153,7 +153,7 @@ namespace GameClient.Controller
                 {
                     await Task.Delay(300);
                     await MainThread.InvokeOnMainThreadAsync(async () =>
-                        await _popupService.ShowPopup(new PopUpResult(GameResult.Pareggio, null)));
+                        await _popupService.ShowPopup(new PopUpResult(GameResult.Pareggio)));
                     //await App.Current.MainPage.Navigation.PopAsync();
 
                     mossaLock.Release();
@@ -177,7 +177,7 @@ namespace GameClient.Controller
 
                     await Task.Delay(300);
                     await MainThread.InvokeOnMainThreadAsync(async () =>
-                        await _popupService.ShowPopup(new PopUpResult(GameResult.Sconfitta, null)));
+                        await _popupService.ShowPopup(new PopUpResult(GameResult.Sconfitta)));
 
                     mossaLock.Release();
                     if (!Game.IsOnline)

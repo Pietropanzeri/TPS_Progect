@@ -5,10 +5,10 @@ namespace GameClient.View;
 
 public partial class PopUpResult : Popup
 {
-	public PopUpResult(GameResult result, string user)
+	public PopUpResult(GameResult result)
 	{
 		InitializeComponent();
-		BindingContext = new PopUpResultController(result, user, this);
+		BindingContext = new PopUpResultController(result, this);
         FlipGif();
 	}
     public async Task FlipGif()

@@ -18,23 +18,18 @@ namespace GameClient.Controller
     public partial class PopUpResultController : ObservableObject
     {
         [ObservableProperty]
-        string result;
-        [ObservableProperty]
         string gifResult;
-        public PopUpResultController(GameResult result, string user, PopUpResult view)
+        public PopUpResultController(GameResult result, PopUpResult view)
         {
             switch (result) 
             {
                 case GameResult.Vittoria:
-                    Result = "Ha vinto: " + user;
                     GifResult = "vittoria.gif";
                     break;
                  case GameResult.Pareggio:
-                    Result = "Pareggio";
                     GifResult = "pareggio.gif";
                     break;
                 case GameResult.Sconfitta:
-                    Result = "Hai Perso";
                     GifResult = "sconfitta.gif";
                     break;
             }

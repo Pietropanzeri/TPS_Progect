@@ -64,7 +64,14 @@ namespace GameClient.Controller
                         throw;
                     }
                 });
-            await App.Current.MainPage.DisplayAlert("MatchMaking", "Sei entrato", "OK");
+            if (SocketController.IsConnected)
+            {
+                await App.Current.MainPage.DisplayAlert("MatchMaking", "Sei entrato", "OK");
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("MatchMaking", "Server non disponibile", "OK");
+            }
         }
         [RelayCommand]
         public async Task OpenGameBot()

@@ -4,6 +4,7 @@ using GameClient.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -101,7 +102,6 @@ namespace GameClient.Controller
             App.Current.MainPage.DisplayAlert("Skin imopstata con successo" ,"","Ok");
             this.Skin = skin;
         }
-
         public void SetDifficolta()
         {
             if(DiffFacile)

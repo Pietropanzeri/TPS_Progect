@@ -13,14 +13,12 @@ public partial class PopUpMoneta : Popup
 	}
     public async Task FlipGif()
     {
-        while (true)
-        {
+        
             coingif.IsAnimationPlaying = !coingif.IsAnimationPlaying;
             coingif.IsAnimationPlaying = !coingif.IsAnimationPlaying;
             await Task.Delay(1);
             coingif.IsAnimationPlaying = !coingif.IsAnimationPlaying;
             coingif.IsAnimationPlaying = !coingif.IsAnimationPlaying;
-            await Task.Delay(5000);
-        }
+        
     }
 }

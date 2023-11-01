@@ -14,6 +14,18 @@ public class DatabaseController
                                                     points int NOT NULL DEFAULT 0
                                                 );
                                                 """;
+    private static readonly string CREATE_GAME_TABLE = """
+                                                   CREATE TABLE IF NOT EXISTS Game (
+                                                       id int PRIMARY KEY AUTO_INCREMENT,
+                                                       player1 int NOT NULL,
+                                                       player2 int NOT NULL,
+                                                       winner int NOT NULL,
+                                                       startTime datetime NOT NULL,
+                                                       endTime datetime NOT NULL,
+                                                       FOREIGN KEY (player1) REFERENCES User(id) ON DELETE CASCADE,
+                                                       FOREIGN KEY (player2) REFERENCES User(id) ON DELETE CASCADE
+                                                   );
+                                                   """;
     
     private static readonly string CONNECTION_STRING = @"server=localhost;userid=root;database=tictactoe";
 
@@ -21,7 +33,12 @@ public class DatabaseController
     private static readonly string CREATE_PLAYER = "INSERT INTO User (username, points) VALUES (@Username, 0)";
     private static readonly string GET_PLAYER = "SELECT * FROM User WHERE username = @Username";
     private static readonly string UPDATE_POINTS = "UPDATE User SET points = @Points WHERE id = @Id";
-    private static readonly string GET_PLAYER_TOP = "SELECT * FROM User ORDER BY points DESC";
+    private static readonly string GET_PLAYER_TOP = "SELECT * FROM User ORDER BY points DESC LIMIT 100";
+    
+    private static readonly string ADD_GAME = @"
+                                            INSERT INTO Game (player1, player2, winner, startTime, endTime)
+                                            VALUES (@player1Id, @player2Id, @winner, @startTime, @endTime);
+                                            ";
     
     private GameController _gameController;
 
@@ -47,11 +64,33 @@ public class DatabaseController
             }
             catch (Exception ex)
             {
-                MessageHelper.Send("Errore nella creazione della tabella: " + ex.Message, ConsoleColor.Red);
+                MessageHelper.Send("Errore nella creazione della tabella user: " + ex.Message, ConsoleColor.Red);
                 
                 return false;
             }
         }).Wait();
+        
+        ExecuteQuery(conn =>
+        {
+            try
+            {
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = conn;
+                command.CommandText = CREATE_GAME_TABLE;
+
+                command.ExecuteNonQuery();
+                
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.Send("Errore nella creazione della tabella game: " + ex.Message, ConsoleColor.Red);
+                
+                return false;
+            }
+        }).Wait();
+
+        //Task.WaitAll(userTable, gameTable);
     }
     
     public async Task<Player> LoadPlayer(string id, string username)
@@ -95,7 +134,6 @@ public class DatabaseController
             return topPlayers;
         });
     }
-
     public async Task<bool> UpdatePoints(int id, int points)
     {
         return await ExecuteQuery(connection =>
@@ -120,6 +158,34 @@ public class DatabaseController
         });
     }
 
+    public async Task<bool> AddGame(Game game)
+    {
+        return await ExecuteQuery(connection =>
+        {
+            try
+            {
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = connection;
+                command.CommandText = ADD_GAME;
+                
+                command.Parameters.AddWithValue("@player1Id", game.Players[0].Id);
+                command.Parameters.AddWithValue("@player2Id", game.Players[1].Id);
+                command.Parameters.AddWithValue("@winner", game.CurrentUser.Id);
+                
+                command.Parameters.AddWithValue("@startTime", game.StartTime);
+                command.Parameters.AddWithValue("@endTime", game.EndTime);
+                
+                return command.ExecuteNonQuery() > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.Send("Errore durante l'aggiunta di un game: " + ex.Message, ConsoleColor.Red);
+                throw;
+            }
+            return false;
+        });
+    }
+    
     private async Task<Player> GetPlayer(string socketId, string username)
     {
         return await ExecuteQuery<Player>(conn =>

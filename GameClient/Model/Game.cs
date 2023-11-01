@@ -13,7 +13,7 @@ namespace GameClient.Model
 {
     public partial class Game :ObservableObject
     {
-        private IPopupService _popupService;
+        private IPopupService _popupService = ServiceHelper.GetService<IPopupService>();
         public string Id { get; set; }
         
         public ObservableCollection<Cell> GameField { get; set; } = new ();
@@ -146,10 +146,7 @@ namespace GameClient.Model
         public async Task<Game> ResetGame()
         {
             bool side = RandomHelper.RandomBool();
-            await MainThread.InvokeOnMainThreadAsync(async () =>
-            {              
-                await _popupService.ShowPopup(new PopUpMoneta(side));
-            });
+            await _popupService.ShowPopup(new PopUpMoneta(side));
             return new Game(Players, side);
         }
         public static Game FromGameTest(GameSerializer gameSerializer)

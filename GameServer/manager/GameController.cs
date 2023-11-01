@@ -130,6 +130,8 @@ public class GameController
 
         if (hasWon || game.CheckDraw())
         {
+            AddGameToHistory(game);
+            
             var newGame = game.ResetGame();
             currentGame[game.Id] = newGame;
             
@@ -144,6 +146,13 @@ public class GameController
         }
         
         game.updatePhase();
+    }
+
+    private void AddGameToHistory(Game game)
+    {
+        game.EndTime = DateTime.Now;
+
+        _databaseController.AddGame(game);
     }
     
     private void MatchMakingHandler(string id, SocketData data)

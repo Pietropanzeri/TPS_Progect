@@ -15,7 +15,8 @@ namespace GameClient.Controller
     public partial class GameController : ObservableObject
     {
         private IPopupService _popupService;
-
+        private SemaphoreSlim mossaLock = new SemaphoreSlim(1);
+        
         [ObservableProperty]
         private Game game;
         
@@ -52,7 +53,7 @@ namespace GameClient.Controller
 
             if (Game.CurrentUser is Bot bot)
             {
-                ApplicaMossa(bot.Mossa(game));
+                ApplicaMossa(bot.Mossa(Game)).Wait();
             }
             utente0 = game.Players[0];
             utente1 = game.Players[1];
@@ -96,86 +97,111 @@ namespace GameClient.Controller
                     break;
                 case DataType.Restart:
                     GameSerializer gameSerializer = JsonSerializer.Deserialize<GameSerializer>(data.Data);
+                    mossaLock.Wait();
                     Game = Game.FromGameTest(gameSerializer);
+                    mossaLock.Release();
                     StartGame();
+                    break;
+                case DataType.QuitGame:
+                    Exit().ContinueWith(result =>
+                    {
+                        MainThread.BeginInvokeOnMainThread(() =>
+                            App.Current.MainPage.DisplayAlert("Attenzione", "Sei stato rimosso dal game, siccome un giocatore era inattivo", "Ok")
+                        );
+                    });
                     break;
             }
         }
 
         private async Task<bool> ApplicaMossa(Cell cell)
         {
-            Utente user = Game.CurrentUser;
-
-            cell.Content = user.Symbol;
-
-            //TODO: Se e' online dovrebbe fare il server
-            (GameResult, string) CheckWin = Game.CheckWin(_mainPageController, user.Symbol);
-            if (CheckWin.Item1 == GameResult.Vittoria)
+            await mossaLock.WaitAsync();
+            try
             {
-                Game.WinImage = CheckWin.Item2;
-                
-                Points0 += 1;
-                Points1 = Math.Max(0, Points1 - 1);
-                
-                if (!Game.IsOnline) updatePhase();
+                Utente user = Game.CurrentUser;
 
-                await Task.Delay(300);
-                await MainThread.InvokeOnMainThreadAsync(async () => 
-                    await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, user.UserName))
-                );
-                
-                if (!Game.IsOnline)
+                cell.Content = user.Symbol;
+
+                //TODO: Se e' online dovrebbe fare il server
+                (GameResult, string) CheckWin = Game.CheckWin(_mainPageController, user.Symbol);
+                if (CheckWin.Item1 == GameResult.Vittoria)
                 {
-                    Game = await Game.ResetGame();
-                    StartGame();
-                }
-                return false;
-            }
-            if (CheckWin.Item1 == GameResult.Pareggio)
-            {
-                if (!Game.IsOnline) updatePhase();
+                    Game.WinImage = CheckWin.Item2;
 
+                    if (!Game.IsOnline)
+                    {
+                        Points0 += 1;
+                        Points1 = Math.Max(0, Points1 - 1);
+                    }
+
+                    await Task.Delay(300);
+                    await MainThread.InvokeOnMainThreadAsync(async () =>
+                        await _popupService.ShowPopup(new PopUpResult(GameResult.Vittoria, user.UserName))
+                    );
+
+                    if (!Game.IsOnline)
+                    {
+                        Game = await Game.ResetGame();
+                        StartGame();
+                    }
+
+                    mossaLock.Release();
+                    return false;
+                }
+
+                if (CheckWin.Item1 == GameResult.Pareggio)
+                {
                     await Task.Delay(300);
                     await MainThread.InvokeOnMainThreadAsync(async () =>
                         await _popupService.ShowPopup(new PopUpResult(GameResult.Pareggio, null)));
-                //await App.Current.MainPage.Navigation.PopAsync();
-                
-                if (!Game.IsOnline)
-                {
-                    Game = await Game.ResetGame();
-                    StartGame();
+                    //await App.Current.MainPage.Navigation.PopAsync();
+
+                    mossaLock.Release();
+                    if (!Game.IsOnline)
+                    {
+                        Game = await Game.ResetGame();
+                        StartGame();
+                    }
+                    return false;
                 }
-                return false;
-            }
-            if(CheckWin.Item1 == GameResult.Sconfitta)
-            {
-                Game.WinImage = CheckWin.Item2;
-                
-                Points0 = Math.Max(0, Points0 - 1);
-                Points1 += 1;
-                
-                if (!Game.IsOnline) updatePhase();
+
+                if (CheckWin.Item1 == GameResult.Sconfitta)
+                {
+                    Game.WinImage = CheckWin.Item2;
+
+                    if (!Game.IsOnline)
+                    {
+                        Points0 = Math.Max(0, Points0 - 1);
+                        Points1 += 1;
+                    }
 
                     await Task.Delay(300);
                     await MainThread.InvokeOnMainThreadAsync(async () =>
-                            await _popupService.ShowPopup(new PopUpResult(GameResult.Sconfitta, null)));
-                
-                if (!Game.IsOnline)
-                {
-                    Game = await Game.ResetGame();
-                    StartGame();
+                        await _popupService.ShowPopup(new PopUpResult(GameResult.Sconfitta, null)));
+
+                    mossaLock.Release();
+                    if (!Game.IsOnline)
+                    {
+                        Game = await Game.ResetGame();
+                        StartGame();
+                    }
+                    return false;
                 }
 
+                updatePhase();
+
+                mossaLock.Release();
+                if (Game.CurrentUser is Bot bot)
+                {
+                    await Task.Delay(500);
+                    await ApplicaMossa(bot.Mossa(Game));
+                }
+            }
+            catch (Exception ex)
+            {
                 return false;
             }
-            
-            updatePhase();
-            
-            if (Game.CurrentUser is Bot bot)
-            {
-                await Task.Delay(500);
-                await ApplicaMossa(bot.Mossa(Game));
-            }
+            finally { mossaLock.Release(); }
 
             return true;
         }

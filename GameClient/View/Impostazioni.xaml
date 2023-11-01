@@ -9,84 +9,122 @@
              xmlns:Controller ="clr-namespace:GameClient.Controller"
              Shell.NavBarIsVisible="False"
              BackgroundColor="LightBlue">
-    <Grid RowDefinitions="*,*,*,*">
+    
+    <ScrollView>
+        <Grid RowDefinitions="200,200,400,400">
+            <Frame CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}" BorderColor="Black">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
 
-        <Frame CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}" BorderColor="Black">
-            <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+                    <Label
+                        Text="UserName:"                
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center" 
+                        FontAttributes="Bold"/>
 
-                <Label
-                    Text="UserName:"                
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Center" 
-                    FontAttributes="Bold"/>
-
-                <Label
-                    Grid.Row="1"
-                    Text="{Binding Name}"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Center" />
-                <Label                    
-                    Grid.Column="1"
-                    Text="Punti:"                
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Center" 
-                    FontAttributes="Bold"/>
-
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Text="{Binding Punti}"
-                    VerticalOptions="Center" 
+                    <Label
+                        Grid.Row="1"
+                        Text="{Binding Name}"
+                        VerticalOptions="Center" 
                         HorizontalOptions="Center" />
-            </Grid>
+                    <Label                    
+                        Grid.Column="1"
+                        Text="Punti:"                
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center" 
+                        FontAttributes="Bold"/>
 
-        </Frame>
-        <Frame Grid.Row="1" CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}" BorderColor="Black">
-            <Grid ColumnDefinitions="*,*" RowDefinitions="auto,*,*,*">
-                <Label
-                    Text="Difficoltà Bot:"  
-                    Grid.ColumnSpan="2"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Center" />
-                <RadioButton Grid.Row="1"
-                             Grid.ColumnSpan="2"
-                             IsChecked="{Binding DiffFacile}"
-                             Content="FACILE"/>
-                <RadioButton Grid.Row="2"   
-                             Grid.ColumnSpan="2"
-                             Content="MEDIO"
-                             IsChecked="{Binding DiffMedio}"/>
-                <RadioButton Grid.Row="3"
-                             Content="IMPOSSIBILE"
-                             Grid.ColumnSpan="2"
-                             IsChecked="{Binding DiffImpossibile}"/>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="{Binding Punti}"
+                        VerticalOptions="Center" 
+                            HorizontalOptions="Center" />
+                </Grid>
 
-            </Grid>
-        </Frame>
-        <Frame Grid.Row="2" CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}" Grid.RowSpan="2" BorderColor="Black">
-            <Grid RowDefinitions="auto,*">
-                <Label
-                    Text="Skin:"  
-                    Grid.ColumnSpan="2"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Center" />
-                <CollectionView ItemsSource="{Binding Skins}" VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="1">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="Model:Skin">
-                            <Frame Margin="10" CornerRadius="40" BackgroundColor="{StaticResource Primary}">
-                                <Grid ColumnDefinitions="*,*">
-                                    <Image Source="{Binding X}" HorizontalOptions="Center" VerticalOptions="Center" Margin="5,20,20,20"/>
-                                    <Image Source="{Binding O}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" Margin="20,20,5,20"/>
-                                    <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:ImpostazioniController}}, Path=SetSkinCommand}"/>
-                                    </Grid.GestureRecognizers>
-                                </Grid>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Grid>
-        </Frame>
+            </Frame>
+            <Frame Grid.Row="1" CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}" BorderColor="Black">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="auto,*,*,*">
+                    <Label
+                        Text="Difficoltà Bot:"  
+                        Grid.ColumnSpan="2"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center" />
+                    <RadioButton Grid.Row="1"
+                                 Grid.ColumnSpan="2"
+                                 IsChecked="{Binding DiffFacile}"
+                                 Content="FACILE"/>
+                    <RadioButton Grid.Row="2"   
+                                 Grid.ColumnSpan="2"
+                                 Content="MEDIO"
+                                 IsChecked="{Binding DiffMedio}"/>
+                    <RadioButton Grid.Row="3"
+                                 Content="IMPOSSIBILE"
+                                 Grid.ColumnSpan="2"
+                                 IsChecked="{Binding DiffImpossibile}"/>
 
-    </Grid>
+                </Grid>
+            </Frame>
+            <Frame Grid.Row="2" CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}" BorderColor="Black">
+                <Grid RowDefinitions="auto,*">
+                    <Label
+                        Text="Skin:"  
+                        Grid.ColumnSpan="2"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center" />
+                    <CollectionView ItemsSource="{Binding Skins}" VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="1">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="Model:Skin">
+                                <Frame Margin="10" CornerRadius="40" BackgroundColor="{StaticResource Primary}">
+                                    <Grid ColumnDefinitions="*,*">
+                                        <Image Source="{Binding X}" HorizontalOptions="Center" VerticalOptions="Center" Margin="5,20,20,20"/>
+                                        <Image Source="{Binding O}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" Margin="20,20,5,20"/>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:ImpostazioniController}}, Path=SetSkinCommand}"/>
+                                        </Grid.GestureRecognizers>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Frame>
+            <Frame Grid.Row="3" CornerRadius="50" Margin="50,25,50,25" BackgroundColor="{StaticResource Secondary}" BorderColor="Black">
+                <Grid RowDefinitions="auto,*">
+                    <Label
+                        Text="Cronologia Partite:"  
+                        Grid.ColumnSpan="2"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center" />
+                    <CollectionView ItemsSource="{Binding Games}" VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="1">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="Model:HistoryGame">
+                                <Frame Margin="10" CornerRadius="40" BackgroundColor="{StaticResource Primary}">
+                                    <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="15,80,*" Padding="0">
+                                        <Image Source="player_uno.png"/>
+                                        <Image Source="player_due.png" Grid.Row="1"/>
+                                        <Image Source="corona.png" Grid.Row="2"/>
+                                        <Image Source="clock.png" Grid.Row="3" Grid.RowSpan="2" VerticalOptions="Center"/>
+
+
+                                        <Label Text="Player1: " FontAttributes="Bold" Grid.Column="1" Margin="5,0,0,0"/>
+                                        <Label Text="Player2: " FontAttributes="Bold" Grid.Row="1" Grid.Column="1" Margin="5,0,0,0"/>
+                                        <Label Text="Winner: " FontAttributes="Bold" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0"/>
+                                        <Label Text="StartTime: " FontAttributes="Bold" Grid.Row="3" Grid.Column="1" Margin="5,0,0,0"/>
+                                        <Label Text="EndTime: " FontAttributes="Bold" Grid.Row="4" Grid.Column="1" Margin="5,0,0,0"/>
+                                        <Label Text="{Binding Player1}" Grid.Column="2"/>
+                                        
+                                        
+                                        <Label Text="{Binding Player2}" Grid.Row="1" Grid.Column="2"/>
+                                        <Label Text="{Binding Winner}" Grid.Row="2" Grid.Column="2"/>
+                                        <Label Text="{Binding StartTime, StringFormat='{0:dd/MM  HH:m}'}" Grid.Row="3" Grid.Column="2"/>
+                                        <Label Text="{Binding EndTime, StringFormat='{0:dd/MM  HH:m}'}" Grid.Row="4" Grid.Column="2"/>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Frame>
+        </Grid>
+    </ScrollView>
 </ContentPage>

@@ -6,7 +6,7 @@ public class Player : Utente
 
     public override string ToString()
     {
-        return "UserName: " + UserName; ;
+        return UserName;
     }
 
     public static Player Create()

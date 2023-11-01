@@ -1,13 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GameClient.model;
 using GameClient.Model;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameClient.Controller
 {
@@ -24,6 +19,8 @@ namespace GameClient.Controller
         int punti;
         [ObservableProperty]
         string name;
+
+        public ObservableCollection<HistoryGame> Games { get; set; } = new ObservableCollection<HistoryGame>();
 
         private bool diffFacile;
 
@@ -83,6 +80,9 @@ namespace GameClient.Controller
             Skins.Add(new Skin() { O = "skin_verde", X = "skin_viola" });
             Skins.Add(new Skin() { O = "quadratoskin", X = "croceskin" });
             SkinManager();
+            Games.Add(new HistoryGame { Player1 = new Player { UserName = "pippo" }, Player2 = new Player { UserName = "coca" }, Winner = new Player { UserName = "coca" }, EndTime = DateTime.Now, StartTime = DateTime.Now });
+            Games.Add(new HistoryGame { Player1 = new Player { UserName = "pippo" }, Player2 = new Player { UserName = "coca" }, Winner = new Player { UserName = "coca" }, EndTime = DateTime.Now, StartTime = DateTime.Now });
+            Games.Add(new HistoryGame { Player1 = new Player { UserName = "pippo" }, Player2 = new Player { UserName = "coca" }, Winner = new Player { UserName = "coca" }, EndTime = DateTime.Now, StartTime = DateTime.Now });
         }
         public void SkinManager()
         {

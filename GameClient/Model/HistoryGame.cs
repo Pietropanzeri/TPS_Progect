@@ -1,14 +1,24 @@
+using CommunityToolkit.Mvvm.ComponentModel;
 using GameClient.model;
 
 namespace GameClient.Model;
 
-public class HistoryGame
+public partial class HistoryGame : ObservableObject
 {
-    private Player _player1;
-    private Player _player2;
+    [ObservableProperty]
+    Player player1;
 
-    private Player winner;
+    [ObservableProperty]
+    Player player2;
 
-    private DateTime startTime;
-    private DateTime endTime;
+    [ObservableProperty]
+    Player winner;
+
+
+
+    [ObservableProperty]
+    DateTime startTime;
+
+    [ObservableProperty]
+    DateTime endTime;
 }

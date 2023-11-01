@@ -13,14 +13,12 @@ public partial class PopUpResult : Popup
 	}
     public async Task FlipGif()
     {
-        while (true)
-        {
+
             resultgif.IsAnimationPlaying = !resultgif.IsAnimationPlaying;
             resultgif.IsAnimationPlaying = !resultgif.IsAnimationPlaying;
             await Task.Delay(1);
             resultgif.IsAnimationPlaying = !resultgif.IsAnimationPlaying;
             resultgif.IsAnimationPlaying = !resultgif.IsAnimationPlaying;
-            await Task.Delay(5000);
-        }
+
     }
 }

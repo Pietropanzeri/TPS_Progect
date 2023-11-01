@@ -42,7 +42,7 @@ namespace GameClient.Controller
         }
         public async Task Close(PopUpResult view)
         {
-            await Task.Delay(5000);
+            await Task.Delay(2000);
             await view.CloseAsync();
         }
     }

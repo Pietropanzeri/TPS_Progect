@@ -7,15 +7,15 @@
              x:DataType="controller:ClassificaController"
              Title="Classifica"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="LightBlue">
+             BackgroundColor="{StaticResource Gray100}">
     <VerticalStackLayout Margin="10">
         <Grid ColumnDefinitions="*,*,*">
-            <Frame WidthRequest="200" HeightRequest="200" Grid.Column="1" BackgroundColor="Gold" CornerRadius="50" BorderColor="Black">
+            <Frame WidthRequest="200" HeightRequest="200" Grid.Column="1" BackgroundColor="#aaff0000" CornerRadius="50" BorderColor="Blue">
                 <Image Source="classifica.png" ></Image>
             </Frame>
         </Grid>
 
-        <Frame HeightRequest="525" Margin="10" BackgroundColor="#6589FF" BorderColor="Black" CornerRadius="20">
+        <Frame HeightRequest="525" Margin="10" BackgroundColor="#aaADD8E6" BorderColor="Black" CornerRadius="20">
             <VerticalStackLayout>
                 <Frame HeightRequest="80" CornerRadius="20" Margin="10" BackgroundColor="Transparent" BorderColor="Transparent">
                     <Grid ColumnDefinitions="30, *,*">
@@ -41,13 +41,13 @@
                                 </Frame.GestureRecognizers>-->
                                 <Frame.Triggers>
                                     <DataTrigger TargetType="Frame" Binding="{Binding Position}" Value="1">
-                                        <Setter Property="BackgroundColor" Value="#ddff0000" />
+                                        <Setter Property="BackgroundColor" Value="Gold" />
                                     </DataTrigger>
                                     <DataTrigger TargetType="Frame" Binding="{Binding Position}" Value="2">
-                                        <Setter Property="BackgroundColor" Value="#aaff0000"/>
+                                        <Setter Property="BackgroundColor" Value="Silver"/>
                                     </DataTrigger>
                                     <DataTrigger TargetType="Frame" Binding="{Binding Position}" Value="3">
-                                        <Setter Property="BackgroundColor" Value="#66ff0000" />
+                                        <Setter Property="BackgroundColor" Value="#cd7f32" />
                                     </DataTrigger>
                                 </Frame.Triggers>
                             </Frame>

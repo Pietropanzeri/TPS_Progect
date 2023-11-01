@@ -58,6 +58,7 @@
       <None Remove="Resources\Images\impostazioni.png" />
       <None Remove="Resources\Images\login.png" />
       <None Remove="Resources\Images\otto.png" />
+      <None Remove="Resources\Images\pareggio.gif" />
       <None Remove="Resources\Images\quattro.png" />
       <None Remove="Resources\Images\sconfitta.gif" />
       <None Remove="Resources\Images\sei.png" />

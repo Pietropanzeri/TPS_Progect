@@ -126,7 +126,7 @@ namespace GameClient.Controller
                 
                 if (!Game.IsOnline)
                 {
-                    Game = Game.ResetGame();
+                    Game = await Game.ResetGame();
                     StartGame();
                 }
                 return false;
@@ -142,7 +142,7 @@ namespace GameClient.Controller
                 
                 if (!Game.IsOnline)
                 {
-                    Game = Game.ResetGame();
+                    Game = await Game.ResetGame();
                     StartGame();
                 }
                 return false;
@@ -162,7 +162,7 @@ namespace GameClient.Controller
                 
                 if (!Game.IsOnline)
                 {
-                    Game = Game.ResetGame();
+                    Game = await Game.ResetGame();
                     StartGame();
                 }
 

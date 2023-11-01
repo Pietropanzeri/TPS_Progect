@@ -31,7 +31,7 @@ namespace GameClient.Controller
                     break;
                  case GameResult.Pareggio:
                     Result = "Pareggio";
-                    GifResult = "croce.gif";
+                    GifResult = "pareggio.gif";
                     break;
                 case GameResult.Sconfitta:
                     Result = "Hai Perso";
